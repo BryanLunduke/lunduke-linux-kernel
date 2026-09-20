@@ -1,0 +1,7 @@
+This repository contains packaging, scripts, and kernel configuration for
+Lunduke's Linux Kernel.
+
+The Linux kernel is licensed under the GNU General Public License version 2
+(only). See https://www.kernel.org/ for upstream sources and license text.
+
+Packaging and scripts here are provided under GPL-2.0.

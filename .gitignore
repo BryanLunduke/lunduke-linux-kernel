@@ -1,0 +1,8 @@
+out/
+*.deb
+*.buildinfo
+*.changes
+linux-*/
+*.tar.xz
+*.tar.gz
+.config.old

@@ -1,0 +1,9 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: lunduke-linux-kernel
+Source: LCOS overlay (https://lunduke.com)
+
+Files: *
+Copyright: 2026 Lunduke / LCOS
+License: LCOS-overlay
+ LCOS overlay metapackage for Lunduke's Linux Kernel.
+ Kernel sources follow upstream Linux licensing (GPLv2).

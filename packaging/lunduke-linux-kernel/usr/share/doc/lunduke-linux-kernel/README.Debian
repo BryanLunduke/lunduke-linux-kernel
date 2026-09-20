@@ -1,0 +1,10 @@
+Lunduke's Linux Kernel (lunduke-linux-kernel)
+=============================================
+
+Optional LCOS overlay metapackage. Pulls linux-image-7.2.6-lunduke and
+recommends matching headers. After install, reboot and pick the
+7.2.6-lunduke entry in GRUB (or set it once); the Devuan kernel remains
+installed.
+
+  sudo apt update
+  sudo apt install lunduke-linux-kernel
