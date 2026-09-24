@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos4** |
+| Package version | **7.2.6-lcos5** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos4.config` — exact Kconfig used for the published lcos4 debs
+- `configs/lunduke-7.2.6-lcos5.config` — exact Kconfig for 7.2.6-lcos5 (Distro-like netfilter; fixes iptables)
+- `configs/lunduke-7.2.6-lcos4.config` — prior lcos4 Kconfig (incomplete netfilter)
 - `packaging/lunduke-linux-kernel/` — Debian metapackage sources
 - `scripts/build-lunduke-kernel.sh` — rebuild image/headers debs from an upstream tarball
 - `scripts/build-metapackage.sh` — rebuild the metapackage deb
@@ -47,9 +48,10 @@ tar -xf linux-7.2.6.tar.xz
 
 On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
-## Design notes (lcos4)
+## Design notes (lcos5)
 
 - Rust-in-kernel left **off** (LCOS: no forced Rust)
+- Netfilter/iptables: `NETFILTER_ADVANCED`, `NF_TABLES`, `IP_NF_FILTER`/`NAT`/`MANGLE`/`RAW`, and legacy xtables (Distro-like; fixes Doug Burks iptables bug)
 - Desktop/VM DRM enabled: Intel i915/xe, AMDGPU (+ SI/CIK), Nouveau, vmwgfx, vboxvideo, QXL, bochs, simpledrm
 - Proven in VirtualBox with **VMSVGA** (KernelTest4)
 
