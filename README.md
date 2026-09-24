@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos5** |
+| Package version | **7.2.6-lcos6** (next; not built yet) |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos5.config` — exact Kconfig for 7.2.6-lcos5 (Distro-like netfilter; fixes iptables)
+- `configs/lunduke-7.2.6-lcos6.config` — next Kconfig (lcos5 + CONFIG_INPUT_UINPUT=m for spice-vdagent; **not built yet**)
+- `configs/lunduke-7.2.6-lcos5.config` — shipped 7.2.6-lcos5 (Distro-like netfilter; fixes iptables)
 - `configs/lunduke-7.2.6-lcos4.config` — prior lcos4 Kconfig (incomplete netfilter)
 - `packaging/lunduke-linux-kernel/` — Debian metapackage sources
 - `scripts/build-lunduke-kernel.sh` — rebuild image/headers debs from an upstream tarball
@@ -65,3 +66,13 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 Linux kernel: GPL-2.0 (see upstream).  
 Packaging/scripts in this repository: GPL-2.0.
+
+
+## Next build (parked)
+
+Editor 2026-09-24: include Doug Burks’s spice-vdagent / dynamic-resize fix in the **next** kernel build — do **not** rebuild or bake until asked.
+
+- Target package: **7.2.6-lcos6**
+- Config: `configs/lunduke-7.2.6-lcos6.config` (`CONFIG_INPUT_UINPUT=m`)
+- Delta: `docs/config-lcos5-to-lcos6.diff`
+- Live apt still serves **lcos5** until that build is signed and published

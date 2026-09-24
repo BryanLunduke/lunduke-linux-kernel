@@ -1,17 +1,17 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos5
+Version: 7.2.6-lcos6
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos5)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos5)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos6)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos6)
 Description: Lunduke's Linux Kernel (optional LCOS overlay)
  Lunduke's Linux Kernel — optional alternate kernel for LCOS.
  .
- Installs linux-image-7.2.6-lunduke (ABI lcos5) alongside the Devuan-supplied
+ Installs linux-image-7.2.6-lunduke (ABI lcos6) alongside the Devuan-supplied
  kernel. Adds a GRUB/boot entry; does not remove or replace the default
  Devuan kernel. Headers are recommended for building out-of-tree modules.
  .

@@ -1,0 +1,12 @@
+# Lunduke Linux Kernel config delta: 7.2.6-lcos5 → 7.2.6-lcos6
+# Parked 2026-09-24 — build/bake deferred until editor says go.
+#
+# Reporter: Doug Burks (@dougburks) — spice-vdagent fails to resize SPICE/QEMU
+# guests without CONFIG_INPUT_UINPUT. iptables fix in lcos5 confirmed working.
+#
+# Intentional change only:
+-# CONFIG_INPUT_UINPUT is not set
++CONFIG_INPUT_UINPUT=m
+#
+# Matches Distro (6.12.107+deb13-amd64). No other Kconfig edits in this hop.
+# Next package version: 7.2.6-lcos6. Still optional apt-only; default ISO kernel stays Distro.
