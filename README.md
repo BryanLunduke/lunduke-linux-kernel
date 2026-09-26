@@ -21,14 +21,14 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos6** (next; not built yet) |
+| Package version | **7.2.6-lcos7** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos6.config` — next Kconfig (lcos5 + CONFIG_INPUT_UINPUT=m for spice-vdagent; **not built yet**)
+- `configs/lunduke-7.2.6-lcos7.config` — current Kconfig (lcos6 + high-impact HW modules)
 - `configs/lunduke-7.2.6-lcos5.config` — shipped 7.2.6-lcos5 (Distro-like netfilter; fixes iptables)
 - `configs/lunduke-7.2.6-lcos4.config` — prior lcos4 Kconfig (incomplete netfilter)
 - `packaging/lunduke-linux-kernel/` — Debian metapackage sources
@@ -68,11 +68,7 @@ Linux kernel: GPL-2.0 (see upstream).
 Packaging/scripts in this repository: GPL-2.0.
 
 
-## Next build (parked)
+## Build status
 
-Editor 2026-09-24: include Doug Burks’s spice-vdagent / dynamic-resize fix in the **next** kernel build — do **not** rebuild or bake until asked.
+**7.2.6-lcos7** — high-impact hardware modules pass (audio/Wi-Fi/BT/UVC/HID/Ethernet). See `docs/NEXT-BUILD.md` and `docs/config-lcos6-to-lcos7.diff`. No ISO bake / apt publish from this hop unless separately greenlit.
 
-- Target package: **7.2.6-lcos6**
-- Config: `configs/lunduke-7.2.6-lcos6.config` (`CONFIG_INPUT_UINPUT=m`)
-- Delta: `docs/config-lcos5-to-lcos6.diff`
-- Live apt still serves **lcos5** until that build is signed and published

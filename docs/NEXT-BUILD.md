@@ -1,13 +1,11 @@
-# Next LLK build (parked)
-
-**Do not run until the editor says to build.** No ISO bake with this step.
+# Next LLK build
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos6` |
-| Config | `configs/lunduke-7.2.6-lcos6.config` |
-| Why | Doug Burks: enable `CONFIG_INPUT_UINPUT=m` so `spice-vdagent` can resize SPICE/QEMU guests |
-| Delta | `docs/config-lcos5-to-lcos6.diff` |
-| Base | lcos5 (netfilter/iptables already fixed) |
+| Version | `7.2.6-lcos7` |
+| Config | `configs/lunduke-7.2.6-lcos7.config` |
+| Why | Editor greenlit high-impact hardware modules (audio/Wi-Fi/BT/UVC/HID/touchpad/IGC+IGB) |
+| Delta | `docs/config-lcos6-to-lcos7.diff` |
+| Base | lcos6 (uinput + lcos5 netfilter) |
 
-When greenlit: `scripts/build-lunduke-kernel.sh` (defaults already point at lcos6), verify `uinput.ko` in the image deb, rebuild metapackage, stage apt for signing. Still optional apt-only.
+**lcos7 is this HW pass.** No ISO bake and no apt publish from the builder unless separately greenlit. Package debs for Chloe to seed.

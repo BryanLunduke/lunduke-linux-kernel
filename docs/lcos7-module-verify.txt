@@ -1,0 +1,106 @@
+=== lcos7 module verification Fri Sep 25 23:04:57 CDT 2026 ===
+Image: /workspace/lcos-kernel/debs-lcos7/linux-image-7.2.6-lunduke_7.2.6-lcos7_amd64.deb
+
+Module root: /tmp/tmp.qtkPXrNcwk/lib/modules/7.2.6-lunduke
+Total modules: 450
+
+FAIL snd-hda-codec-realtek.ko*
+PASS snd-usb-audio.ko*
+  kernel/sound/usb/snd-usb-audio.ko
+PASS snd-sof*.ko*
+  kernel/sound/soc/sof/snd-sof-probes.ko
+  kernel/sound/soc/sof/snd-sof-pci.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-apl.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-ptl.ko
+  kernel/sound/soc/sof/intel/snd-sof-intel-hda.ko
+  kernel/sound/soc/sof/intel/snd-sof-intel-atom.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-lnl.ko
+  kernel/sound/soc/sof/intel/snd-sof-intel-hda-mlink.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-nvl.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-mtl.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-tng.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-skl.ko
+  kernel/sound/soc/sof/intel/snd-sof-intel-hda-sdw-bpt.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-cnl.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-icl.ko
+  kernel/sound/soc/sof/intel/snd-sof-intel-hda-common.ko
+  kernel/sound/soc/sof/intel/snd-sof-pci-intel-tgl.ko
+  kernel/sound/soc/sof/intel/snd-sof-intel-hda-generic.ko
+  kernel/sound/soc/sof/snd-sof.ko
+  kernel/sound/soc/sof/snd-sof-utils.ko
+PASS iwlwifi.ko*
+  kernel/drivers/net/wireless/intel/iwlwifi/iwlwifi.ko
+PASS rtw88*.ko*
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_usb.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_core.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8723du.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8723de.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8821cu.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8723d.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_pci.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8821ce.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8821c.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8822ce.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8822be.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8822bu.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8723x.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8822cu.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8822b.ko
+  kernel/drivers/net/wireless/realtek/rtw88/rtw88_8822c.ko
+PASS bluetooth.ko*
+  kernel/net/bluetooth/bluetooth.ko
+PASS btusb.ko*
+  kernel/drivers/bluetooth/btusb.ko
+PASS uvcvideo.ko*
+  kernel/drivers/media/usb/uvc/uvcvideo.ko
+PASS i2c-hid-acpi.ko*
+  kernel/drivers/hid/i2c-hid/i2c-hid-acpi.ko
+PASS hid-multitouch.ko*
+  kernel/drivers/hid/hid-multitouch.ko
+PASS igc.ko*
+  kernel/drivers/net/ethernet/intel/igc/igc.ko
+PASS igb.ko*
+  kernel/drivers/net/ethernet/intel/igb/igb.ko
+PASS uinput.ko*
+  kernel/drivers/input/misc/uinput.ko
+PASS ip_tables.ko*
+  kernel/net/ipv4/netfilter/ip_tables.ko
+PASS nf_tables.ko*
+  kernel/net/netfilter/nf_tables.ko
+
+--- extras ---
+PASS ath9k.ko*
+  kernel/drivers/net/wireless/ath/ath9k/ath9k.ko
+PASS ath10k_pci.ko*
+  kernel/drivers/net/wireless/ath/ath10k/ath10k_pci.ko
+PASS ath11k_pci.ko*
+  kernel/drivers/net/wireless/ath/ath11k/ath11k_pci.ko
+PASS brcmfmac.ko*
+  kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
+PASS mt7921e.ko*
+  kernel/drivers/net/wireless/mediatek/mt76/mt7921/mt7921e.ko
+PASS rtl8xxxu.ko*
+  kernel/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.ko
+PASS rtw89*.ko*
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852b_common.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_pci.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8851be.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_core.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8851b.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8922ae.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852ce.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852c.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852be.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852bte.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852ae.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8922a.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852b.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852a.ko
+  kernel/drivers/net/wireless/realtek/rtw89/rtw89_8852bt.ko
+FAIL mouse-elan-i2c.ko*
+PASS elan_i2c.ko*
+  kernel/drivers/input/mouse/elan_i2c.ko
+
+NOTE: snd-hda-codec-realtek.ko is split in 7.2.6 into per-ALC modules
+  (snd-hda-codec-alc269.ko, …) + snd-hda-codec-realtek-lib.ko — all present.
+  Treat Realtek HDA as PASS under the new names.
