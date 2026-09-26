@@ -1,0 +1,26 @@
+=== lcos8 module verification Sat Sep 26 13:46:23 CDT 2026 ===
+Image: /workspace/lcos-kernel/debs-lcos8/linux-image-7.2.6-lunduke_7.2.6-lcos8_amd64.deb
+
+Module root: /tmp/tmp.yzHtgHUa6O/lib/modules/7.2.6-lunduke
+Total modules: 451
+
+PASS rtl8187.ko*
+  kernel/drivers/net/wireless/realtek/rtl818x/rtl8187/rtl8187.ko
+NOTE rtl8187_leds: not a separate .ko (built into rtl8187.ko; CONFIG_RTL8187_LEDS=y)
+
+--- spot-check prior HW still present ---
+PASS iwlwifi.ko*
+  kernel/drivers/net/wireless/intel/iwlwifi/iwlwifi.ko
+PASS uinput.ko*
+  kernel/drivers/input/misc/uinput.ko
+PASS snd-usb-audio.ko*
+  kernel/sound/usb/snd-usb-audio.ko
+PASS btusb.ko*
+  kernel/drivers/bluetooth/btusb.ko
+PASS uvcvideo.ko*
+  kernel/drivers/media/usb/uvc/uvcvideo.ko
+
+--- shipped config RTL8187 ---
+CONFIG_LOCALVERSION="-lunduke"
+CONFIG_RTL8187=m
+CONFIG_RTL8187_LEDS=y

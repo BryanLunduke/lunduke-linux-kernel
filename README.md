@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos7** |
+| Package version | **7.2.6-lcos8** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos7.config` — current Kconfig (lcos6 + high-impact HW modules)
+- `configs/lunduke-7.2.6-lcos8.config` — current Kconfig (lcos7 + RTL8187 for LCOS#81)
+- `configs/lunduke-7.2.6-lcos7.config` — prior lcos7 (high-impact HW modules)
 - `configs/lunduke-7.2.6-lcos5.config` — shipped 7.2.6-lcos5 (Distro-like netfilter; fixes iptables)
 - `configs/lunduke-7.2.6-lcos4.config` — prior lcos4 Kconfig (incomplete netfilter)
 - `packaging/lunduke-linux-kernel/` — Debian metapackage sources
@@ -60,7 +61,7 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 - **LCOS 0.7+:** default (and only) ISO kernel
 - **LCOS 0.6 and earlier:** Distro/Devuan kernel on the ISO; LLK optional via apt overlay
-- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE)
+- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81)
 
 ## License
 
@@ -70,5 +71,4 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos7** — high-impact hardware modules pass (audio/Wi-Fi/BT/UVC/HID/Ethernet). See `docs/NEXT-BUILD.md` and `docs/config-lcos6-to-lcos7.diff`. ISO seeding and apt publish are separate editor greenlights.
-
+**7.2.6-lcos8** — adds RTL8187/RTL8187B USB Wi-Fi (GitHub LCOS#81) on the lcos7 HW set. See `docs/NEXT-BUILD.md` and `docs/config-lcos7-to-lcos8.diff`. ISO seeding and apt publish are separate editor greenlights.

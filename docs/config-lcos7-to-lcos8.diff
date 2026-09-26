@@ -1,0 +1,14 @@
+# Lunduke Linux Kernel config delta: 7.2.6-lcos7 → 7.2.6-lcos8
+# Built 2026-09-26 — stage debs only; no apt publish / no ISO bake.
+#
+# Reporter: RickMcCombs1966 — GitHub BryanLunduke/LCOS#81
+# Lunduke Kernel 7.x missing Realtek RTL8187B USB wireless (Distro has it).
+#
+# Intentional changes only:
+-# CONFIG_RTL8187 is not set
++CONFIG_RTL8187=m
++CONFIG_RTL8187_LEDS=y
+#
+# Matches Distro (RTL8187 module + LED helper). EEPROM_93CX6 already =y in lcos7
+# (selected by RTL8187). No other Kconfig edits in this hop.
+# Package version: 7.2.6-lcos8. Apt overlay still needs editor sign.
