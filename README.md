@@ -1,8 +1,8 @@
 # Lunduke's Linux Kernel
 
-Optional alternate Linux kernel for [LCOS](https://lunduke.com) (Lunduke Computer Operating System).
+Linux kernel packaging for [LCOS](https://lunduke.com) (Lunduke Computer Operating System).
 
-LCOS ISOs continue to ship the **Devuan-supplied** kernel by default. This tree is for people who want to install and test **Lunduke's Linux Kernel** from the LCOS apt overlay.
+**LCOS 0.7** ISOs ship **Lunduke's Linux Kernel** as the default (and only) kernel. Older LCOS releases used the Devuan-supplied kernel by default, with LLK available from the apt overlay.
 
 ## Install (on LCOS)
 
@@ -11,7 +11,7 @@ sudo apt update
 sudo apt install lunduke-linux-kernel
 ```
 
-Reboot and pick **7.2.6-lunduke** in GRUB. The Devuan kernel stays installed.
+On LCOS 0.7 this is already the default. On older releases, reboot and pick **7.2.6-lunduke** in GRUB (the Distro kernel stays installed).
 
 Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`).
 
@@ -58,9 +58,9 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 ## Relation to LCOS releases
 
-- Optional via apt — not the default ISO kernel
-- Next official LCOS 0.6 ISO track remains based on Devuan’s kernel
-- Switch LCOS default to LLK only if a future release decides testing went well
+- **LCOS 0.7+:** default (and only) ISO kernel
+- **LCOS 0.6 and earlier:** Distro/Devuan kernel on the ISO; LLK optional via apt overlay
+- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE)
 
 ## License
 
@@ -70,5 +70,5 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos7** — high-impact hardware modules pass (audio/Wi-Fi/BT/UVC/HID/Ethernet). See `docs/NEXT-BUILD.md` and `docs/config-lcos6-to-lcos7.diff`. No ISO bake / apt publish from this hop unless separately greenlit.
+**7.2.6-lcos7** — high-impact hardware modules pass (audio/Wi-Fi/BT/UVC/HID/Ethernet). See `docs/NEXT-BUILD.md` and `docs/config-lcos6-to-lcos7.diff`. ISO seeding and apt publish are separate editor greenlights.
 
