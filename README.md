@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos10** |
+| Package version | **7.2.6-lcos11** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos10.config` — current Kconfig (recovered lcos9 + VMMOUSE for QEMU mouse-capture)
+- `configs/lunduke-7.2.6-lcos11.config` — current Kconfig (lcos10 + 12 HW gaps; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos10.config` — prior lcos10 (VMMOUSE)
 - `configs/lunduke-7.2.6-lcos7.config` — prior lcos7 (high-impact HW modules)
 - `configs/lunduke-7.2.6-lcos5.config` — shipped 7.2.6-lcos5 (Distro-like netfilter; fixes iptables)
 - `configs/lunduke-7.2.6-lcos4.config` — prior lcos4 Kconfig (incomplete netfilter)
@@ -61,7 +62,7 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 - **LCOS 0.7+:** default (and only) ISO kernel
 - **LCOS 0.6 and earlier:** Distro/Devuan kernel on the ISO; LLK optional via apt overlay
-- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE)
+- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX)
 
 ## License
 
@@ -71,4 +72,4 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos10** — recovered lcos9 (from lcos-live-08-01) + `CONFIG_MOUSE_PS2_VMMOUSE=y` for QEMU mouse-capture. See `docs/NEXT-BUILD.md` and `docs/config-lcos8-to-lcos10.diff`. ISO seeding and apt publish are separate editor greenlights.
+**7.2.6-lcos11** — lcos10 + 12 HW gaps (USB4/Type-C, VMXNET3/VMCI, Hyper-V, UAS, laptop WMI, Apple/Lenovo/MS HID, virtio balloon/mmio/fs, TPM, BRCMSMAC, MWIFIEX). `# CONFIG_RUST is not set`. See `docs/NEXT-BUILD.md` and `docs/config-lcos10-to-lcos11.diff`. ISO seeding and apt publish are separate editor greenlights.

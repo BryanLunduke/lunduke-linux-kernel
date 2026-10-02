@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # Build Lunduke's Linux Kernel debs from upstream kernel.org sources.
-# Tested for 7.2.6-lcos10 on the LCOS shared builder (keep -j modest; ~16G RAM).
+# Tested for 7.2.6-lcos11 on the LCOS shared builder (keep -j modest; ~16G RAM).
 set -euo pipefail
 
 VERSION="${VERSION:-7.2.6}"
-KDEB_PKGVERSION="${KDEB_PKGVERSION:-${VERSION}-lcos10}"
+KDEB_PKGVERSION="${KDEB_PKGVERSION:-${VERSION}-lcos11}"
 # Flavor string stored in Kconfig only. Do NOT also export LOCALVERSION to make —
 # that would append a second "-lunduke" (ABI becomes 7.2.6-lunduke-lunduke).
 FLAVOR_LOCALVERSION="${FLAVOR_LOCALVERSION:--lunduke}"
 JOBS="${JOBS:-3}"
 SRC_DIR="${SRC_DIR:-linux-${VERSION}}"
-CONFIG_IN="${CONFIG_IN:-$(cd "$(dirname "$0")/.." && pwd)/configs/lunduke-${VERSION}-lcos10.config}"
+CONFIG_IN="${CONFIG_IN:-$(cd "$(dirname "$0")/.." && pwd)/configs/lunduke-${VERSION}-lcos11.config}"
 
 if [[ ! -d "$SRC_DIR" ]]; then
   echo "Missing $SRC_DIR — download from https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-${VERSION}.tar.xz and unpack here." >&2

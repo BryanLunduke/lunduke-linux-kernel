@@ -1,10 +1,10 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos7). Recommends matching
+Metapackage for linux-image-7.2.6-lunduke (ABI lcos11). Recommends matching
 headers.
 
-On LCOS 0.7 ISOs this is the default kernel. On older LCOS releases that
+On LCOS 0.8 ISOs this is the default kernel. On older LCOS releases that
 still ship a Distro/Devuan kernel, install from the apt overlay, reboot,
 and pick 7.2.6-lunduke in GRUB (or set it once).
 
@@ -12,3 +12,7 @@ and pick 7.2.6-lunduke in GRUB (or set it once).
   sudo apt install lunduke-linux-kernel
 
 Apt overlay: https://lcos.lunduke.com/apt
+
+lcos11: USB4/Type-C, VMware VMXNET3/VMCI, Hyper-V guest, USB UAS,
+laptop platform WMI, Apple/Lenovo/Microsoft HID, virtio balloon/mmio/fs,
+TPM, BRCMSMAC, MWIFIEX. No Forced Rust.

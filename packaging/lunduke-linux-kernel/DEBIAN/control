@@ -1,22 +1,24 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos8
+Version: 7.2.6-lcos11
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos8)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos8)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos11)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos11)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos8).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos11).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
  .
- lcos8 adds RTL8187/RTL8187B USB Wi-Fi (GitHub LCOS#81) on top of the
- lcos7 high-impact HW module set.
+ lcos11 adds 12 HW gaps on lcos10: USB4/Type-C, VMXNET3/VMCI,
+ Hyper-V guest, USB UAS, laptop WMI (ThinkPad/IdeaPad/ASUS/Dell/HP),
+ Apple/Lenovo/Microsoft HID, virtio balloon/mmio/fs, TPM, BRCMSMAC,
+ MWIFIEX. Rust left off (No Forced Rust).
  .
- Default kernel on LCOS 0.7 ISOs (Devuan 6.x kernel removed from those
+ Default kernel on LCOS 0.8 ISOs (Devuan 6.x kernel removed from those
  images). On earlier LCOS releases that still ship a Distro kernel,
  installing this metapackage adds a GRUB entry alongside it.

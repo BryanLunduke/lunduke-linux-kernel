@@ -2,10 +2,10 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos10` |
-| Config | `configs/lunduke-7.2.6-lcos10.config` |
-| Why | QEMU mouse-capture: enable `CONFIG_MOUSE_PS2_VMMOUSE=y` on recovered lcos9 (ISO lcos-live-08-01) |
-| Delta | `docs/config-lcos8-to-lcos10.diff` (lcos9 was ISO-only/local; never pushed) |
-| Base | recovered lcos9 from live-08-01 (`aa0a1ee7…73bbbd8d`) |
+| Version | `7.2.6-lcos11` |
+| Config | `configs/lunduke-7.2.6-lcos11.config` |
+| Why | 12 "worth adding next" HW gaps (USB4/Type-C, VMXNET3/VMCI, Hyper-V, UAS, laptop WMI, Apple/Lenovo/MS HID, virtio balloon/mmio/fs, TPM, BRCMSMAC, MWIFIEX) |
+| Delta | `docs/config-lcos10-to-lcos11.diff` |
+| Base | lcos10 (`configs/lunduke-7.2.6-lcos10.config`) |
 
-**lcos10 is the VMMOUSE pass on shipped lcos9.** No ISO bake and no apt publish from the builder unless separately greenlit. Stage debs for editor sign.
+**lcos11 is the HW-gaps pass on lcos10.** No Forced Rust (`# CONFIG_RUST is not set`). No ISO bake and no apt publish from the builder unless separately greenlit. Stage debs for editor sign.
