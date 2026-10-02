@@ -1,0 +1,24 @@
+# Lunduke Linux Kernel config delta: 7.2.6-lcos8 → 7.2.6-lcos10
+# Built 2026-10-01 (America/Chicago) — stage debs only; no apt publish / no ISO bake.
+#
+# NOTE: lcos9 was ISO-only / local (LCOS 0.8 live ISO). It was never pushed to
+# BryanLunduke/lunduke-linux-kernel. For lcos10 we recovered the real shipped
+# lcos9 .config from published ISO lcos-live-08-01:
+#   /workspace/lcos-kernel/recovered-lcos9/config-7.2.6-lunduke-lcos9
+#   SHA256 aa0a1ee7687c34c5f60081729120d789bd1c39c135d1e5ed5c01eaae73bbbd8d
+# and applied a single intentional hop on top of that recovered lcos9.
+#
+# lcos9 (already in recovered config vs lcos8) included, among other things:
+#   # CONFIG_X86_VERBOSE_BOOTUP is not set
+#   CONFIG_SCSI_BUSLOGIC=m
+#   CONFIG_FUSION=y (+ Fusion MPT family as selected)
+#   CONFIG_VMWARE_PVSCSI=m
+#   CONFIG_B43=m / CONFIG_B43LEGACY=m + SSB/BCMA SoftMAC support
+#   # CONFIG_USER_NS is not set ; Rust left off
+#
+# Intentional lcos10 change only (vs recovered lcos9):
+-# CONFIG_MOUSE_PS2_VMMOUSE is not set
++CONFIG_MOUSE_PS2_VMMOUSE=y
+#
+# Editor ask: QEMU mouse-capture fix (VMware/QEMU PS/2 VMMOUSE).
+# Package version: 7.2.6-lcos10. Apt overlay / ISO bake need separate editor sign.
