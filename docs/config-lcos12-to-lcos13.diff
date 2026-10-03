@@ -6,7 +6,8 @@
 #
 # Intentional hardware (y where Omarchy 7.2.5 built it in, m where Omarchy used a module):
 #   Intel pinctrl/GPIO: PINCTRL, GPIOLIB, PINCTRL_INTEL, Bay Trail, Cherryview,
-#     and the rest of Omarchy's Intel pinctrl block except Lunar/Panther Lake.
+#     the rest of Omarchy's Intel pinctrl block, and PINCTRL_INTEL_PLATFORM=m
+#     (Lunar Lake / Nova Lake / Panther Lake in 7.2.6).
 #   LPSS, DesignWare I2C (core/platform/PCI), SERIAL_DEV_BUS.
 #   UART BT: BT_HCIUART_SERDEV, INTEL, BCM, RTL, QCA.
 #   MOUSE_PS2_ELANTECH=y, INTEL_HID_EVENT=m, INTEL_VBTN=m.
@@ -23,11 +24,11 @@
 #   Vendor hotkeys: MSI_WMI, MSI_EC, LG_LAPTOP, SONY_LAPTOP, ACPI_TOSHIBA,
 #     FUJITSU_LAPTOP, SAMSUNG_LAPTOP, EEEPC_WMI (m).
 #
-# Not in Linux 7.2.6 (not invented as a different driver):
+# Not in Linux 7.2.6:
 #   CONFIG_PINCTRL_LUNARLAKE
 #   CONFIG_PINCTRL_PANTHERLAKE
-# CONFIG_PINCTRL_INTEL_PLATFORM left unset. In 7.2.6 that symbol is the
-# Lunar Lake / Nova Lake / Panther Lake pinctrl driver.
+# CONFIG_PINCTRL_INTEL_PLATFORM=m is the 7.2.6 driver for those platforms
+# (plus Nova Lake). CONFIG_SND_SOC_AMD_ACP7X stays off.
 #
 # Kept off: SURFACE_3_POWER_OPREGION, SURFACE_GPE, SURFACE_PRO3_BUTTON,
 #   CONFIG_RUST, Android binder (C and Rust), HSA_AMD, zram, module signing,
@@ -51,7 +52,7 @@
 # Unified diff of full .config follows.
 #
 --- configs/lunduke-7.2.6-lcos12.config	2026-10-03 22:03:31.566605998 +0000
-+++ configs/lunduke-7.2.6-lcos13.config	2026-10-03 22:15:18.318583567 +0000
++++ configs/lunduke-7.2.6-lcos13.config	2026-10-03 22:18:59.290918998 +0000
 @@ -2,17 +2,17 @@
  # Automatically generated file; DO NOT EDIT.
  # Linux/x86 7.2.6 Kernel Configuration
@@ -742,7 +743,7 @@
 +CONFIG_PINCTRL_CHERRYVIEW=y
 +CONFIG_PINCTRL_LYNXPOINT=m
 +CONFIG_PINCTRL_INTEL=y
-+# CONFIG_PINCTRL_INTEL_PLATFORM is not set
++CONFIG_PINCTRL_INTEL_PLATFORM=m
 +CONFIG_PINCTRL_ALDERLAKE=m
 +CONFIG_PINCTRL_BROXTON=m
 +CONFIG_PINCTRL_CANNONLAKE=m
@@ -1443,7 +1444,7 @@
  CONFIG_SND_AMD_ACP_CONFIG=m
  CONFIG_SND_SOC_AMD_ACP_COMMON=m
  CONFIG_SND_SOC_ACPI_AMD_MATCH=m
-@@ -4428,16 +4923,17 @@
+@@ -4428,10 +4923,11 @@
  # CONFIG_SND_AMD_ASOC_ACP63 is not set
  # CONFIG_SND_AMD_ASOC_ACP70 is not set
  CONFIG_SND_SOC_AMD_MACH_COMMON=m
@@ -1458,13 +1459,6 @@
  CONFIG_SND_AMD_SOUNDWIRE_ACPI=m
  CONFIG_SND_SOC_AMD_ACP63_TOPLEVEL=m
  CONFIG_SND_SOC_AMD_SOUNDWIRE_LINK_BASELINE=m
- CONFIG_SND_SOC_AMD_PS=m
- CONFIG_SND_SOC_AMD_PS_MACH=m
--# CONFIG_SND_SOC_AMD_ACP7X is not set
-+CONFIG_SND_SOC_AMD_ACP7X=m
- # end of AMD
- 
- #
 @@ -4469,6 +4965,7 @@
  #
  # DesignWare

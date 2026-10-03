@@ -2,7 +2,7 @@
 # No kernel image was built. Values below are the saved .config.
 # RUST: # CONFIG_RUST is not set
 # Not in Linux 7.2.6: CONFIG_PINCTRL_LUNARLAKE, CONFIG_PINCTRL_PANTHERLAKE
-# CONFIG_PINCTRL_INTEL_PLATFORM left unset (7.2.6 driver for Lunar Lake, Nova Lake, Panther Lake).
+# CONFIG_PINCTRL_INTEL_PLATFORM=m (7.2.6 driver for Lunar Lake, Nova Lake, Panther Lake).
 
 ## Intel laptop buses
 CONFIG_PINCTRL=y
@@ -29,7 +29,7 @@ CONFIG_PINCTRL_SUNRISEPOINT=m
 CONFIG_PINCTRL_TIGERLAKE=m
 CONFIG_PINCTRL_LUNARLAKE: not in 7.2.6
 CONFIG_PINCTRL_PANTHERLAKE: not in 7.2.6
-# CONFIG_PINCTRL_INTEL_PLATFORM is not set
+CONFIG_PINCTRL_INTEL_PLATFORM=m
 CONFIG_X86_INTEL_LPSS=y
 CONFIG_MFD_INTEL_LPSS=m
 CONFIG_MFD_INTEL_LPSS_PCI=m
