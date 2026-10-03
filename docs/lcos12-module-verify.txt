@@ -1,0 +1,23 @@
+# LLK 7.2.6-lcos12 module/config verification (packaged config; 2026-10-03 10:25 CDT)
+# RUST: # CONFIG_RUST is not set
+# Note: boot config omits "# CONFIG_RUST is not set" when RUST_IS_AVAILABLE=n (no bindgen); RUST still not enabled (no CONFIG_RUST=y in .config or auto.conf).
+
+CONFIG_USER_NS=y
+CONFIG_VETH=m
+CONFIG_BRIDGE=m
+CONFIG_BRIDGE_NETFILTER=m
+CONFIG_BPF_SYSCALL=y
+CONFIG_CGROUP_BPF=y
+CONFIG_BPF_JIT=y
+CONFIG_MEMCG=y
+CONFIG_CFS_BANDWIDTH=y
+CONFIG_BLK_DEV_THROTTLING=y
+# CONFIG_MACVLAN is not set
+# CONFIG_IPVLAN is not set
+# CONFIG_VXLAN is not set
+# CONFIG_DUMMY is not set
+# CONFIG_VLAN_8021Q is not set
+CONFIG_MOUSE_PS2_VMMOUSE=y
+CONFIG_B43=m
+CONFIG_VMWARE_PVSCSI=m
+# CONFIG_RUST is not set

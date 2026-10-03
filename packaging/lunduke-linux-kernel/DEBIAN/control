@@ -1,23 +1,24 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos11
+Version: 7.2.6-lcos12
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos11)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos11)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos12)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos12)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos11).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos12).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
  .
- lcos11 adds 12 HW gaps on lcos10: USB4/Type-C, VMXNET3/VMCI,
- Hyper-V guest, USB UAS, laptop WMI (ThinkPad/IdeaPad/ASUS/Dell/HP),
- Apple/Lenovo/Microsoft HID, virtio balloon/mmio/fs, TPM, BRCMSMAC,
- MWIFIEX. Rust left off (No Forced Rust).
+ lcos12 adds container basics on lcos11: user namespaces, veth,
+ bridge and bridge netfilter, bpf() syscall, cgroup BPF, BPF JIT,
+ memory controller, CFS bandwidth, and block I/O throttling.
+ MACVLAN, IPVLAN, VXLAN, dummy, and 802.1Q VLAN stay off.
+ Rust left off (No Forced Rust).
  .
  Default kernel on LCOS 0.8 ISOs (Devuan 6.x kernel removed from those
  images). On earlier LCOS releases that still ship a Distro kernel,

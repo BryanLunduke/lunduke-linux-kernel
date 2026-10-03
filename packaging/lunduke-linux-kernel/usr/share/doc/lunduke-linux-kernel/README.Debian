@@ -1,7 +1,7 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos11). Recommends matching
+Metapackage for linux-image-7.2.6-lunduke (ABI lcos12). Recommends matching
 headers.
 
 On LCOS 0.8 ISOs this is the default kernel. On older LCOS releases that
@@ -13,6 +13,6 @@ and pick 7.2.6-lunduke in GRUB (or set it once).
 
 Apt overlay: https://lcos.lunduke.com/apt
 
-lcos11: USB4/Type-C, VMware VMXNET3/VMCI, Hyper-V guest, USB UAS,
-laptop platform WMI, Apple/Lenovo/Microsoft HID, virtio balloon/mmio/fs,
-TPM, BRCMSMAC, MWIFIEX. No Forced Rust.
+lcos12: user namespaces, veth, bridge, bridge netfilter, BPF syscall,
+cgroup BPF, BPF JIT, memcg, CFS bandwidth, blkio throttling.
+No MACVLAN/IPVLAN/VXLAN/dummy/802.1Q. No Forced Rust.
