@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos12** |
+| Package version | **7.2.6-lcos13** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos12.config` — current Kconfig (lcos11 + user ns / veth / bridge / BPF / memcg / cfs bandwidth / blk throttle; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos13.config` — current Kconfig (lcos12 + laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos12.config` — frozen lcos12 (shipped on LCOS 0.8; container basics)
 - `configs/lunduke-7.2.6-lcos11.config` — prior lcos11 (12 HW gaps)
 - `configs/lunduke-7.2.6-lcos10.config` — prior lcos10 (VMMOUSE)
 - `configs/lunduke-7.2.6-lcos7.config` — prior lcos7 (high-impact HW modules)
@@ -63,7 +64,7 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 - **LCOS 0.7+:** default (and only) ISO kernel
 - **LCOS 0.6 and earlier:** Distro/Devuan kernel on the ISO; LLK optional via apt overlay
-- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle)
+- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle) → lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys)
 
 ## License
 
@@ -73,4 +74,4 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos12** — lcos11 + user namespaces, veth, bridge, bridge netfilter, bpf() syscall, cgroup BPF, BPF JIT, memcg, CFS bandwidth, and block I/O throttling. MACVLAN/IPVLAN/VXLAN/dummy/802.1Q left off. `# CONFIG_RUST is not set`. See `docs/NEXT-BUILD.md` and `docs/config-lcos11-to-lcos12.diff`. ISO seeding and apt publish are separate editor greenlights.
+**7.2.6-lcos13** — lcos12 + Intel pinctrl/LPSS/DesignWare I2C/serdev, UART Bluetooth, Intel SOF and AMD ACP machine drivers, USB Ethernet, Realtek card readers, a short hwmon/idle set, IWLMLD, in-tree Surface Aggregator, and vendor hotkeys. `# CONFIG_RUST is not set`. lcos12 stays frozen (LCOS 0.8). See `docs/NEXT-BUILD.md` and `docs/config-lcos12-to-lcos13.diff`. ISO seeding and apt publish are separate editor greenlights.

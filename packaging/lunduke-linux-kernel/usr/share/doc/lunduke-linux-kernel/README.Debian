@@ -1,18 +1,20 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos12). Recommends matching
+Metapackage for linux-image-7.2.6-lunduke (ABI lcos13). Recommends matching
 headers.
 
-On LCOS 0.8 ISOs this is the default kernel. On older LCOS releases that
-still ship a Distro/Devuan kernel, install from the apt overlay, reboot,
-and pick 7.2.6-lunduke in GRUB (or set it once).
+LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). This
+metapackage is the lcos13 revision of the same 7.2.6-lunduke image name.
+On older LCOS releases that still ship a Distro/Devuan kernel, install
+from the apt overlay, reboot, and pick 7.2.6-lunduke in GRUB (or set it once).
 
   sudo apt update
   sudo apt install lunduke-linux-kernel
 
 Apt overlay: https://lcos.lunduke.com/apt
 
-lcos12: user namespaces, veth, bridge, bridge netfilter, BPF syscall,
-cgroup BPF, BPF JIT, memcg, CFS bandwidth, blkio throttling.
-No MACVLAN/IPVLAN/VXLAN/dummy/802.1Q. No Forced Rust.
+lcos13: Intel laptop buses, UART Bluetooth, Intel SOF and AMD ACP machine
+drivers, USB Ethernet, Realtek card readers, hwmon/idle, IWLMLD,
+in-tree Surface Aggregator, vendor hotkeys.
+No Forced Rust. No Rust Android binder. lcos12 stays frozen.
