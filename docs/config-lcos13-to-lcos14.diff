@@ -1,0 +1,102 @@
+# Lunduke Linux Kernel config delta: 7.2.6-lcos13 → 7.2.6-lcos14
+# Built 2026-10-04 — config and packaging only; no kernel debs, no ISO bake.
+#
+# Base is the lcos13 config (2993e43). lcos12 and lcos13 files are not edited.
+# olddefconfig: Linux 7.2.6, gcc-14, LOCALVERSION= (same finalize as the build script).
+# A second olddefconfig on the saved config kept the two requested modules.
+#
+# Intentional hardware (modules):
+#   CONFIG_SND_INTEL8X0=m
+#     LCOS issue 94. A QEMU guest on LCOS 0.8 shows Intel 82801AA AC97
+#     [8086:2415] and aplay -l reports no soundcards. Linux 7.2.6
+#     sound/pci/intel8x0.c matches PCI_VDEVICE(INTEL, 0x2415)
+#     (PCI_VENDOR_ID_INTEL 0x8086, PCI_DEVICE_ID_INTEL_82801AA_5 0x2415,
+#     "Intel 82801AA-ICH"). The module is snd-intel8x0.
+#   CONFIG_MT76x0E=m
+#     LCOS issue 95. MediaTek MT7630e (PCI 14c3:7630). Linux 7.2.6
+#     drivers/net/wireless/mediatek/mt76/mt76x0/pci.c matches
+#     PCI_VENDOR_ID_MEDIATEK (0x14c3) with 0x7610, 0x7630, and 0x7650
+#     (MT7610E, MT7630E, MT7650E). The module is mt76x0e.
+#     No firmware blob is added. Chips other than 0x7610 request
+#     mediatek/mt7650e.bin, which Debian firmware-mediatek already ships.
+#
+# Left unset: CONFIG_SND_INTEL8X0M, CONFIG_MT76x0U.
+# SND_HDA_INTEL and SND_HDA_GENERIC stay m. No other AC97 or HDA option
+# was turned on. MT76x2E, MT76x2U, and MT7603E stay unset.
+#
+# Dependency fill so the requested symbols survive olddefconfig:
+#   SND_INTEL8X0 selects SND_AC97_CODEC=m, which selects AC97_BUS=m.
+#   MT76x0E selects MT76x0_COMMON=m, which selects MT76x02_LIB=m.
+#   MT76_CORE was already m. SND_PCM and SND_VMASTER were already set.
+#   MT76x02_USB was not selected (that follows MT76x0U).
+# Newly visible and left off (default n):
+#   SND_AC97_POWER_SAVE, TOUCHSCREEN_WM97XX.
+#
+# CRITICAL: # CONFIG_RUST is not set (No Forced Rust).
+# olddefconfig drops that comment when RUST_IS_AVAILABLE=n (this machine's
+# rustc 1.83 is below Linux 7.2.6's 1.85 minimum, and bindgen is absent).
+# The packaging snapshot appends the comment again with
+# scripts/config --disable RUST, same place lcos13 keeps it. A later
+# olddefconfig may drop the line; RUST is not enabled.
+# CONFIG_LOCALVERSION="-lunduke".
+#
+# Unified diff of full .config follows.
+#
+--- configs/lunduke-7.2.6-lcos13.config	2026-10-03 23:07:05.000000000 +0000
++++ configs/lunduke-7.2.6-lcos14.config	2026-10-04 17:09:53.837079563 +0000
+@@ -2841,11 +2841,13 @@
+ CONFIG_MT76_CORE=m
+ CONFIG_MT76_LEDS=y
+ CONFIG_MT76_USB=m
++CONFIG_MT76x02_LIB=m
+ CONFIG_MT76_CONNAC_LIB=m
+ CONFIG_MT792x_LIB=m
+ CONFIG_MT792x_USB=m
++CONFIG_MT76x0_COMMON=m
+ # CONFIG_MT76x0U is not set
+-# CONFIG_MT76x0E is not set
++CONFIG_MT76x0E=m
+ # CONFIG_MT76x2E is not set
+ # CONFIG_MT76x2U is not set
+ # CONFIG_MT7603E is not set
+@@ -3144,6 +3146,7 @@
+ # CONFIG_TOUCHSCREEN_TOUCHWIN is not set
+ # CONFIG_TOUCHSCREEN_PIXCIR is not set
+ # CONFIG_TOUCHSCREEN_WDT87XX_I2C is not set
++# CONFIG_TOUCHSCREEN_WM97XX is not set
+ # CONFIG_TOUCHSCREEN_USB_COMPOSITE is not set
+ # CONFIG_TOUCHSCREEN_TOUCHIT213 is not set
+ # CONFIG_TOUCHSCREEN_TSC_SERIO is not set
+@@ -4721,6 +4724,7 @@
+ CONFIG_SND_SEQ_MIDI_EVENT=m
+ CONFIG_SND_SEQ_MIDI=m
+ # CONFIG_SND_SEQ_UMP is not set
++CONFIG_SND_AC97_CODEC=m
+ CONFIG_SND_DRIVERS=y
+ # CONFIG_SND_PCSP is not set
+ # CONFIG_SND_DUMMY is not set
+@@ -4730,6 +4734,7 @@
+ # CONFIG_SND_MTPAV is not set
+ # CONFIG_SND_SERIAL_U16550 is not set
+ # CONFIG_SND_MPU401 is not set
++# CONFIG_SND_AC97_POWER_SAVE is not set
+ CONFIG_SND_PCI=y
+ # CONFIG_SND_AD1889 is not set
+ # CONFIG_SND_ALS300 is not set
+@@ -4775,7 +4780,7 @@
+ # CONFIG_SND_HDSPM is not set
+ # CONFIG_SND_ICE1712 is not set
+ # CONFIG_SND_ICE1724 is not set
+-# CONFIG_SND_INTEL8X0 is not set
++CONFIG_SND_INTEL8X0=m
+ # CONFIG_SND_INTEL8X0M is not set
+ # CONFIG_SND_KORG1212 is not set
+ # CONFIG_SND_LOLA is not set
+@@ -5493,6 +5498,7 @@
+ CONFIG_SND_X86=y
+ # CONFIG_HDMI_LPE_AUDIO is not set
+ # CONFIG_SND_VIRTIO is not set
++CONFIG_AC97_BUS=m
+ CONFIG_HID_SUPPORT=y
+ CONFIG_HID=y
+ # CONFIG_HID_BATTERY_STRENGTH is not set

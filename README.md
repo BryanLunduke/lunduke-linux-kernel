@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos13** |
+| Package version | **7.2.6-lcos14** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos13.config` — current Kconfig (lcos12 + laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos14.config` — current Kconfig (lcos13 + snd-intel8x0 and mt76x0e; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos13.config` — frozen lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys)
 - `configs/lunduke-7.2.6-lcos12.config` — frozen lcos12 (shipped on LCOS 0.8; container basics)
 - `configs/lunduke-7.2.6-lcos11.config` — prior lcos11 (12 HW gaps)
 - `configs/lunduke-7.2.6-lcos10.config` — prior lcos10 (VMMOUSE)
@@ -64,7 +65,7 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 - **LCOS 0.7+:** default (and only) ISO kernel
 - **LCOS 0.6 and earlier:** Distro/Devuan kernel on the ISO; LLK optional via apt overlay
-- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle) → lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys)
+- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle) → lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys) → lcos14 (snd-intel8x0 for 8086:2415, LCOS#94; mt76x0e for 14c3:7630, LCOS#95)
 
 ## License
 
@@ -74,4 +75,4 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos13** — lcos12 + Intel pinctrl/LPSS/DesignWare I2C/serdev, UART Bluetooth, Intel SOF and AMD ACP machine drivers, USB Ethernet, Realtek card readers, a short hwmon/idle set, IWLMLD, in-tree Surface Aggregator, and vendor hotkeys. `# CONFIG_RUST is not set`. lcos12 stays frozen (LCOS 0.8). See `docs/NEXT-BUILD.md` and `docs/config-lcos12-to-lcos13.diff`. ISO seeding and apt publish are separate editor greenlights.
+**7.2.6-lcos14** — lcos13 + `CONFIG_SND_INTEL8X0=m` (Intel 82801AA AC97, PCI 8086:2415, LCOS#94) and `CONFIG_MT76x0E=m` (MediaTek MT7610E/MT7630E/MT7650E, PCI 14c3:7630, LCOS#95). `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12 and lcos13 stay frozen. No kernel debs were built. See `docs/NEXT-BUILD.md` and `docs/config-lcos13-to-lcos14.diff`. ISO seeding and apt publish are separate editor greenlights.
