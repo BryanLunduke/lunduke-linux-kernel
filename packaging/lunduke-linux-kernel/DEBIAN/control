@@ -1,26 +1,27 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos13
+Version: 7.2.6-lcos14
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos13)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos13)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos14)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos14)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos13).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos14).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
  .
- lcos13 adds laptop hardware on frozen lcos12: Intel pinctrl, LPSS,
- DesignWare I2C, and serdev; UART Bluetooth; Intel SOF and AMD ACP
- machine drivers; USB Ethernet; Realtek card readers; a short
- hwmon/idle set; IWLMLD; in-tree Surface Aggregator; vendor hotkeys.
- Rust left off (No Forced Rust). No Rust Android binder.
+ lcos14 adds two modules on frozen lcos13: snd-intel8x0
+ (CONFIG_SND_INTEL8X0=m, Intel 82801AA AC97 PCI 8086:2415, LCOS#94)
+ and mt76x0e (CONFIG_MT76x0E=m, MediaTek MT7610E/MT7630E/MT7650E,
+ PCI 14c3:7630, LCOS#95). The modem and USB variants stay off.
+ Rust left off (No Forced Rust). No firmware blob is included.
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
- This package is the lcos13 revision of the same linux-image-7.2.6-lunduke
- name. On earlier LCOS releases that still ship a Distro kernel,
- installing this metapackage adds a GRUB entry alongside it.
+ lcos13 stays frozen. This package is the lcos14 revision of the same
+ linux-image-7.2.6-lunduke name. On earlier LCOS releases that still
+ ship a Distro kernel, installing this metapackage adds a GRUB entry
+ alongside it.

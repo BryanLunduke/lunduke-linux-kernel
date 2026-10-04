@@ -1,0 +1,41 @@
+# LLK 7.2.6-lcos14 config verification (packaged config after olddefconfig; 2026-10-04)
+# No kernel image was built. No kernel debs were built. No ISO was baked.
+# Values below are the saved .config.
+# A second olddefconfig kept CONFIG_SND_INTEL8X0=m and CONFIG_MT76x0E=m.
+# RUST: # CONFIG_RUST is not set
+# Note: olddefconfig omits "# CONFIG_RUST is not set" when RUST_IS_AVAILABLE=n
+# (rustc 1.83 < Linux 7.2.6 minimum 1.85, and no bindgen). The snapshot
+# appends that comment with scripts/config --disable RUST. RUST is not enabled.
+
+## Requested
+CONFIG_SND_INTEL8X0=m
+# CONFIG_SND_INTEL8X0M is not set
+CONFIG_MT76x0E=m
+# CONFIG_MT76x0U is not set
+CONFIG_LOCALVERSION="-lunduke"
+# CONFIG_RUST is not set
+
+## PCI coverage in Linux 7.2.6
+# snd-intel8x0 (sound/pci/intel8x0.c): PCI_VDEVICE(INTEL, 0x2415)
+#   vendor 8086, device 2415, name "Intel 82801AA-ICH"
+# mt76x0e (drivers/net/wireless/mediatek/mt76/mt76x0/pci.c):
+#   14c3:7610 (MT7610E), 14c3:7630 (MT7630E), 14c3:7650 (MT7650E)
+# MT7630E/MT7650E request mediatek/mt7650e.bin. No firmware blob added.
+
+## Selected by olddefconfig (smallest set)
+CONFIG_SND_AC97_CODEC=m
+CONFIG_AC97_BUS=m
+CONFIG_MT76x0_COMMON=m
+CONFIG_MT76x02_LIB=m
+CONFIG_MT76_CORE=m
+
+## Newly visible, left off
+# CONFIG_SND_AC97_POWER_SAVE is not set
+# CONFIG_TOUCHSCREEN_WM97XX is not set
+
+## Already correct, unchanged
+CONFIG_SND_HDA_INTEL=m
+CONFIG_SND_HDA_GENERIC=m
+# CONFIG_MT76x2E is not set
+# CONFIG_MT76x2U is not set
+# CONFIG_MT7603E is not set
