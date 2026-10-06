@@ -3,8 +3,8 @@
 # Values below are the saved .config.
 # olddefconfig: Linux 7.2.6, gcc-14 (Ubuntu 14.2.0-4ubuntu2~24.04.1),
 # LOCALVERSION= empty at make time, same finalize as scripts/build-lunduke-kernel.sh.
-# A second olddefconfig kept the three requested modules.
-# The second pass changed one line: it dropped "# CONFIG_RUST is not set".
+# A second olddefconfig after the TUN/KVM edit kept every requested module.
+# That pass changed one line: it dropped "# CONFIG_RUST is not set".
 # That comment is restored with scripts/config --disable RUST. RUST is not enabled.
 # Toolchain probe lines (CC/AS/LD/pahole/rustc) are unchanged from lcos14.
 
@@ -12,26 +12,93 @@
 CONFIG_USB_NET_AX88179_178A=m
 CONFIG_USB_NET_AX8817X=m
 CONFIG_USB_NET_CDC_NCM=m
+CONFIG_TUN=m
+# CONFIG_TUN_VNET_CROSS_LE is not set
+CONFIG_KVM=m
+CONFIG_KVM_INTEL=m
+CONFIG_KVM_AMD=m
+CONFIG_KVM_GUEST=y
+CONFIG_VIRTUALIZATION=y
 CONFIG_LOCALVERSION="-lunduke"
 # CONFIG_RUST is not set
 
-## USB coverage in Linux 7.2.6
-# ax88179_178a (drivers/net/usb/ax88179_178a.c), vendor-class interface only:
-#   0b95:1790 class ff/ff/00 — ASIX AX88179
-#   0b95:178a class ff/ff/00 — ASIX AX88178A
-# asix (drivers/net/usb/asix_devices.c): AX88172, AX88772, AX88772A, AX88772B, AX88178
-# cdc_ncm (drivers/net/usb/cdc_ncm.c): generic
-#   USB_INTERFACE_INFO(USB_CLASS_COMM, USB_CDC_SUBCLASS_NCM, USB_CDC_PROTO_NONE)
-# 7.2.6 has no AX88179A / AX88772D symbol or device-id comment.
-# Those chips use 0b95:1790 (bcdDevice 0x0200 AX88179A/B, 0x0300 AX88772D/E)
-# and a CDC-NCM configuration. usb core prefers that non-vendor config, so
-# cdc_ncm is the driver that binds them on this tree. CDC_NCM stays m.
-# None of the three drivers call request_firmware. No firmware blob added.
+## Left unset on purpose
+# CONFIG_MACVLAN is not set
+# CONFIG_IPVLAN is not set
+# CONFIG_VXLAN is not set
+# CONFIG_DUMMY is not set
+# CONFIG_VLAN_8021Q is not set
+# CONFIG_VFIO is not set
+# CONFIG_VHOST_NET is not set
+# CONFIG_VHOST_VSOCK is not set
+# CONFIG_KVM_XEN is not set
 
-## Selected or made visible by olddefconfig (besides the three requested)
+## USB coverage in Linux 7.2.6
+# ax88179_178a: 0b95:1790 and 0b95:178a, vendor-class interface only.
+# asix: AX88172 / AX88772 family.
+# cdc_ncm: generic CDC-NCM class match. AX88179A/AX88772D use 0b95:1790
+# and a CDC-NCM configuration; 7.2.6 has no chip-specific ID for them.
+# None of these drivers call request_firmware.
+
+## ASIX olddefconfig (vs lcos14)
 CONFIG_PHYLINK=m
 CONFIG_SWPHY=y
 # CONFIG_SFP is not set
+
+## TUN/KVM olddefconfig (vs the ASIX lcos15, besides TUN/KVM/KVM_INTEL/KVM_AMD)
+# Selected or defaulted on:
+CONFIG_X86_FRED=y
+CONFIG_MITIGATION_VMSCAPE=y
+CONFIG_KVM_COMMON=y
+CONFIG_HAVE_KVM_PFNCACHE=y
+CONFIG_HAVE_KVM_IRQCHIP=y
+CONFIG_HAVE_KVM_IRQ_ROUTING=y
+CONFIG_HAVE_KVM_DIRTY_RING=y
+CONFIG_HAVE_KVM_DIRTY_RING_TSO=y
+CONFIG_HAVE_KVM_DIRTY_RING_ACQ_REL=y
+CONFIG_KVM_MMIO=y
+CONFIG_KVM_ASYNC_PF=y
+CONFIG_HAVE_KVM_MSI=y
+CONFIG_HAVE_KVM_READONLY_MEM=y
+CONFIG_HAVE_KVM_CPU_RELAX_INTERCEPT=y
+CONFIG_KVM_VFIO=y
+CONFIG_KVM_GENERIC_DIRTYLOG_READ_PROTECT=y
+CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY=y
+CONFIG_KVM_COMPAT=y
+CONFIG_HAVE_KVM_IRQ_BYPASS=m
+CONFIG_HAVE_KVM_NO_POLL=y
+CONFIG_VIRT_XFER_TO_GUEST_WORK=y
+CONFIG_HAVE_KVM_PM_NOTIFIER=y
+CONFIG_KVM_GENERIC_HARDWARE_ENABLING=y
+CONFIG_KVM_ELIDE_TLB_FLUSH_IF_YOUNG=y
+CONFIG_KVM_MMU_LOCKLESS_AGING=y
+CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES=y
+CONFIG_KVM_GUEST_MEMFD=y
+CONFIG_HAVE_KVM_ARCH_GMEM_PREPARE=y
+CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE=y
+CONFIG_HAVE_KVM_ARCH_GMEM_POPULATE=y
+CONFIG_KVM_X86=m
+CONFIG_KVM_WERROR=y
+CONFIG_KVM_AMD_SEV=y
+CONFIG_KVM_IOAPIC=y
+CONFIG_KVM_SMM=y
+CONFIG_KVM_HYPERV=y
+CONFIG_KVM_MAX_NR_VCPUS=1024
+CONFIG_USER_RETURN_NOTIFIER=y
+CONFIG_ARCH_HAS_CC_PLATFORM=y
+CONFIG_PREEMPT_NOTIFIERS=y
+CONFIG_IRQ_BYPASS_MANAGER=m
+CONFIG_GUEST_PERF_EVENTS=y
+CONFIG_PERF_GUEST_MEDIATED_PMU=y
+CONFIG_VHOST_TASK=y
+# Dropped because their depends became false:
+#   CONFIG_X86_REQUIRED_FEATURE_SYSFAST32 (depends on !X86_FRED)
+#   CONFIG_X86_DISABLED_FEATURE_FRED (depends on !X86_FRED)
+#   CONFIG_X86_DISABLED_FEATURE_SEV_SNP (depends on !KVM_AMD_SEV)
+# Newly visible, left off:
+# CONFIG_KVM_XEN is not set
+# KVM_VFIO is the internal KVM bool. CONFIG_VFIO stays unset.
+# VHOST_TASK is the KVM helper bool. No VHOST_* host driver was enabled.
 
 ## Already correct, unchanged
 CONFIG_USB_USBNET=m
@@ -40,12 +107,11 @@ CONFIG_PHYLIB=y
 CONFIG_CRC32=y
 CONFIG_NET_SELFTESTS=y
 CONFIG_AX88796B_PHY=m
-# CONFIG_USB_NET_CDC_MBIM is not set
-# CONFIG_USB_NET_HUAWEI_CDC_NCM is not set
+CONFIG_CRYPTO_DEV_SP_PSP=y
+CONFIG_WERROR=y
 
 ## Debian 7.2.6 amd64 USB Ethernet still off
-# Compared with linux-config-7.2 7.2.6-1~bpo13+1 config.amd64_none_amd64.
-# Debian sets each of these to m. Left unset here (not part of LCOS#100).
+# linux-config-7.2 7.2.6-1~bpo13+1 config.amd64_none_amd64 sets these to m.
 # CONFIG_USB_CATC is not set
 # CONFIG_USB_KAWETH is not set
 # CONFIG_USB_PEGASUS is not set
@@ -74,7 +140,6 @@ CONFIG_AX88796B_PHY=m
 # CONFIG_USB_HSO is not set
 # CONFIG_USB_SIERRA_NET is not set
 # CONFIG_USB_VL600 is not set
-# CDC_SUBSET chip options are not in this config (the parent is off).
-# Debian enables them: USB_NET_CDC_SUBSET_ENABLE,
-# USB_ALI_M5632, USB_AN2720, USB_BELKIN, USB_ARMLINUX,
-# USB_EPSON2888, USB_KC2190.
+# CDC_SUBSET chip options are absent (parent off). Debian also enables
+# USB_NET_CDC_SUBSET_ENABLE, USB_ALI_M5632, USB_AN2720, USB_BELKIN,
+# USB_ARMLINUX, USB_EPSON2888, USB_KC2190.

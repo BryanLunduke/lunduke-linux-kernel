@@ -14,11 +14,12 @@ Description: Lunduke's Linux Kernel for LCOS
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
  .
- lcos15 adds three modules on frozen lcos14: ax88179_178a
- (CONFIG_USB_NET_AX88179_178A=m, ASIX AX88179/AX88178A, LCOS#100),
- asix (CONFIG_USB_NET_AX8817X=m, AX88172/AX88772), and cdc_ncm
- (CONFIG_USB_NET_CDC_NCM=m, AX88179A/AX88772D on Linux 7.2.6).
- Rust left off (No Forced Rust). No firmware blob is included.
+ lcos15 adds modules on frozen lcos14: ax88179_178a, asix, and
+ cdc_ncm (ASIX USB Ethernet, LCOS#100); tun (CONFIG_TUN=m, rootless
+ podman, LCOS#87); kvm, kvm-intel, and kvm-amd (CONFIG_KVM=m,
+ CONFIG_KVM_INTEL=m, CONFIG_KVM_AMD=m, LCOS#103). VFIO and
+ vhost_net stay off. Rust left off (No Forced Rust). No firmware
+ blob is included.
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
  lcos13 and lcos14 stay frozen. This package is the lcos15 revision
