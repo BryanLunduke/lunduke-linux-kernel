@@ -2,10 +2,10 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos14` |
-| Config | `configs/lunduke-7.2.6-lcos14.config` |
-| Why | Intel 82801AA AC97 (LCOS#94) and MediaTek MT7630E (LCOS#95) on frozen lcos13 |
-| Delta | `docs/config-lcos13-to-lcos14.diff` |
-| Base | lcos13 (`configs/lunduke-7.2.6-lcos13.config`, commit 2993e43) |
+| Version | `7.2.6-lcos15` |
+| Config | `configs/lunduke-7.2.6-lcos15.config` |
+| Why | ASIX AX88179/AX88178A USB Ethernet (LCOS#100) on frozen lcos14 |
+| Delta | `docs/config-lcos14-to-lcos15.diff` |
+| Base | lcos14 (`configs/lunduke-7.2.6-lcos14.config`, commit 6487b4dc) |
 
-**lcos14 enables snd-intel8x0 and mt76x0e on lcos13.** `CONFIG_SND_INTEL8X0=m` covers PCI 8086:2415. `CONFIG_MT76x0E=m` covers PCI 14c3:7610, 14c3:7630, and 14c3:7650. `CONFIG_SND_INTEL8X0M` and `CONFIG_MT76x0U` stay unset. olddefconfig also selected `CONFIG_SND_AC97_CODEC=m`, `CONFIG_AC97_BUS=m`, `CONFIG_MT76x0_COMMON=m`, and `CONFIG_MT76x02_LIB=m`. No firmware blob. lcos12 shipped on LCOS 0.8 and stays frozen. lcos13 stays frozen. No Forced Rust (`# CONFIG_RUST is not set`). `CONFIG_LOCALVERSION="-lunduke"`. No kernel debs were built. No ISO bake.
+**lcos15 enables ASIX USB Ethernet on lcos14.** `CONFIG_USB_NET_AX88179_178A=m` covers vendor-class AX88179 (0b95:1790) and AX88178A (0b95:178a). `CONFIG_USB_NET_AX8817X=m` covers the older AX88172/AX88772 family. `CONFIG_USB_NET_CDC_NCM=m` covers AX88179A/AX88772D, which on Linux 7.2.6 enumerate as CDC NCM and are not named in `ax88179_178a.c`. olddefconfig also selected `CONFIG_PHYLINK=m` and `CONFIG_SWPHY=y`, and made `CONFIG_SFP` visible (left off). No firmware blob. lcos12 shipped on LCOS 0.8 and stays frozen. lcos13 and lcos14 stay frozen. No Forced Rust (`# CONFIG_RUST is not set`). `CONFIG_LOCALVERSION="-lunduke"`. No kernel debs were built. No ISO bake.

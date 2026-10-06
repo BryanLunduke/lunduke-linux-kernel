@@ -1,0 +1,92 @@
+# Lunduke Linux Kernel config delta: 7.2.6-lcos14 → 7.2.6-lcos15
+# Built 2026-10-06 — config and packaging only; no kernel debs, no ISO bake.
+#
+# Base is the lcos14 config (6487b4dc). lcos12, lcos13, and lcos14 files
+# are not edited.
+# olddefconfig: Linux 7.2.6, gcc-14, LOCALVERSION= (same finalize as the
+# build script). A second olddefconfig on the saved config kept the three
+# requested modules. The only line it dropped was "# CONFIG_RUST is not set",
+# which scripts/config --disable RUST appends again.
+#
+# Intentional hardware (modules), LCOS issue 100 (ASIX AX88179 Gigabit
+# Ethernet, lsusb name for 0b95:1790):
+#   CONFIG_USB_NET_AX88179_178A=m
+#     Module ax88179_178a. Linux 7.2.6 drivers/net/usb/ax88179_178a.c
+#     matches vendor-class interfaces only:
+#       USB_DEVICE_AND_INTERFACE_INFO(0x0b95, 0x1790, 0xff, 0xff, 0)
+#         ASIX AX88179
+#       USB_DEVICE_AND_INTERFACE_INFO(0x0b95, 0x178a, 0xff, 0xff, 0)
+#         ASIX AX88178A
+#     plus the rebranded IDs in that table (Cypress GX3, D-Link DUB-1312,
+#     Sitecom, Samsung, Lenovo, Belkin, Toshiba, MCT, Allied Telesis).
+#   CONFIG_USB_NET_AX8817X=m
+#     Module asix (asix_devices.o + asix_common.o + ax88172a.o). Older
+#     ASIX AX88172 / AX88772 / AX88772A / AX88772B / AX88178 family.
+#   CONFIG_USB_NET_CDC_NCM=m
+#     Module cdc_ncm. Kept after checking Linux 7.2.6 sources.
+#     The tree has no AX88179A or AX88772D string and no chip-specific
+#     ID for them. Those parts share 0b95:1790 (bcdDevice 0x0200 for
+#     AX88179A/B, 0x0300 for AX88772D/E) and expose a CDC-NCM configuration
+#     beside the vendor interface. cdc_ncm.c binds the generic class
+#     USB_INTERFACE_INFO(USB_CLASS_COMM, USB_CDC_SUBCLASS_NCM,
+#     USB_CDC_PROTO_NONE). drivers/usb/core/generic.c prefers the first
+#     non-vendor-specific configuration, so these chips come up on cdc_ncm
+#     rather than ax88179_178a (which only matches interface class 0xff).
+#     USB_NET_CDCETHER was already m; CDC_NCM selects it.
+#
+# No firmware request in ax88179_178a.c, asix_devices.c, or cdc_ncm.c.
+# No firmware blob is added.
+#
+# Dependency fill so the requested symbols survive olddefconfig:
+#   USB_NET_AX8817X selects PHYLINK, which selects SWPHY.
+#   PHYLIB, CRC32, AX88796B_PHY, NET_SELFTESTS, and USB_NET_CDCETHER
+#   were already set. USB_NET_CDC_MBIM and USB_NET_HUAWEI_CDC_NCM do
+#   not default y and stayed unset.
+# Newly visible and left off (default n):
+#   CONFIG_SFP (depends on I2C && PHYLINK).
+#
+# Other Debian 7.2.6 amd64 USB Ethernet drivers (linux-config-7.2
+# 7.2.6-1~bpo13+1) that are still off were not enabled. See
+# docs/lcos15-module-verify.txt.
+#
+# CRITICAL: # CONFIG_RUST is not set (No Forced Rust).
+# olddefconfig drops that comment when RUST_IS_AVAILABLE=n (this machine's
+# rustc 1.83 is below Linux 7.2.6's 1.85 minimum, and bindgen is absent).
+# The packaging snapshot appends the comment again with
+# scripts/config --disable RUST, same place lcos14 keeps it. A later
+# olddefconfig may drop the line; RUST is not enabled.
+# CONFIG_LOCALVERSION="-lunduke".
+#
+# Unified diff of full .config follows.
+#
+--- configs/lunduke-7.2.6-lcos14.config	2026-10-05 18:21:37.000000000 +0000
++++ configs/lunduke-7.2.6-lcos15.config	2026-10-06 06:00:26.924147980 +0000
+@@ -2596,10 +2596,13 @@
+ CONFIG_NET_VENDOR_XIRCOM=y
+ # CONFIG_PCMCIA_XIRC2PS is not set
+ # CONFIG_FDDI is not set
++CONFIG_PHYLINK=m
+ CONFIG_PHYLIB=y
++CONFIG_SWPHY=y
+ CONFIG_PHY_PACKAGE=y
+ # CONFIG_LED_TRIGGER_PHY is not set
+ # CONFIG_FIXED_PHY is not set
++# CONFIG_SFP is not set
+ 
+ #
+ # MII PHY device drivers
+@@ -2691,11 +2694,11 @@
+ CONFIG_USB_RTL8152=m
+ # CONFIG_USB_LAN78XX is not set
+ CONFIG_USB_USBNET=m
+-# CONFIG_USB_NET_AX8817X is not set
+-# CONFIG_USB_NET_AX88179_178A is not set
++CONFIG_USB_NET_AX8817X=m
++CONFIG_USB_NET_AX88179_178A=m
+ CONFIG_USB_NET_CDCETHER=m
+ # CONFIG_USB_NET_CDC_EEM is not set
+-# CONFIG_USB_NET_CDC_NCM is not set
++CONFIG_USB_NET_CDC_NCM=m
+ # CONFIG_USB_NET_HUAWEI_CDC_NCM is not set
+ # CONFIG_USB_NET_CDC_MBIM is not set
+ # CONFIG_USB_NET_DM9601 is not set
