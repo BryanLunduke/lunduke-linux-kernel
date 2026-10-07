@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos15** |
+| Package version | **7.2.6-lcos16** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos15.config` — current Kconfig (lcos14 + ASIX USB Ethernet, TUN, and KVM host; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos16.config` — current Kconfig (lcos15 + LCOS 0.9 hardware gap pick-list; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos15.config` — frozen lcos15 (ASIX USB Ethernet, TUN, and KVM host)
 - `configs/lunduke-7.2.6-lcos14.config` — frozen lcos14 (snd-intel8x0 and mt76x0e)
 - `configs/lunduke-7.2.6-lcos13.config` — frozen lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys)
 - `configs/lunduke-7.2.6-lcos12.config` — frozen lcos12 (shipped on LCOS 0.8; container basics)
@@ -66,7 +67,7 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 - **LCOS 0.7+:** default (and only) ISO kernel
 - **LCOS 0.6 and earlier:** Distro/Devuan kernel on the ISO; LLK optional via apt overlay
-- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle) → lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys) → lcos14 (snd-intel8x0 for 8086:2415, LCOS#94; mt76x0e for 14c3:7630, LCOS#95) → lcos15 (ASIX AX88179/AX88178A, AX8817X, and CDC NCM, LCOS#100; TUN for rootless podman, LCOS#87; KVM Intel/AMD host, LCOS#103)
+- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle) → lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys) → lcos14 (snd-intel8x0 for 8086:2415, LCOS#94; mt76x0e for 14c3:7630, LCOS#95) → lcos15 (ASIX AX88179/AX88178A, AX8817X, and CDC NCM, LCOS#100; TUN for rootless podman, LCOS#87; KVM Intel/AMD host, LCOS#103) → lcos16 (LCOS 0.9 hardware gap pick-list: USB net/WWAN/serial, AMD audio, Type-C, input, sensors, Wi-Fi/BT tail, Apple, NPU, VFIO, vhost-net)
 
 ## License
 
@@ -76,4 +77,4 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos15** — lcos14 + ASIX USB Ethernet (`CONFIG_USB_NET_AX88179_178A=m`, `CONFIG_USB_NET_AX8817X=m`, `CONFIG_USB_NET_CDC_NCM=m`, LCOS#100), `CONFIG_TUN=m` (LCOS#87), and KVM host support (`CONFIG_KVM=m`, `CONFIG_KVM_INTEL=m`, `CONFIG_KVM_AMD=m`, LCOS#103). `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12, lcos13, and lcos14 stay frozen. No kernel debs were built. See `docs/NEXT-BUILD.md` and `docs/config-lcos14-to-lcos15.diff`. ISO seeding and apt publish are separate editor greenlights.
+**7.2.6-lcos16** — lcos15 + the LCOS 0.9 hardware gap pick-list (USB net/WWAN/serial, AMD pinctrl and SOF/ACP audio, Type-C controllers, tablets and touchscreens, Intel ISH, Wi-Fi/BT long-tail, Apple backlight/gmux, Intel NPU, VirtualBox guest, `VFIO=m`, `VHOST_NET=m`, and the named laptop WMI/MEI/NFC options). `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12, lcos13, lcos14, and lcos15 stay frozen. No kernel debs were built. See `docs/NEXT-BUILD.md`, `docs/config-lcos15-to-lcos16.diff`, and `docs/lcos16-module-verify.txt`. ISO seeding and apt publish are separate editor greenlights.

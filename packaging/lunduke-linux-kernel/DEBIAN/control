@@ -1,28 +1,28 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos15
+Version: 7.2.6-lcos16
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos15)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos15)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos16)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos16)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos15).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos16).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
  .
- lcos15 adds modules on frozen lcos14: ax88179_178a, asix, and
- cdc_ncm (ASIX USB Ethernet, LCOS#100); tun (CONFIG_TUN=m, rootless
- podman, LCOS#87); kvm, kvm-intel, and kvm-amd (CONFIG_KVM=m,
- CONFIG_KVM_INTEL=m, CONFIG_KVM_AMD=m, LCOS#103). VFIO and
- vhost_net stay off. Rust left off (No Forced Rust). No firmware
- blob is included.
+ lcos16 adds the LCOS 0.9 hardware gap pick-list on frozen lcos15:
+ USB net/WWAN/serial, AMD pinctrl and SOF/ACP audio, Type-C
+ controllers, tablets and touchscreens, Intel ISH, Wi-Fi/BT
+ long-tail, Apple backlight/gmux, Intel NPU, VirtualBox guest,
+ VFIO, and vhost_net. Rust left off (No Forced Rust). No firmware
+ blob is included. Proprietary NVIDIA is not included.
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
- lcos13 and lcos14 stay frozen. This package is the lcos15 revision
- of the same linux-image-7.2.6-lunduke name. On earlier LCOS releases
- that still ship a Distro kernel, installing this metapackage adds a
- GRUB entry alongside it.
+ lcos13, lcos14, and lcos15 stay frozen. This package is the lcos16
+ revision of the same linux-image-7.2.6-lunduke name. On earlier LCOS
+ releases that still ship a Distro kernel, installing this metapackage
+ adds a GRUB entry alongside it.

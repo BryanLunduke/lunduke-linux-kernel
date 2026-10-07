@@ -1,22 +1,22 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos15). Recommends matching
+Metapackage for linux-image-7.2.6-lunduke (ABI lcos16). Recommends matching
 headers.
 
-LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13
-and lcos14 stay frozen. This metapackage is the lcos15 revision of the
-same 7.2.6-lunduke image name. On older LCOS releases that still ship a
-Distro/Devuan kernel, install from the apt overlay, reboot, and pick
-7.2.6-lunduke in GRUB (or set it once).
+LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13,
+lcos14, and lcos15 stay frozen. This metapackage is the lcos16 revision
+of the same 7.2.6-lunduke image name. On older LCOS releases that still
+ship a Distro/Devuan kernel, install from the apt overlay, reboot, and
+pick 7.2.6-lunduke in GRUB (or set it once).
 
   sudo apt update
   sudo apt install lunduke-linux-kernel
 
 Apt overlay: https://lcos.lunduke.com/apt
 
-lcos15: ax88179_178a, asix, and cdc_ncm (ASIX USB Ethernet, LCOS#100);
-tun (CONFIG_TUN=m, LCOS#87); kvm, kvm-intel, and kvm-amd
-(CONFIG_KVM=m, CONFIG_KVM_INTEL=m, CONFIG_KVM_AMD=m, LCOS#103).
-CONFIG_VFIO and CONFIG_VHOST_NET stay unset.
-No Forced Rust. No firmware blob. lcos12, lcos13, and lcos14 stay frozen.
+lcos16: LCOS 0.9 hardware gap pick-list on lcos15 (USB net/WWAN/serial,
+AMD audio, Type-C, input, sensors, Wi-Fi/BT tail, Apple, Intel NPU,
+VirtualBox guest, CONFIG_VFIO=m, CONFIG_VHOST_NET=m).
+No Forced Rust. No firmware blob. No proprietary NVIDIA.
+lcos12, lcos13, lcos14, and lcos15 stay frozen.
