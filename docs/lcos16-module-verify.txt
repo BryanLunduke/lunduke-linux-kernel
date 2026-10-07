@@ -1,5 +1,18 @@
 # LLK 7.2.6-lcos16 config verification (packaged config after olddefconfig; 2026-10-07)
-# No kernel image was built. No kernel debs were built. No ISO was baked.
+#
+# BUILT 2026-10-07 2:14 PM CT from lunduke-linux-kernel master
+# 76140928c5ff521057cc70ea12e6e0a681932273 (PR #7 merge), clean linux-7.2.6
+# tree (tarball sha256 039aef84f2b0994aeda3f4fcfc3d02ec9d7a9bbb9020ea264c43f446c860f606).
+# vmlinuz: version 7.2.6-lunduke #lcos16 SMP PREEMPT_DYNAMIC Wed Oct 7 14:13:12 CDT 2026
+# modules (.ko) in the image deb: 933 (lcos12: 551)
+# Packaged /boot/config-7.2.6-lunduke matches configs/lunduke-7.2.6-lcos16.config
+# apart from toolchain probe lines. CONFIG_RUST is not enabled.
+# bdcbdb1b5db82859ba29f7186b72dc1ae37d082a9328f462686278f7b47d2992  linux-image-7.2.6-lunduke_7.2.6-lcos16_amd64.deb
+# de31fcca42fa03213c2c2ff2d6c3a62ea7b6ae8b834e60278e725949973f4511  linux-headers-7.2.6-lunduke_7.2.6-lcos16_amd64.deb
+# b9c91bfdfe3c23ed6d3c56239b544bdc3231a2bb58ea95d43fa72b5aef95cd18  lunduke-linux-kernel_7.2.6-lcos16_all.deb
+# 4d09553764250554e5ce8cdebc10f13d62971905e5abff211b9a505e3032b79a  linux-libc-dev_7.2.6-lcos16_amd64.deb
+# No ISO was baked. No apt publish.
+#
 # Values below are the saved .config.
 # olddefconfig: Linux 7.2.6, gcc-14 (Ubuntu 14.2.0-4ubuntu2~24.04.1),
 # LOCALVERSION= empty at make time, same finalize as scripts/build-lunduke-kernel.sh.
