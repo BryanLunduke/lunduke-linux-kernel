@@ -1,0 +1,243 @@
+# Lunduke Linux Kernel config delta: 7.2.6-lcos14 → 7.2.6-lcos15
+# Built 2026-10-06 — config and packaging only; no kernel debs, no ISO bake.
+#
+# Base is the lcos14 config (6487b4dc). lcos12, lcos13, and lcos14 files
+# are not edited. This file is the full lcos14 → lcos15 delta (ASIX, TUN, KVM).
+# olddefconfig: Linux 7.2.6, gcc-14, LOCALVERSION= (same finalize as the
+# build script). A second olddefconfig on the saved config kept every
+# requested module. The only line it dropped was "# CONFIG_RUST is not set",
+# which scripts/config --disable RUST appends again.
+#
+# Intentional hardware and features (modules):
+#   CONFIG_USB_NET_AX88179_178A=m
+#     LCOS issue 100. Module ax88179_178a. Vendor-class only:
+#       0b95:1790 class ff/ff/00 — ASIX AX88179
+#       0b95:178a class ff/ff/00 — ASIX AX88178A
+#   CONFIG_USB_NET_AX8817X=m
+#     Module asix. Older AX88172 / AX88772 / AX88772A / AX88772B / AX88178.
+#   CONFIG_USB_NET_CDC_NCM=m
+#     Module cdc_ncm. Linux 7.2.6 has no AX88179A/AX88772D string.
+#     Those chips share 0b95:1790 and a CDC-NCM configuration. cdc_ncm binds
+#     USB_INTERFACE_INFO(USB_CLASS_COMM, USB_CDC_SUBCLASS_NCM,
+#     USB_CDC_PROTO_NONE). usb core prefers that non-vendor config.
+#     USB_NET_CDCETHER was already m.
+#   CONFIG_TUN=m
+#     LCOS issue 87 follow-up. Module tun. Rootless podman (pasta /
+#     slirp4netns) needs /dev/net/tun. TUN selects CRC32, already y.
+#     CONFIG_TUN_VNET_CROSS_LE stays unset.
+#     MACVLAN, IPVLAN, VXLAN, DUMMY, and VLAN_8021Q stay unset.
+#   CONFIG_KVM=m, CONFIG_KVM_INTEL=m, CONFIG_KVM_AMD=m
+#     LCOS issue 103. Modules kvm, kvm-intel, kvm-amd. Intel and AMD hosts.
+#     CONFIG_VIRTUALIZATION was already y. CONFIG_KVM_GUEST stays y
+#     (guest support is separate from hosting).
+#     CONFIG_VFIO stays unset. CONFIG_VHOST_NET stays unset.
+#     No other VHOST_* host driver was enabled.
+#
+# No firmware request in the ASIX, cdc_ncm, tun, or kvm drivers.
+# No firmware blob is added.
+#
+# ASIX dependency fill (first olddefconfig):
+#   USB_NET_AX8817X selects PHYLINK=m, which selects SWPHY=y.
+#   PHYLIB, CRC32, AX88796B_PHY, NET_SELFTESTS were already set.
+#   Newly visible and left off: CONFIG_SFP.
+#
+# KVM/TUN dependency fill (second olddefconfig, on the ASIX lcos15):
+#   KVM_INTEL selects X86_FRED=y (X86_64). That drops the derived markers
+#   X86_REQUIRED_FEATURE_SYSFAST32 and X86_DISABLED_FEATURE_FRED.
+#   KVM_X86 (def_tristate of KVM once a vendor module is set) selects the
+#   HAVE_KVM_* / KVM_* internal bools, KVM_GUEST_MEMFD, VHOST_TASK,
+#   USER_RETURN_NOTIFIER, GUEST_PERF_EVENTS, PERF_GUEST_MEDIATED_PMU,
+#   PREEMPT_NOTIFIERS (via KVM_COMMON), and HAVE_KVM_IRQ_BYPASS=m which
+#   selects IRQ_BYPASS_MANAGER=m.
+#   KVM_VFIO=y is that internal bool. It is not CONFIG_VFIO. VFIO stays unset.
+#   VHOST_TASK=y is the KVM helper bool. It is not a vhost host driver.
+#   VHOST_NET and VHOST_VSOCK stay unset.
+#   Because CONFIG_WERROR=y, KVM_X86 selects KVM_WERROR=y.
+#   New symbols with default y, kept:
+#     KVM_IOAPIC, KVM_SMM, KVM_HYPERV,
+#     KVM_AMD_SEV (CRYPTO_DEV_SP_PSP was already y; selects
+#       ARCH_HAS_CC_PLATFORM and the GMEM prepare/invalidate/populate
+#       symbols, and drops X86_DISABLED_FEATURE_SEV_SNP),
+#     KVM_MAX_NR_VCPUS=1024,
+#     MITIGATION_VMSCAPE (depends on KVM, default y).
+#   Newly visible and left off (default n): CONFIG_KVM_XEN.
+#
+# Debian 7.2.6 amd64 USB Ethernet drivers that stay off are listed in
+# docs/lcos15-module-verify.txt.
+#
+# CRITICAL: # CONFIG_RUST is not set (No Forced Rust).
+# olddefconfig drops that comment when RUST_IS_AVAILABLE=n (rustc 1.83 is
+# below Linux 7.2.6's 1.85 minimum, and bindgen is absent). The snapshot
+# appends the comment again with scripts/config --disable RUST.
+# CONFIG_LOCALVERSION="-lunduke".
+#
+# Unified diff of full .config follows.
+#
+--- configs/lunduke-7.2.6-lcos14.config	2026-10-05 18:21:37.000000000 +0000
++++ configs/lunduke-7.2.6-lcos15.config	2026-10-06 17:50:29.232132181 +0000
+@@ -290,6 +290,8 @@
+ CONFIG_ARCH_HAS_MEMBARRIER_SYNC_CORE=y
+ CONFIG_ARCH_SUPPORTS_MSEAL_SYSTEM_MAPPINGS=y
+ CONFIG_HAVE_PERF_EVENTS=y
++CONFIG_GUEST_PERF_EVENTS=y
++CONFIG_PERF_GUEST_MEDIATED_PMU=y
+ 
+ #
+ # Kernel Performance Events And Counters
+@@ -357,7 +359,7 @@
+ # CONFIG_X86_POSTED_MSI is not set
+ CONFIG_X86_MPPARSE=y
+ # CONFIG_X86_CPU_RESCTRL is not set
+-# CONFIG_X86_FRED is not set
++CONFIG_X86_FRED=y
+ CONFIG_X86_EXTENDED_PLATFORM=y
+ # CONFIG_X86_NUMACHIP is not set
+ # CONFIG_X86_VSMP is not set
+@@ -550,6 +552,7 @@
+ CONFIG_MITIGATION_SSB=y
+ CONFIG_MITIGATION_ITS=y
+ CONFIG_MITIGATION_TSA=y
++CONFIG_MITIGATION_VMSCAPE=y
+ CONFIG_ARCH_HAS_ADD_PAGES=y
+ 
+ #
+@@ -712,13 +715,50 @@
+ CONFIG_COMPAT_FOR_U64_ALIGNMENT=y
+ # end of Binary Emulations
+ 
++CONFIG_KVM_COMMON=y
++CONFIG_HAVE_KVM_PFNCACHE=y
++CONFIG_HAVE_KVM_IRQCHIP=y
++CONFIG_HAVE_KVM_IRQ_ROUTING=y
++CONFIG_HAVE_KVM_DIRTY_RING=y
++CONFIG_HAVE_KVM_DIRTY_RING_TSO=y
++CONFIG_HAVE_KVM_DIRTY_RING_ACQ_REL=y
++CONFIG_KVM_MMIO=y
++CONFIG_KVM_ASYNC_PF=y
++CONFIG_HAVE_KVM_MSI=y
++CONFIG_HAVE_KVM_READONLY_MEM=y
++CONFIG_HAVE_KVM_CPU_RELAX_INTERCEPT=y
++CONFIG_KVM_VFIO=y
++CONFIG_KVM_GENERIC_DIRTYLOG_READ_PROTECT=y
++CONFIG_KVM_GENERIC_PRE_FAULT_MEMORY=y
++CONFIG_KVM_COMPAT=y
++CONFIG_HAVE_KVM_IRQ_BYPASS=m
++CONFIG_HAVE_KVM_NO_POLL=y
++CONFIG_VIRT_XFER_TO_GUEST_WORK=y
++CONFIG_HAVE_KVM_PM_NOTIFIER=y
++CONFIG_KVM_GENERIC_HARDWARE_ENABLING=y
++CONFIG_KVM_ELIDE_TLB_FLUSH_IF_YOUNG=y
++CONFIG_KVM_MMU_LOCKLESS_AGING=y
++CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES=y
++CONFIG_KVM_GUEST_MEMFD=y
++CONFIG_HAVE_KVM_ARCH_GMEM_PREPARE=y
++CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE=y
++CONFIG_HAVE_KVM_ARCH_GMEM_POPULATE=y
+ CONFIG_VIRTUALIZATION=y
+-# CONFIG_KVM is not set
++CONFIG_KVM_X86=m
++CONFIG_KVM=m
++CONFIG_KVM_WERROR=y
++CONFIG_KVM_INTEL=m
++CONFIG_KVM_AMD=m
++CONFIG_KVM_AMD_SEV=y
++CONFIG_KVM_IOAPIC=y
++CONFIG_KVM_SMM=y
++CONFIG_KVM_HYPERV=y
++# CONFIG_KVM_XEN is not set
++CONFIG_KVM_MAX_NR_VCPUS=1024
+ CONFIG_X86_REQUIRED_FEATURE_ALWAYS=y
+ CONFIG_X86_REQUIRED_FEATURE_NOPL=y
+ CONFIG_X86_REQUIRED_FEATURE_CX8=y
+ CONFIG_X86_REQUIRED_FEATURE_CMOV=y
+-CONFIG_X86_REQUIRED_FEATURE_SYSFAST32=y
+ CONFIG_X86_REQUIRED_FEATURE_CPUID=y
+ CONFIG_X86_REQUIRED_FEATURE_FPU=y
+ CONFIG_X86_REQUIRED_FEATURE_PAE=y
+@@ -739,8 +779,6 @@
+ CONFIG_X86_DISABLED_FEATURE_XENPV=y
+ CONFIG_X86_DISABLED_FEATURE_TDX_GUEST=y
+ CONFIG_X86_DISABLED_FEATURE_USER_SHSTK=y
+-CONFIG_X86_DISABLED_FEATURE_FRED=y
+-CONFIG_X86_DISABLED_FEATURE_SEV_SNP=y
+ CONFIG_AS_WRUSS=y
+ CONFIG_ARCH_CONFIGURES_CPU_MITIGATIONS=y
+ 
+@@ -772,6 +810,7 @@
+ CONFIG_ARCH_USE_BUILTIN_BSWAP=y
+ CONFIG_KRETPROBES=y
+ CONFIG_KRETPROBE_ON_RETHOOK=y
++CONFIG_USER_RETURN_NOTIFIER=y
+ CONFIG_HAVE_IOREMAP_PROT=y
+ CONFIG_HAVE_KPROBES=y
+ CONFIG_HAVE_KRETPROBES=y
+@@ -892,6 +931,7 @@
+ CONFIG_ARCH_USE_MEMREMAP_PROT=y
+ # CONFIG_LOCK_EVENT_COUNTS is not set
+ CONFIG_ARCH_HAS_MEM_ENCRYPT=y
++CONFIG_ARCH_HAS_CC_PLATFORM=y
+ CONFIG_HAVE_STATIC_CALL=y
+ CONFIG_HAVE_STATIC_CALL_INLINE=y
+ CONFIG_HAVE_PREEMPT_DYNAMIC=y
+@@ -980,6 +1020,7 @@
+ # CONFIG_IOSCHED_BFQ is not set
+ # end of IO Schedulers
+ 
++CONFIG_PREEMPT_NOTIFIERS=y
+ CONFIG_PADATA=y
+ CONFIG_ASN1=y
+ CONFIG_UNINLINE_SPIN_UNLOCK=y
+@@ -2357,7 +2398,7 @@
+ # CONFIG_NETCONSOLE_EXTENDED_LOG is not set
+ CONFIG_NETPOLL=y
+ CONFIG_NET_POLL_CONTROLLER=y
+-# CONFIG_TUN is not set
++CONFIG_TUN=m
+ # CONFIG_TUN_VNET_CROSS_LE is not set
+ CONFIG_VETH=m
+ CONFIG_VIRTIO_NET=y
+@@ -2596,10 +2637,13 @@
+ CONFIG_NET_VENDOR_XIRCOM=y
+ # CONFIG_PCMCIA_XIRC2PS is not set
+ # CONFIG_FDDI is not set
++CONFIG_PHYLINK=m
+ CONFIG_PHYLIB=y
++CONFIG_SWPHY=y
+ CONFIG_PHY_PACKAGE=y
+ # CONFIG_LED_TRIGGER_PHY is not set
+ # CONFIG_FIXED_PHY is not set
++# CONFIG_SFP is not set
+ 
+ #
+ # MII PHY device drivers
+@@ -2691,11 +2735,11 @@
+ CONFIG_USB_RTL8152=m
+ # CONFIG_USB_LAN78XX is not set
+ CONFIG_USB_USBNET=m
+-# CONFIG_USB_NET_AX8817X is not set
+-# CONFIG_USB_NET_AX88179_178A is not set
++CONFIG_USB_NET_AX8817X=m
++CONFIG_USB_NET_AX88179_178A=m
+ CONFIG_USB_NET_CDCETHER=m
+ # CONFIG_USB_NET_CDC_EEM is not set
+-# CONFIG_USB_NET_CDC_NCM is not set
++CONFIG_USB_NET_CDC_NCM=m
+ # CONFIG_USB_NET_HUAWEI_CDC_NCM is not set
+ # CONFIG_USB_NET_CDC_MBIM is not set
+ # CONFIG_USB_NET_DM9601 is not set
+@@ -6128,6 +6172,7 @@
+ 
+ # CONFIG_UIO is not set
+ # CONFIG_VFIO is not set
++CONFIG_IRQ_BYPASS_MANAGER=m
+ # CONFIG_VIRT_DRIVERS is not set
+ CONFIG_TSM=y
+ CONFIG_VIRTIO_ANCHOR=y
+@@ -6146,6 +6191,7 @@
+ # CONFIG_VIRTIO_DEBUG is not set
+ # CONFIG_VIRTIO_RTC is not set
+ # CONFIG_VDPA is not set
++CONFIG_VHOST_TASK=y
+ CONFIG_VHOST_MENU=y
+ # CONFIG_VHOST_NET is not set
+ # CONFIG_VHOST_VSOCK is not set
