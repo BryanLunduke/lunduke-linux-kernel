@@ -1,0 +1,84 @@
+# Lunduke Linux Kernel config delta: 7.2.6-lcos16 → 7.2.6-lcos17
+# 2026-10-08 CT — config, packaging, and box build (debs not committed).
+#
+# Base is the merged lcos16 config (PR #7, 76140928; build docs PR #8,
+# 57c39e8d). lcos12 through lcos16 files are not edited. This file is the
+# full lcos16 → lcos17 delta.
+# olddefconfig: Linux 7.2.6, gcc 14.2.0 (Debian 14.2.0-19), LOCALVERSION=
+# empty at make time (same finalize as scripts/build-lunduke-kernel.sh).
+# A second olddefconfig kept every requested symbol; the only line it
+# dropped was "# CONFIG_RUST is not set", which scripts/config --disable
+# RUST appends again. Toolchain probe lines (CC/AS/LD/pahole/rustc and
+# OPENSSL_SUPPORTS_ML_DSA) are kept at the lcos16 file's values; the build
+# re-probes them. The built /boot/config differs from lcos16's built config
+# only in the lines below.
+#
+# Intentional (LCOS issue 111, "mount a CIFS share from my NAS"):
+#   CONFIG_CIFS=m
+#     Module cifs. SMB2.1 / SMB3 / SMB3.1.1 client (Windows, Samba, NAS,
+#     macOS, ksmbd servers). Userland: cifs-utils (mount.cifs, mount.smb3)
+#     in the LCOS recipe.
+#   CONFIG_CIFS_XATTR=y
+#     user.* extended attributes over SMB.
+#
+# Kconfig defaults that came with CIFS (default y, not changed):
+#   CONFIG_CIFS_STATS2=y, CONFIG_CIFS_DEBUG=y
+# Selected by CIFS:
+#   CONFIG_SMBFS=m (fs/smb/common), CONFIG_NLS_UCS2_UTILS=m
+# Already on in lcos16 (CIFS selects; no change):
+#   NLS, CRYPTO, CRYPTO_AEAD2, CRYPTO_CCM, CRYPTO_GCM, CRYPTO_AES,
+#   CRYPTO_LIB_AES_CBC_MACS, CRYPTO_LIB_ARC4, CRYPTO_LIB_MD5,
+#   CRYPTO_LIB_SHA256, CRYPTO_LIB_SHA512, KEYS, DNS_RESOLVER, ASN1,
+#   OID_REGISTRY, NETFS_SUPPORT (all =y in lcos16).
+#
+# Explicitly off:
+#   # CONFIG_CIFS_ALLOW_INSECURE_LEGACY is not set
+#     Kconfig default is y. Off = no vers=1.0 (SMB1/CIFS) or vers=2.0.
+#     Not needed to build cifs.ko.
+#   CONFIG_CIFS_POSIX — not set. Linux 7.2.6 makes it depend on
+#     CIFS_ALLOW_INSECURE_LEGACY (it is the SMB1 Unix-extensions path).
+#     SMB3.1.1 POSIX extensions (mount -o posix) do not need it.
+#   # CONFIG_SMB_SERVER is not set (ksmbd)
+#   CONFIG_CIFS_SMB_DIRECT — not set (needs INFINIBAND, which is off).
+#   # CONFIG_CIFS_UPCALL is not set (Kerberos/SPNEGO)
+#   # CONFIG_CIFS_DFS_UPCALL is not set (DFS namespaces)
+#   # CONFIG_CIFS_SWN_UPCALL is not set, # CONFIG_CIFS_COMPRESSION is not set
+#   # CONFIG_CIFS_DEBUG2 / CIFS_DEBUG_DUMP_KEYS are not set
+#   CIFS_FSCACHE, CIFS_ROOT, SMB_KUNIT_TESTS — not set (deps off).
+#
+# CRITICAL: # CONFIG_RUST is not set (No Forced Rust).
+# CONFIG_LOCALVERSION="-lunduke". No vmwgfx cursor patch (none in tree).
+#
+# Unified diff of full .config follows.
+#
+--- configs/lunduke-7.2.6-lcos16.config	2026-10-07 13:56:29.986510662 -0500
++++ configs/lunduke-7.2.6-lcos17.config	2026-10-08 12:13:11.267577046 -0500
+@@ -7657,8 +7657,19 @@
+ CONFIG_RPCSEC_GSS_KRB5=y
+ # CONFIG_SUNRPC_DEBUG is not set
+ # CONFIG_CEPH_FS is not set
+-# CONFIG_CIFS is not set
++CONFIG_CIFS=m
++CONFIG_CIFS_STATS2=y
++# CONFIG_CIFS_ALLOW_INSECURE_LEGACY is not set
++# CONFIG_CIFS_UPCALL is not set
++CONFIG_CIFS_XATTR=y
++CONFIG_CIFS_DEBUG=y
++# CONFIG_CIFS_DEBUG2 is not set
++# CONFIG_CIFS_DEBUG_DUMP_KEYS is not set
++# CONFIG_CIFS_DFS_UPCALL is not set
++# CONFIG_CIFS_SWN_UPCALL is not set
++# CONFIG_CIFS_COMPRESSION is not set
+ # CONFIG_SMB_SERVER is not set
++CONFIG_SMBFS=m
+ # CONFIG_CODA_FS is not set
+ # CONFIG_AFS_FS is not set
+ CONFIG_9P_FS=y
+@@ -7715,6 +7726,7 @@
+ # CONFIG_NLS_MAC_ROMANIAN is not set
+ # CONFIG_NLS_MAC_TURKISH is not set
+ CONFIG_NLS_UTF8=y
++CONFIG_NLS_UCS2_UTILS=m
+ # CONFIG_UNICODE is not set
+ CONFIG_IO_WQ=y
+ # end of File systems

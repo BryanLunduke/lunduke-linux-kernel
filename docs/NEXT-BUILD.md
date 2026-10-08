@@ -2,36 +2,35 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos16` |
-| Config | `configs/lunduke-7.2.6-lcos16.config` |
-| Why | LCOS 0.9 hardware gap pick-list (items 1–53) on frozen lcos15 |
-| Delta | `docs/config-lcos15-to-lcos16.diff` |
-| Verify | `docs/lcos16-module-verify.txt` |
-| Base | lcos15 (`configs/lunduke-7.2.6-lcos15.config`, merge 2192009) |
-| Built | 2026-10-07 2:14 PM CT from master `76140928` (PR #7 merge) |
+| Version | `7.2.6-lcos17` |
+| Config | `configs/lunduke-7.2.6-lcos17.config` |
+| Why | SMB2/SMB3 (CIFS) client for NAS / Windows / Samba shares (LCOS#111) on frozen lcos16 |
+| Delta | `docs/config-lcos16-to-lcos17.diff` |
+| Verify | `docs/lcos17-module-verify.txt` |
+| Base | lcos16 (`configs/lunduke-7.2.6-lcos16.config`, merge 76140928; build docs 57c39e8d) |
 
-**lcos16 enables the hardware gap pick-list on lcos15.** USB Ethernet and tethering (CDC-MBIM, CDC-EEM, LAN78xx, SMSC95xx/75xx, QMI, Huawei CDC-NCM), AMD pinctrl/GPIO and SOF/ACP audio (Renoir through ACP70, HDA CS35L41/CS35L56/TAS2781 scodecs), Type-C TCPCI/TPS6598x/FUSB302/ANX7411/RT1719/CCGx and the named muxes, Wacom/Elan/Goodix/maXTouch/RMI4, Intel ISH and HID sensors, WWAN (MHI PCI generic, IOSM, t7xx) plus USB serial and ACM, the MT76/rtw88/rtw89 USB and older Wi-Fi/BT tail, Apple backlight/gmux/Cinema Display/MFi/IR, Intel NPU (`DRM_ACCEL_IVPU`) and AMD ACP/ISP, VirtualBox guest (`VBOXGUEST`, `VBOXSF_FS`), `VFIO=m` and `VHOST_NET=m`, and the named laptop WMI, MEI, NVMe hwmon, and NFC options. lcos15's ASIX, CDC-NCM, TUN, and KVM modules stay on. `SND_AMD_ASOC_ACP7X` and `VBOXSF` do not exist on Linux 7.2.6. Proprietary NVIDIA is not added. No Forced Rust (`# CONFIG_RUST is not set`). `CONFIG_LOCALVERSION="-lunduke"`. lcos12, lcos13, lcos14, and lcos15 stay frozen. No ISO bake and no apt publish from the builder.
+**lcos17 adds the SMB client on lcos16.** `CONFIG_CIFS=m` and `CONFIG_CIFS_XATTR=y`; Kconfig defaults `CIFS_STATS2=y` and `CIFS_DEBUG=y`; selected `SMBFS=m` and `NLS_UCS2_UTILS=m`. Every other CIFS select (keys, DNS resolver, ASN.1, netfs, AES/CCM/GCM, MD5/ARC4/SHA libs) was already on in lcos16. `CIFS_ALLOW_INSECURE_LEGACY` (SMB1 and SMB2.0 dialects) is explicitly off, so `CIFS_POSIX` (which depends on it in 7.2.6) stays off; SMB3.1.1 POSIX extensions do not need it. `SMB_SERVER` (ksmbd), `CIFS_SMB_DIRECT`, `CIFS_UPCALL`, `CIFS_DFS_UPCALL`, and `CIFS_SWN_UPCALL` stay off. Userland is `cifs-utils` (+ `keyutils`) in the LCOS 0.9 recipe. No other option changed. Proprietary NVIDIA is not added. No Forced Rust (`# CONFIG_RUST is not set`). `CONFIG_LOCALVERSION="-lunduke"`. No VirtualBox vmwgfx cursor patch. lcos12 through lcos16 stay frozen. No ISO bake and no apt publish from the builder.
 
-## Build (2026-10-07)
+## Build (2026-10-08)
 
-lcos16 was built on the LCOS builder from this repo's `master` at
-`76140928c5ff521057cc70ea12e6e0a681932273` (PR #7 merge) with
-`scripts/build-lunduke-kernel.sh` and `scripts/build-metapackage.sh`.
-`configs/lunduke-7.2.6-lcos16.config` was used unchanged.
+lcos17 was built on the LCOS builder from branch `cursor/lcos17-cifs-client-111`
+at `1d5dad8` (config commit) with `scripts/build-lunduke-kernel.sh` and
+`scripts/build-metapackage.sh`, the same method as lcos16.
+`configs/lunduke-7.2.6-lcos17.config` was used unchanged.
 
-- Upstream: `linux-7.2.6.tar.xz`, sha256 `039aef84f2b0994aeda3f4fcfc3d02ec9d7a9bbb9020ea264c43f446c860f606` (matches kernel.org), clean tree, `JOBS=6`
-- Build window: 2026-10-07 1:59 PM to 2:14 PM CT (exit 0)
-- `uname -r`: `7.2.6-lunduke`, build string `#lcos16 SMP PREEMPT_DYNAMIC Wed Oct 7 14:13:12 CDT 2026`
-- Modules: **933** `.ko` in the image deb (lcos12 shipped 551)
-- Packaged `/boot/config-7.2.6-lunduke` matches `configs/lunduke-7.2.6-lcos16.config` apart from toolchain probe lines. `CONFIG_RUST` is not enabled.
+- Upstream: `linux-7.2.6.tar.xz`, sha256 `039aef84f2b0994aeda3f4fcfc3d02ec9d7a9bbb9020ea264c43f446c860f606` (matches kernel.org), fresh clean tree, `JOBS=4`
+- Build window: 2026-10-08 12:13 PM to 12:40 PM CT (bindeb-pkg completed)
+- `uname -r`: `7.2.6-lunduke`, build string `#lcos17 SMP PREEMPT_DYNAMIC Thu Oct 8 12:38:26 CDT 2026`
+- Modules: **937** `.ko` in the image deb (lcos16: 933). The 4 new ones: `fs/smb/client/cifs.ko`, `fs/smb/common/cifs_md4.ko`, `fs/smb/common/smb_compress.ko`, `fs/nls/nls_ucs2_utils.ko`. No module was removed.
+- `vermagic`: `7.2.6-lunduke SMP preempt mod_unload` (same as lcos16). `depmod -e` against the shipped System.map: no unresolved symbols.
+- Packaged `/boot/config-7.2.6-lunduke` differs from the lcos16 packaged config only in the CIFS/SMBFS/NLS_UCS2_UTILS lines of `docs/config-lcos16-to-lcos17.diff`. `CONFIG_RUST` is not enabled.
 
-| Deb | Version | SHA256 |
-|-----|---------|--------|
-| `linux-image-7.2.6-lunduke_7.2.6-lcos16_amd64.deb` | 7.2.6-lcos16 | `bdcbdb1b5db82859ba29f7186b72dc1ae37d082a9328f462686278f7b47d2992` |
-| `linux-headers-7.2.6-lunduke_7.2.6-lcos16_amd64.deb` | 7.2.6-lcos16 | `de31fcca42fa03213c2c2ff2d6c3a62ea7b6ae8b834e60278e725949973f4511` |
-| `lunduke-linux-kernel_7.2.6-lcos16_all.deb` | 7.2.6-lcos16 | `b9c91bfdfe3c23ed6d3c56239b544bdc3231a2bb58ea95d43fa72b5aef95cd18` |
-| `linux-libc-dev_7.2.6-lcos16_amd64.deb` (not seeded) | 7.2.6-lcos16 | `4d09553764250554e5ce8cdebc10f13d62971905e5abff211b9a505e3032b79a` |
+| Deb | Version | Bytes | SHA256 |
+|-----|---------|-------|--------|
+| `linux-image-7.2.6-lunduke_7.2.6-lcos17_amd64.deb` | 7.2.6-lcos17 | 37173884 | `d663a8af0f405901203214ed923ed7cb9ca4942fda0ea0bb6417c8a21b556292` |
+| `linux-headers-7.2.6-lunduke_7.2.6-lcos17_amd64.deb` | 7.2.6-lcos17 | 9839932 | `99f6f1639bfb5d98554625a90ada40ca70d61c7e6d7b049947bd9e611568ca3a` |
+| `lunduke-linux-kernel_7.2.6-lcos17_all.deb` | 7.2.6-lcos17 | 2192 | `f76621c0cd41eab053ec85c10aacb1752e361d32154279716ed3dbcc86359870` |
+| `linux-libc-dev_7.2.6-lcos17_amd64.deb` (not seeded) | 7.2.6-lcos17 | 1506152 | `dd0262bc0910a1e66afa72d01ea4fca2cd4cc38e6529fe9e0e61be0d97eed9c8` |
 
-The image, headers, and metapackage debs are seeded in the LCOS 0.9 live-build
-recipe (`BryanLunduke/lcos-live`, `config/packages.chroot/`), replacing lcos12.
-Debs are not committed to this repo.
+The debs are **not** seeded into the LCOS 0.9 live-build recipe yet; that waits
+for the editor to merge this PR. Debs are not committed to this repo.

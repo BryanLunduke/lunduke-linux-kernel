@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos16** |
+| Package version | **7.2.6-lcos17** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos16.config` — current Kconfig (lcos15 + LCOS 0.9 hardware gap pick-list; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos17.config` — current Kconfig (lcos16 + SMB2/SMB3 client `CONFIG_CIFS=m`, LCOS#111; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos16.config` — frozen lcos16 (LCOS 0.9 hardware gap pick-list; shipped on lcos-live-09-02/09-03 test ISOs)
 - `configs/lunduke-7.2.6-lcos15.config` — frozen lcos15 (ASIX USB Ethernet, TUN, and KVM host)
 - `configs/lunduke-7.2.6-lcos14.config` — frozen lcos14 (snd-intel8x0 and mt76x0e)
 - `configs/lunduke-7.2.6-lcos13.config` — frozen lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys)
@@ -67,7 +68,7 @@ On a 16G RAM builder, keep `JOBS=3` (default) to avoid OOM.
 
 - **LCOS 0.7+:** default (and only) ISO kernel
 - **LCOS 0.6 and earlier:** Distro/Devuan kernel on the ISO; LLK optional via apt overlay
-- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle) → lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys) → lcos14 (snd-intel8x0 for 8086:2415, LCOS#94; mt76x0e for 14c3:7630, LCOS#95) → lcos15 (ASIX AX88179/AX88178A, AX8817X, and CDC NCM, LCOS#100; TUN for rootless podman, LCOS#87; KVM Intel/AMD host, LCOS#103) → lcos16 (LCOS 0.9 hardware gap pick-list: USB net/WWAN/serial, AMD audio, Type-C, input, sensors, Wi-Fi/BT tail, Apple, NPU, VFIO, vhost-net)
+- Config history: lcos4 (DRM) → lcos5 (netfilter/iptables) → lcos6 (uinput) → lcos7 (audio/Wi-Fi/BT/UVC/HID/2.5GbE) → lcos8 (RTL8187/RTL8187B, LCOS#81) → lcos9 (ISO-only: quieter boot, VMware SCSI, B43 SoftMAC) → lcos10 (VMMOUSE) → lcos11 (12 HW gaps: USB4/Type-C, Hyper-V, UAS, laptop WMI, Apple HID, virtio extras, TPM, BRCMSMAC, MWIFIEX) → lcos12 (user namespaces, veth, bridge, BPF, memcg, CFS bandwidth, blk throttle) → lcos13 (laptop buses, SOF/ACP machines, USB Ethernet, hwmon/idle, in-tree Surface, vendor hotkeys) → lcos14 (snd-intel8x0 for 8086:2415, LCOS#94; mt76x0e for 14c3:7630, LCOS#95) → lcos15 (ASIX AX88179/AX88178A, AX8817X, and CDC NCM, LCOS#100; TUN for rootless podman, LCOS#87; KVM Intel/AMD host, LCOS#103) → lcos16 (LCOS 0.9 hardware gap pick-list: USB net/WWAN/serial, AMD audio, Type-C, input, sensors, Wi-Fi/BT tail, Apple, NPU, VFIO, vhost-net) → lcos17 (SMB2/SMB3 client: CIFS=m, CIFS_XATTR=y, LCOS#111; SMB1 legacy and ksmbd off)
 
 ## License
 
@@ -77,4 +78,4 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos16** — lcos15 + the LCOS 0.9 hardware gap pick-list (USB net/WWAN/serial, AMD pinctrl and SOF/ACP audio, Type-C controllers, tablets and touchscreens, Intel ISH, Wi-Fi/BT long-tail, Apple backlight/gmux, Intel NPU, VirtualBox guest, `VFIO=m`, `VHOST_NET=m`, and the named laptop WMI/MEI/NFC options). `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12, lcos13, lcos14, and lcos15 stay frozen. No kernel debs were built. See `docs/NEXT-BUILD.md`, `docs/config-lcos15-to-lcos16.diff`, and `docs/lcos16-module-verify.txt`. ISO seeding and apt publish are separate editor greenlights.
+**7.2.6-lcos17** — lcos16 + the SMB2/SMB3 network file system client (`CONFIG_CIFS=m`, `CONFIG_CIFS_XATTR=y`, LCOS#111) so NAS/Windows/Samba shares mount with `cifs-utils`. `CIFS_ALLOW_INSECURE_LEGACY` (SMB1/SMB2.0), `CIFS_POSIX` (depends on it), `CIFS_SMB_DIRECT`, and `SMB_SERVER` (ksmbd) stay off. `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12 through lcos16 stay frozen. Debs built on the LCOS builder from this branch (not committed). See `docs/NEXT-BUILD.md`, `docs/config-lcos16-to-lcos17.diff`, and `docs/lcos17-module-verify.txt`. ISO seeding and apt publish are separate editor greenlights.
