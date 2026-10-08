@@ -1,0 +1,71 @@
+# LLK 7.2.6-lcos17 config verification (packaged config after olddefconfig; 2026-10-08)
+#
+# BUILT 2026-10-08 12:40 PM CT from lunduke-linux-kernel branch
+# cursor/lcos17-cifs-client-111 @ 1d5dad8, fresh clean linux-7.2.6 tree
+# (tarball sha256 039aef84f2b0994aeda3f4fcfc3d02ec9d7a9bbb9020ea264c43f446c860f606).
+# vmlinuz: version 7.2.6-lunduke #lcos17 SMP PREEMPT_DYNAMIC Thu Oct 8 12:38:26 CDT 2026
+# modules (.ko) in the image deb: 937 (lcos16: 933; +cifs, cifs_md4, smb_compress, nls_ucs2_utils)
+# vermagic: 7.2.6-lunduke SMP preempt mod_unload
+# depmod -e -F System.map: no unresolved symbols. cifs depends: cifs_md4,nls_ucs2_utils
+# Packaged /boot/config-7.2.6-lunduke vs lcos16 packaged config: only the lines below differ.
+# d663a8af0f405901203214ed923ed7cb9ca4942fda0ea0bb6417c8a21b556292  linux-image-7.2.6-lunduke_7.2.6-lcos17_amd64.deb
+# 99f6f1639bfb5d98554625a90ada40ca70d61c7e6d7b049947bd9e611568ca3a  linux-headers-7.2.6-lunduke_7.2.6-lcos17_amd64.deb
+# f76621c0cd41eab053ec85c10aacb1752e361d32154279716ed3dbcc86359870  lunduke-linux-kernel_7.2.6-lcos17_all.deb
+# dd0262bc0910a1e66afa72d01ea4fca2cd4cc38e6529fe9e0e61be0d97eed9c8  linux-libc-dev_7.2.6-lcos17_amd64.deb
+# No ISO was baked. No apt publish. Not seeded into lcos-live (waits for merge).
+#
+# Values below are from the packaged /boot/config-7.2.6-lunduke.
+
+## Policy
+CONFIG_LOCALVERSION="-lunduke"
+# CONFIG_RUST: not enabled (no CONFIG_RUST=y; the repo config carries "# CONFIG_RUST is not set")
+CONFIG_DRM_NOUVEAU=m
+
+## lcos17 (LCOS#111)
+CONFIG_CIFS=m
+CONFIG_CIFS_STATS2=y
+# CONFIG_CIFS_ALLOW_INSECURE_LEGACY is not set
+# CONFIG_CIFS_UPCALL is not set
+CONFIG_CIFS_XATTR=y
+CONFIG_CIFS_DEBUG=y
+# CONFIG_CIFS_DEBUG2 is not set
+# CONFIG_CIFS_DEBUG_DUMP_KEYS is not set
+# CONFIG_CIFS_DFS_UPCALL is not set
+# CONFIG_CIFS_SWN_UPCALL is not set
+# CONFIG_CIFS_COMPRESSION is not set
+# CONFIG_SMB_SERVER is not set
+CONFIG_SMBFS=m
+CONFIG_NLS_UCS2_UTILS=m
+# CONFIG_CIFS_POSIX: absent (depends on CIFS_ALLOW_INSECURE_LEGACY)
+# CONFIG_CIFS_SMB_DIRECT: absent (needs INFINIBAND, off)
+
+## CIFS selects (already on in lcos16)
+CONFIG_NLS=y
+CONFIG_CRYPTO=y
+CONFIG_CRYPTO_AEAD2=y
+CONFIG_CRYPTO_CCM=y
+CONFIG_CRYPTO_GCM=y
+CONFIG_CRYPTO_AES=y
+CONFIG_CRYPTO_LIB_AES_CBC_MACS=y
+CONFIG_CRYPTO_LIB_ARC4=y
+CONFIG_CRYPTO_LIB_MD5=y
+CONFIG_CRYPTO_LIB_SHA256=y
+CONFIG_CRYPTO_LIB_SHA512=y
+CONFIG_KEYS=y
+CONFIG_DNS_RESOLVER=y
+CONFIG_ASN1=y
+CONFIG_OID_REGISTRY=y
+CONFIG_NETFS_SUPPORT=y
+
+## Prior picks still on (spot check)
+CONFIG_MT76x0E=m
+CONFIG_SND_INTEL8X0=m
+CONFIG_USB_NET_AX88179_178A=m
+CONFIG_TUN=m
+CONFIG_KVM_INTEL=m
+CONFIG_KVM_AMD=m
+CONFIG_VFIO=m
+CONFIG_VHOST_NET=m
+CONFIG_MOUSE_PS2_VMMOUSE=y
+CONFIG_DRM_VMWGFX=y
+CONFIG_VBOXGUEST=m
