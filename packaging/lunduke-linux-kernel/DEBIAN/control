@@ -1,28 +1,28 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos16
+Version: 7.2.6-lcos17
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos16)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos16)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos17)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos17)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos16).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos17).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
  .
- lcos16 adds the LCOS 0.9 hardware gap pick-list on frozen lcos15:
- USB net/WWAN/serial, AMD pinctrl and SOF/ACP audio, Type-C
- controllers, tablets and touchscreens, Intel ISH, Wi-Fi/BT
- long-tail, Apple backlight/gmux, Intel NPU, VirtualBox guest,
- VFIO, and vhost_net. Rust left off (No Forced Rust). No firmware
- blob is included. Proprietary NVIDIA is not included.
+ lcos17 adds the SMB2/SMB3 network file system client on frozen
+ lcos16: cifs (CONFIG_CIFS=m, CONFIG_CIFS_XATTR=y, LCOS#111), so
+ Windows, Samba, and NAS shares mount with cifs-utils. SMB1 legacy
+ dialects (CIFS_ALLOW_INSECURE_LEGACY), SMB Direct, and the ksmbd
+ server stay off. Rust left off (No Forced Rust). No firmware blob is
+ included. Proprietary NVIDIA is not included.
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
- lcos13, lcos14, and lcos15 stay frozen. This package is the lcos16
- revision of the same linux-image-7.2.6-lunduke name. On earlier LCOS
- releases that still ship a Distro kernel, installing this metapackage
- adds a GRUB entry alongside it.
+ lcos13, lcos14, lcos15, and lcos16 stay frozen. This package is the
+ lcos17 revision of the same linux-image-7.2.6-lunduke name. On earlier
+ LCOS releases that still ship a Distro kernel, installing this
+ metapackage adds a GRUB entry alongside it.
