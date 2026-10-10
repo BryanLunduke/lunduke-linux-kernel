@@ -1,0 +1,59 @@
+# LLK 7.2.6-lcos18 module verification (2026-10-09)
+# modules: 946 (lcos17: 937). Added:
+# +/lib/modules/7.2.6-lunduke/kernel/arch/x86/crypto/aesni-intel.ko
+# +/lib/modules/7.2.6-lunduke/kernel/crypto/af_alg.ko
+# +/lib/modules/7.2.6-lunduke/kernel/crypto/algif_hash.ko
+# +/lib/modules/7.2.6-lunduke/kernel/crypto/algif_skcipher.ko
+# +/lib/modules/7.2.6-lunduke/kernel/crypto/essiv.ko
+# +/lib/modules/7.2.6-lunduke/kernel/crypto/xts.ko
+# +/lib/modules/7.2.6-lunduke/kernel/drivers/hid/uhid.ko
+# +/lib/modules/7.2.6-lunduke/kernel/drivers/md/dm-crypt.ko
+# +/lib/modules/7.2.6-lunduke/kernel/lib/crypto/gf128mul.ko
+# Packaged /boot/config-7.2.6-lunduke vs lcos17 packaged config (toolchain lines excluded):
+< # CONFIG_DM_CRYPT is not set
+> CONFIG_DM_CRYPT=m
+< # CONFIG_RMI4_F11 is not set
+> CONFIG_RMI4_F11=y
+< # CONFIG_RMI4_F3A is not set
+> CONFIG_RMI4_F3A=y
+< # CONFIG_UHID is not set
+> CONFIG_UHID=m
+> # CONFIG_CRYPTO_ANUBIS is not set
+> # CONFIG_CRYPTO_KHAZAD is not set
+> # CONFIG_CRYPTO_SEED is not set
+> # CONFIG_CRYPTO_TEA is not set
+> # CONFIG_CRYPTO_ARC4 is not set
+< # CONFIG_CRYPTO_XTS is not set
+> CONFIG_CRYPTO_XTS=m
+< # CONFIG_CRYPTO_ESSIV is not set
+> CONFIG_CRYPTO_ESSIV=m
+< # CONFIG_CRYPTO_USER_API_HASH is not set
+< # CONFIG_CRYPTO_USER_API_SKCIPHER is not set
+> CONFIG_CRYPTO_USER_API=m
+> CONFIG_CRYPTO_USER_API_HASH=m
+> CONFIG_CRYPTO_USER_API_SKCIPHER=m
+> CONFIG_CRYPTO_USER_API_ENABLE_OBSOLETE=y
+< # CONFIG_CRYPTO_AES_NI_INTEL is not set
+> CONFIG_CRYPTO_AES_NI_INTEL=m
+> CONFIG_CRYPTO_LIB_GF128MUL=m
+# QEMU test log:
+# c[?7l[2J=== uname: Linux (none) 7.2.6-lunduke #lcos18 SMP PREEMPT_DYNAMIC Fri Oct  9 19:50:55 CDT 2026 x86_64 GNU/Linux
+# MODPROBE OK dm_crypt
+# MODPROBE OK xts
+# MODPROBE OK essiv
+# MODPROBE OK aesni_intel
+# MODPROBE OK algif_skcipher
+# MODPROBE OK algif_hash
+# MODPROBE OK uhid
+# MODPROBE OK rmi_core
+# UHID node OK
+# [    7.414998] operation not supported error, dev loop0, sector 0 op 0x9:(WRITE_ZEROES) flags 0x10800800 phys_seg 0 prio class 2
+# LUKS1 FORMAT OK
+# LUKS1 OPEN OK
+# WRITE OK
+#   type:    LUKS1
+#   cipher:  aes-xts-plain64
+# LUKS2 OPEN OK
+#     aes-xts        512b       117.4 MiB/s       117.8 MiB/s
+# algif_skcipher         12288  0 
+# af_alg                 20480  2 algif_hash,algif_skcipher

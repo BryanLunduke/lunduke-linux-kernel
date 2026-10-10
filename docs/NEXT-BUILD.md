@@ -2,35 +2,30 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos17` |
-| Config | `configs/lunduke-7.2.6-lcos17.config` |
-| Why | SMB2/SMB3 (CIFS) client for NAS / Windows / Samba shares (LCOS#111) on frozen lcos16 |
-| Delta | `docs/config-lcos16-to-lcos17.diff` |
-| Verify | `docs/lcos17-module-verify.txt` |
-| Base | lcos16 (`configs/lunduke-7.2.6-lcos16.config`, merge 76140928; build docs 57c39e8d) |
+| Version | `7.2.6-lcos18` |
+| Config | `configs/lunduke-7.2.6-lcos18.config` |
+| Why | LUKS disk encryption (LCOS#123), Bluetooth LE HID (LCOS#120), RMI4 touchpads (LCOS#121) on frozen lcos17 |
+| Delta | `docs/config-lcos17-to-lcos18.diff` |
+| Verify | `docs/lcos18-module-verify.txt` |
+| Base | lcos17 (`configs/lunduke-7.2.6-lcos17.config`, merge c4059c6e) |
 
-**lcos17 adds the SMB client on lcos16.** `CONFIG_CIFS=m` and `CONFIG_CIFS_XATTR=y`; Kconfig defaults `CIFS_STATS2=y` and `CIFS_DEBUG=y`; selected `SMBFS=m` and `NLS_UCS2_UTILS=m`. Every other CIFS select (keys, DNS resolver, ASN.1, netfs, AES/CCM/GCM, MD5/ARC4/SHA libs) was already on in lcos16. `CIFS_ALLOW_INSECURE_LEGACY` (SMB1 and SMB2.0 dialects) is explicitly off, so `CIFS_POSIX` (which depends on it in 7.2.6) stays off; SMB3.1.1 POSIX extensions do not need it. `SMB_SERVER` (ksmbd), `CIFS_SMB_DIRECT`, `CIFS_UPCALL`, `CIFS_DFS_UPCALL`, and `CIFS_SWN_UPCALL` stay off. Userland is `cifs-utils` (+ `keyutils`) in the LCOS 0.9 recipe. No other option changed. Proprietary NVIDIA is not added. No Forced Rust (`# CONFIG_RUST is not set`). `CONFIG_LOCALVERSION="-lunduke"`. No VirtualBox vmwgfx cursor patch. lcos12 through lcos16 stay frozen. No ISO bake and no apt publish from the builder.
+**lcos18 on lcos17.** Requested: `CONFIG_DM_CRYPT=m`, `CONFIG_CRYPTO_XTS=m`, `CONFIG_CRYPTO_ESSIV=m`, `CONFIG_CRYPTO_AES_NI_INTEL=m`, `CONFIG_CRYPTO_USER_API_SKCIPHER=m`, `CONFIG_CRYPTO_USER_API_HASH=m` (LCOS#123); `CONFIG_UHID=m` (LCOS#120); `CONFIG_RMI4_F11=y`, `CONFIG_RMI4_F3A=y` (LCOS#121). Filled by olddefconfig: `CRYPTO_USER_API=m` and `CRYPTO_LIB_GF128MUL=m` (selected), `CRYPTO_USER_API_ENABLE_OBSOLETE=y` (Kconfig default; the obsolete ciphers it exposes all stay unset). `BLK_DEV_DM=y`, `CRYPTO_AES/CBC/ECB/SHA256=y` and `RMI4_CORE/RMI4_SMB/RMI4_2D_SENSOR` were already on in lcos17. `DM_SNAPSHOT` stays off (not needed for LUKS). `HID_RMI` (HID-over-I2C RMI) stays off. No Forced Rust. No proprietary NVIDIA. No VirtualBox vmwgfx cursor patch. `CONFIG_LOCALVERSION="-lunduke"`.
 
-## Build (2026-10-08)
+## Build (2026-10-09)
 
-lcos17 was built on the LCOS builder from branch `cursor/lcos17-cifs-client-111`
-at `1d5dad8` (config commit) with `scripts/build-lunduke-kernel.sh` and
-`scripts/build-metapackage.sh`, the same method as lcos16.
-`configs/lunduke-7.2.6-lcos17.config` was used unchanged.
+Built on the LCOS builder (box) from branch `cursor/lcos18-dmcrypt-uhid-rmi4` with `scripts/build-lunduke-kernel.sh` (JOBS=6) and `scripts/build-metapackage.sh`, fresh clean linux-7.2.6 tree (tarball sha256 `039aef84f2b0994aeda3f4fcfc3d02ec9d7a9bbb9020ea264c43f446c860f606`).
 
-- Upstream: `linux-7.2.6.tar.xz`, sha256 `039aef84f2b0994aeda3f4fcfc3d02ec9d7a9bbb9020ea264c43f446c860f606` (matches kernel.org), fresh clean tree, `JOBS=4`
-- Build window: 2026-10-08 12:13 PM to 12:40 PM CT (bindeb-pkg completed)
-- `uname -r`: `7.2.6-lunduke`, build string `#lcos17 SMP PREEMPT_DYNAMIC Thu Oct 8 12:38:26 CDT 2026`
-- Modules: **937** `.ko` in the image deb (lcos16: 933). The 4 new ones: `fs/smb/client/cifs.ko`, `fs/smb/common/cifs_md4.ko`, `fs/smb/common/smb_compress.ko`, `fs/nls/nls_ucs2_utils.ko`. No module was removed.
-- `vermagic`: `7.2.6-lunduke SMP preempt mod_unload` (same as lcos16). `depmod -e` against the shipped System.map: no unresolved symbols.
-- Packaged `/boot/config-7.2.6-lunduke` differs from the lcos16 packaged config only in the CIFS/SMBFS/NLS_UCS2_UTILS lines of `docs/config-lcos16-to-lcos17.diff`. `CONFIG_RUST` is not enabled.
+- Toolchain note: the builder is now Debian 13 gcc 14.2.0-19 / binutils 2.44 / pahole 1.30 (lcos17: Ubuntu gcc-14 14.2.0, binutils 2.42, pahole 1.25). Only the toolchain-detected `*_VERSION` lines and `OPENSSL_SUPPORTS_ML_DSA` differ for that reason.
+- `uname -v`: `#lcos18 SMP PREEMPT_DYNAMIC Fri Oct 9 19:50:55 CDT 2026`, `uname -r` `7.2.6-lunduke`
+- Modules: **946** `.ko` (lcos17: 937). +9: `drivers/md/dm-crypt.ko`, `crypto/xts.ko`, `crypto/essiv.ko`, `arch/x86/crypto/aesni-intel.ko`, `crypto/af_alg.ko`, `crypto/algif_skcipher.ko`, `crypto/algif_hash.ko`, `lib/crypto/gf128mul.ko`, `drivers/hid/uhid.ko`. None removed. RMI4 F11/F3A are built into `rmi_core.ko`.
+- vermagic `7.2.6-lunduke SMP preempt mod_unload`; `depmod -e -F System.map`: no unresolved symbols.
+- QEMU (TCG) boot of the lcos18 vmlinuz with a test initramfs: modprobe dm_crypt, xts, essiv, aesni_intel, algif_skcipher, algif_hash, uhid, rmi_core all OK; `/dev/uhid` present; cryptsetup LUKS1 aes-xts-plain64 512-bit luksFormat/open/write OK (Calamares uses luks1); LUKS2 format/open OK; aes-xts-aesni-avx driver in /proc/crypto.
 
-| Deb | Version | Bytes | SHA256 |
-|-----|---------|-------|--------|
-| `linux-image-7.2.6-lunduke_7.2.6-lcos17_amd64.deb` | 7.2.6-lcos17 | 37173884 | `d663a8af0f405901203214ed923ed7cb9ca4942fda0ea0bb6417c8a21b556292` |
-| `linux-headers-7.2.6-lunduke_7.2.6-lcos17_amd64.deb` | 7.2.6-lcos17 | 9839932 | `99f6f1639bfb5d98554625a90ada40ca70d61c7e6d7b049947bd9e611568ca3a` |
-| `lunduke-linux-kernel_7.2.6-lcos17_all.deb` | 7.2.6-lcos17 | 2192 | `f76621c0cd41eab053ec85c10aacb1752e361d32154279716ed3dbcc86359870` |
-| `linux-libc-dev_7.2.6-lcos17_amd64.deb` (not seeded) | 7.2.6-lcos17 | 1506152 | `dd0262bc0910a1e66afa72d01ea4fca2cd4cc38e6529fe9e0e61be0d97eed9c8` |
+| Deb | Bytes | SHA256 |
+|-----|-------|--------|
+| `linux-image-7.2.6-lunduke_7.2.6-lcos18_amd64.deb` | 37253576 | `7031f89b416273fa6573dead8552e79daf25112ebe8f712a014352ddb175554b` |
+| `linux-headers-7.2.6-lunduke_7.2.6-lcos18_amd64.deb` | 9840720 | `e6397a1ff384e3861c835b4d49f294398335f941559c4e1f33ef4a609aabe784` |
+| `lunduke-linux-kernel_7.2.6-lcos18_all.deb` | 2468 | `2933ede87267865a6d35a882244375e41a57cde34045679c68fab04b9f63af97` |
+| `linux-libc-dev_7.2.6-lcos18_amd64.deb` (not seeded) | 1506304 | `5b4481c5892c9ca3ee4ce85ea10a46b8a608ac29fd714635b60cdd5012026173` |
 
-The debs are **not** seeded into the LCOS 0.9 live-build recipe yet; that waits
-for the editor to merge this PR. Debs are not committed to this repo.
+Debs are not committed and not seeded into the LCOS 0.9.2 recipe; that waits for the editor to merge this PR. No ISO bake, no apt publish.
