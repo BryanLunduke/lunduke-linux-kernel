@@ -1,11 +1,11 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos18). Recommends matching
+Metapackage for linux-image-7.2.6-lunduke (ABI lcos19). Recommends matching
 headers.
 
 LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13
-through lcos17 stay frozen. This metapackage is the lcos18
+through lcos17 stay frozen. This metapackage is the lcos19
 revision of the same 7.2.6-lunduke image name. On older LCOS releases
 that still ship a Distro/Devuan kernel, install from the apt overlay,
 reboot, and pick 7.2.6-lunduke in GRUB (or set it once).

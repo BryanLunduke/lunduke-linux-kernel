@@ -1,18 +1,23 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos18
+Version: 7.2.6-lcos19
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos18)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos18)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos19)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos19)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos18).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos19).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos19 adds, on lcos18 (LCOS#115/#118 AMD audit vs Ubuntu generic):
+ radeon (pre-GCN Radeons, CIK fallback), vga_switcheroo, DC for SI,
+ amdgpu userptr and HSA/KFD, compressed firmware loading, AMD platform
+ GPIO/I2C (piix4), devfreq. See docs/amdgpu-audit-lcos19.md.
  .
  lcos18 adds, on frozen lcos17: dm-crypt with AES-NI/XTS/ESSIV and
  the AF_ALG skcipher/hash interfaces for LUKS disk encryption
