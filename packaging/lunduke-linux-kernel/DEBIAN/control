@@ -1,20 +1,25 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos17
+Version: 7.2.6-lcos18
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos17)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos17)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos18)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos18)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos17).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos18).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
  .
- lcos17 adds the SMB2/SMB3 network file system client on frozen
+ lcos18 adds, on frozen lcos17: dm-crypt with AES-NI/XTS/ESSIV and
+ the AF_ALG skcipher/hash interfaces for LUKS disk encryption
+ (LCOS#123), UHID for Bluetooth LE mice and keyboards (LCOS#120), and
+ Synaptics RMI4 F11/F3A touchpad functions (LCOS#121).
+ .
+ lcos17 added the SMB2/SMB3 network file system client on
  lcos16: cifs (CONFIG_CIFS=m, CONFIG_CIFS_XATTR=y, LCOS#111), so
  Windows, Samba, and NAS shares mount with cifs-utils. SMB1 legacy
  dialects (CIFS_ALLOW_INSECURE_LEGACY), SMB Direct, and the ksmbd
@@ -22,7 +27,7 @@ Description: Lunduke's Linux Kernel for LCOS
  included. Proprietary NVIDIA is not included.
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
- lcos13, lcos14, lcos15, and lcos16 stay frozen. This package is the
- lcos17 revision of the same linux-image-7.2.6-lunduke name. On earlier
+ lcos13 through lcos17 stay frozen. This package is the
+ lcos18 revision of the same linux-image-7.2.6-lunduke name. On earlier
  LCOS releases that still ship a Distro kernel, installing this
  metapackage adds a GRUB entry alongside it.

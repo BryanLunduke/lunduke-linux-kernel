@@ -1,11 +1,11 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos17). Recommends matching
+Metapackage for linux-image-7.2.6-lunduke (ABI lcos18). Recommends matching
 headers.
 
-LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13,
-lcos14, lcos15, and lcos16 stay frozen. This metapackage is the lcos17
+LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13
+through lcos17 stay frozen. This metapackage is the lcos18
 revision of the same 7.2.6-lunduke image name. On older LCOS releases
 that still ship a Distro/Devuan kernel, install from the apt overlay,
 reboot, and pick 7.2.6-lunduke in GRUB (or set it once).
@@ -15,6 +15,10 @@ reboot, and pick 7.2.6-lunduke in GRUB (or set it once).
 
 Apt overlay: https://lcos.lunduke.com/apt
 
+lcos18: LUKS disk encryption (CONFIG_DM_CRYPT=m, CRYPTO_XTS/ESSIV/
+AES_NI_INTEL=m, CRYPTO_USER_API_SKCIPHER/HASH=m, LCOS#123), UHID for
+Bluetooth LE HID (CONFIG_UHID=m, LCOS#120), and RMI4 F11/F3A touchpad
+functions (LCOS#121) on lcos17.
 lcos17: SMB2/SMB3 client on lcos16 (CONFIG_CIFS=m, CONFIG_CIFS_XATTR=y,
 LCOS#111). Mount with cifs-utils (mount -t cifs //nas/share /mnt -o ...).
 SMB1 (CIFS_ALLOW_INSECURE_LEGACY), SMB Direct, and ksmbd stay off.
@@ -22,4 +26,4 @@ lcos16: LCOS 0.9 hardware gap pick-list on lcos15 (USB net/WWAN/serial,
 AMD audio, Type-C, input, sensors, Wi-Fi/BT tail, Apple, Intel NPU,
 VirtualBox guest, CONFIG_VFIO=m, CONFIG_VHOST_NET=m).
 No Forced Rust. No firmware blob. No proprietary NVIDIA.
-lcos12, lcos13, lcos14, lcos15, and lcos16 stay frozen.
+lcos12 through lcos17 stay frozen.
