@@ -21,7 +21,7 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos18** |
+| Package version | **7.2.6-lcos19** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
@@ -79,6 +79,6 @@ Packaging/scripts in this repository: GPL-2.0.
 
 ## Build status
 
-**7.2.6-lcos18** — lcos17 + LUKS disk encryption (`CONFIG_DM_CRYPT=m`, `CRYPTO_XTS=m`, `CRYPTO_ESSIV=m`, `CRYPTO_AES_NI_INTEL=m`, `CRYPTO_USER_API_SKCIPHER=m`, `CRYPTO_USER_API_HASH=m`; LCOS#123), `CONFIG_UHID=m` for Bluetooth LE mice/keyboards (LCOS#120), and `CONFIG_RMI4_F11=y` + `CONFIG_RMI4_F3A=y` for Synaptics RMI4 touchpads such as the ThinkPad X1 Carbon (LCOS#121). `DM_SNAPSHOT` stays off. `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12 through lcos17 stay frozen. See `docs/NEXT-BUILD.md`, `docs/config-lcos17-to-lcos18.diff`, and `docs/lcos18-module-verify.txt`. ISO seeding and apt publish are separate editor greenlights.
+**7.2.6-lcos19** — lcos17 + LUKS disk encryption (`CONFIG_DM_CRYPT=m`, `CRYPTO_XTS=m`, `CRYPTO_ESSIV=m`, `CRYPTO_AES_NI_INTEL=m`, `CRYPTO_USER_API_SKCIPHER=m`, `CRYPTO_USER_API_HASH=m`; LCOS#123), `CONFIG_UHID=m` for Bluetooth LE mice/keyboards (LCOS#120), and `CONFIG_RMI4_F11=y` + `CONFIG_RMI4_F3A=y` for Synaptics RMI4 touchpads such as the ThinkPad X1 Carbon (LCOS#121). `DM_SNAPSHOT` stays off. `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12 through lcos17 stay frozen. See `docs/NEXT-BUILD.md`, `docs/config-lcos17-to-lcos18.diff`, and `docs/lcos18-module-verify.txt`. ISO seeding and apt publish are separate editor greenlights.
 
 **7.2.6-lcos17** — lcos16 + the SMB2/SMB3 network file system client (`CONFIG_CIFS=m`, `CONFIG_CIFS_XATTR=y`, LCOS#111) so NAS/Windows/Samba shares mount with `cifs-utils`. `CIFS_ALLOW_INSECURE_LEGACY` (SMB1/SMB2.0), `CIFS_POSIX` (depends on it), `CIFS_SMB_DIRECT`, and `SMB_SERVER` (ksmbd) stay off. `# CONFIG_RUST is not set`. `CONFIG_LOCALVERSION="-lunduke"`. lcos12 through lcos16 stay frozen. Debs built on the LCOS builder from this branch (not committed). See `docs/NEXT-BUILD.md`, `docs/config-lcos16-to-lcos17.diff`, and `docs/lcos17-module-verify.txt`. ISO seeding and apt publish are separate editor greenlights.
