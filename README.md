@@ -21,14 +21,16 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos19** |
+| Package version | **7.2.6-lcos20** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos18.config` — current Kconfig (lcos17 + dm-crypt/LUKS LCOS#123, UHID LCOS#120, RMI4 F11/F3A LCOS#121; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos20.config` — current Kconfig (lcos19 + exFAT `CONFIG_EXFAT_FS=m`, iocharset utf8, LCOS#131; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos19.config` — frozen lcos19 (AMD GPU audit, LCOS#115/#118)
+- `configs/lunduke-7.2.6-lcos18.config` — frozen Kconfig (lcos17 + dm-crypt/LUKS LCOS#123, UHID LCOS#120, RMI4 F11/F3A LCOS#121; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos17.config` — frozen lcos17 (lcos16 + SMB2/SMB3 client `CONFIG_CIFS=m`, LCOS#111; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos16.config` — frozen lcos16 (LCOS 0.9 hardware gap pick-list; shipped on lcos-live-09-02/09-03 test ISOs)
 - `configs/lunduke-7.2.6-lcos15.config` — frozen lcos15 (ASIX USB Ethernet, TUN, and KVM host)
