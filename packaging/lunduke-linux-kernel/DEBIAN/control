@@ -1,18 +1,21 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos19
+Version: 7.2.6-lcos20
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos19)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos19)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos20)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos20)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos19).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos20).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos20 adds, on lcos19: exFAT filesystem (CONFIG_EXFAT_FS=m, default
+ iocharset utf8, LCOS#131) for USB sticks, SD cards and Ventoy drives.
  .
  lcos19 adds, on lcos18 (LCOS#115/#118 AMD audit vs Ubuntu generic):
  radeon (pre-GCN Radeons, CIK fallback), vga_switcheroo, DC for SI,
