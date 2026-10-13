@@ -1,11 +1,11 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos21). Recommends matching
+Metapackage for linux-image-7.2.6-lunduke (ABI lcos22). Recommends matching
 headers.
 
 LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13
-through lcos17 stay frozen. This metapackage is the lcos21
+through lcos17 stay frozen. This metapackage is the lcos22
 revision of the same 7.2.6-lunduke image name. On older LCOS releases
 that still ship a Distro/Devuan kernel, install from the apt overlay,
 reboot, and pick 7.2.6-lunduke in GRUB (or set it once).
@@ -15,6 +15,8 @@ reboot, and pick 7.2.6-lunduke in GRUB (or set it once).
 
 Apt overlay: https://lcos.lunduke.com/apt
 
+lcos22: Realtek USB Wi-Fi rtw89 8852CU/8852BU/8851BU/8922AU and rtw88
+8814AE (=m, LCOS#138) on lcos21.
 lcos21: Intel VMD (CONFIG_VMD=m, NVMe behind Dell "RAID On") and PCIe
 native hotplug (CONFIG_HOTPLUG_PCI_PCIE=y) on lcos20.
 lcos20: exFAT (CONFIG_EXFAT_FS=m, iocharset utf8, LCOS#131) on lcos19.
