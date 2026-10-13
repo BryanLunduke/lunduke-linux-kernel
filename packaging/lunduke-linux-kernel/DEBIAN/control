@@ -1,18 +1,22 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos20
+Version: 7.2.6-lcos21
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos20)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos20)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos21)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos21)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos20).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos21).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos21 adds, on lcos20: Intel VMD (CONFIG_VMD=m) for NVMe behind
+ Intel Volume Management Device (Dell "RAID On"), and PCIe native
+ hotplug (CONFIG_HOTPLUG_PCI_PCIE=y).
  .
  lcos20 adds, on lcos19: exFAT filesystem (CONFIG_EXFAT_FS=m, default
  iocharset utf8, LCOS#131) for USB sticks, SD cards and Ventoy drives.

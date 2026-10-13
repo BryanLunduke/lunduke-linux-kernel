@@ -1,0 +1,20 @@
+--- configs/lunduke-7.2.6-lcos20.config	2026-10-13 10:56:51.240028467 -0500
++++ configs/lunduke-7.2.6-lcos21.config	2026-10-13 10:58:59.444028467 -0500
+@@ -1834,7 +1834,7 @@
+ CONFIG_PCI=y
+ CONFIG_PCI_DOMAINS=y
+ CONFIG_PCIEPORTBUS=y
+-# CONFIG_HOTPLUG_PCI_PCIE is not set
++CONFIG_HOTPLUG_PCI_PCIE=y
+ # CONFIG_PCIEAER is not set
+ CONFIG_PCIEASPM=y
+ CONFIG_PCIEASPM_DEFAULT=y
+@@ -1870,7 +1870,7 @@
+ #
+ # PCI controller drivers
+ #
+-# CONFIG_VMD is not set
++CONFIG_VMD=m
+ CONFIG_PCI_HYPERV_INTERFACE=m
+ 
+ #
