@@ -1,18 +1,22 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos21
+Version: 7.2.6-lcos22
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos21)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos21)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos22)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos22)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos21).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos22).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos22 adds, on lcos21 (LCOS#138): Realtek USB Wi-Fi 6/6E/7 rtw89
+ RTL8852CU (TP-Link), RTL8852BU, RTL8851BU, RTL8922AU, and PCIe
+ RTL8814AE (rtw88), all =m.
  .
  lcos21 adds, on lcos20: Intel VMD (CONFIG_VMD=m) for NVMe behind
  Intel Volume Management Device (Dell "RAID On"), and PCIe native
