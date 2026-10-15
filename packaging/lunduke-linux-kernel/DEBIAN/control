@@ -1,18 +1,23 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos22
+Version: 7.2.6-lcos23
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos22)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos22)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos23)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos23)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos22).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos23).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos23 adds, on lcos22 (LCOS#141): Chromebook touchpad support for
+ the Acer C720 and other 2013-era Chromebooks, chromeos_laptop (creates
+ the I2C touchpad device on stock/legacy firmware) and cyapa (Cypress
+ APA touchpads), both =m.
  .
  lcos22 adds, on lcos21 (LCOS#138): Realtek USB Wi-Fi 6/6E/7 rtw89
  RTL8852CU (TP-Link), RTL8852BU, RTL8851BU, RTL8922AU, and PCIe
