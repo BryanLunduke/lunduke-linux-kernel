@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos22** |
+| Package version | **7.2.6-lcos23** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos22.config` — current Kconfig (lcos21 + Realtek USB Wi-Fi rtw89 8852CU/8852BU/8851BU/8922AU and rtw88 8814AE, all =m, LCOS#138; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos23.config` — current Kconfig (lcos22 + Acer C720/Haswell Chromebook touchpads: `CONFIG_CHROMEOS_LAPTOP=m`, `CONFIG_MOUSE_CYAPA=m`, LCOS#141; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos22.config` — frozen lcos22 (lcos21 + Realtek USB Wi-Fi rtw89 8852CU/8852BU/8851BU/8922AU and rtw88 8814AE, all =m, LCOS#138; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos21.config` — frozen lcos21 (lcos20 + Intel VMD `CONFIG_VMD=m` for NVMe behind Dell "RAID On", PCIe native hotplug `CONFIG_HOTPLUG_PCI_PCIE=y`; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos20.config` — frozen lcos20 (lcos19 + exFAT `CONFIG_EXFAT_FS=m`, iocharset utf8, LCOS#131; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos19.config` — frozen lcos19 (AMD GPU audit, LCOS#115/#118)
