@@ -2,11 +2,11 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos23` |
-| Config | `configs/lunduke-7.2.6-lcos23.config` |
-| Why | LCOS#141: Acer C720 (Peppy) / Haswell Chromebook touchpad |
-| Delta | `docs/config-lcos22-to-lcos23.diff` |
-| Build notes | `docs/lcos23-build.md` |
-| Base | lcos22 (`configs/lunduke-7.2.6-lcos22.config`, merge 1f5d4e6, PR #18) |
+| Version | `7.2.6-lcos24` |
+| Config | `configs/lunduke-7.2.6-lcos24.config` |
+| Why | Ubuntu 26.10 hardware gap: Intel IPU cameras, Logitech/gamepad, PMC thermal, Zen6/Nova Lake extras |
+| Delta | `docs/config-lcos23-to-lcos24.diff` |
+| Build notes | `docs/lcos24-build.md` |
+| Base | lcos23 (`configs/lunduke-7.2.6-lcos23.config`, merge 049986eb, PR #19) |
 
-**lcos23 on lcos22.** Requested: `CONFIG_CHROMEOS_LAPTOP=m` (creates the I2C touchpad/light-sensor devices that stock Chromebook firmware doesn't describe in ACPI) and `CONFIG_MOUSE_CYAPA=m` (Cypress APA touchpad, module cyapatp). olddefconfig pulled in nothing else, because `CRC_ITU_T` was already =m and Elan I2C was already =m. No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
+**lcos24 on lcos23.** Ubuntu 26.10 gap items 1–3, 6, 13 (editor 2026-10-15): IPU3/IPU6+VSC+sensors, Logitech HID++/Unifying, joydev/xpad/Steam HID, Intel PMC/PCH thermal, AMD_HSMP + TAC5XX2, ACPI_ALS. `INPUT_AMD_SFH_TABLETMODE` absent in 7.2.6 (skipped). No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
