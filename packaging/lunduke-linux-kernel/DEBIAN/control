@@ -1,18 +1,24 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos23
+Version: 7.2.6-lcos24
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos23)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos23)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos24)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos24)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos23).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos24).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos24 adds, on lcos23 (Ubuntu 26.10 hardware gap, editor 2026-10-15):
+ Intel IPU3/IPU6 laptop cameras with VSC and common sensors, Logitech
+ HID++/Unifying, joydev/xpad/Steam Controller HID, Intel PMC/PCH
+ thermal helpers, AMD HSMP and TAC5XX2 SoundWire codec, ACPI ambient
+ light sensor. INPUT_AMD_SFH_TABLETMODE is 7.3-only and was skipped.
  .
  lcos23 adds, on lcos22 (LCOS#141): Chromebook touchpad support for
  the Acer C720 and other 2013-era Chromebooks, chromeos_laptop (creates
@@ -49,6 +55,6 @@ Description: Lunduke's Linux Kernel for LCOS
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
  lcos13 through lcos17 stay frozen. This package is the
- lcos18 revision of the same linux-image-7.2.6-lunduke name. On earlier
+ lcos24 revision of the same linux-image-7.2.6-lunduke name. On earlier
  LCOS releases that still ship a Distro kernel, installing this
  metapackage adds a GRUB entry alongside it.

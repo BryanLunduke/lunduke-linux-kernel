@@ -1,0 +1,43 @@
+# lcos24 module verify checklist (expected .ko names)
+
+## Item 1 — Intel cameras
+intel-ipu6.ko
+intel-ipu6-isys.ko
+ipu3-cio2.ko
+ipu3-imgu.ko
+ivsc-csi.ko
+ivsc-ace.ko
+ipu-bridge.ko
+# sensors (sample)
+ov01a10.ko ov02c10.ko ov08d10.ko ov13b10.ko
+imx219.ko imx355.ko
+hi556.ko gc05a2.ko s5kjn1.ko
+
+## Item 2 — Logitech
+hid-logitech.ko
+hid-logitech-dj.ko
+hid-logitech-hidpp.ko
+leds-class-multicolor.ko (dep)
+
+## Item 3 — gamepads
+joydev.ko
+xpad.ko
+hid-steam.ko
+
+## Item 6 — Intel thermal/PMC
+intel_pmc_core.ko
+intel_pch_thermal.ko
+intel_vsec.ko
+intel_pmt_telemetry.ko (and class/discovery)
+
+## Item 13 — Zen6 / Nova Lake extras
+amd_hsmp.ko / hsmp_acpi.ko / hsmp_common.ko
+snd-soc-tac5xx2-sdw.ko
+
+## Sensor deps
+acpi-als.ko
+amd_sfh.ko (already in lcos23)
+
+## Skipped (absent in 7.2.6)
+INPUT_AMD_SFH_TABLETMODE
+VIDEO_IMX471
