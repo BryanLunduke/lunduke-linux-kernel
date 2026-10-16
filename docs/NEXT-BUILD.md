@@ -2,11 +2,11 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos24` |
-| Config | `configs/lunduke-7.2.6-lcos24.config` |
-| Why | Ubuntu 26.10 hardware gap: Intel IPU cameras, Logitech/gamepad, PMC thermal, Zen6/Nova Lake extras |
-| Delta | `docs/config-lcos23-to-lcos24.diff` |
-| Build notes | `docs/lcos24-build.md` |
-| Base | lcos23 (`configs/lunduke-7.2.6-lcos23.config`, merge 049986eb, PR #19) |
+| Version | `7.2.6-lcos25` |
+| Config | `configs/lunduke-7.2.6-lcos25.config` |
+| Why | LCOS#149 UDF discs; kernel#14 TUXEDO keyboard LEDs (tuxedo-drivers) |
+| Delta | `docs/config-lcos24-to-lcos25.diff` |
+| Build notes | `docs/lcos25-build.md` |
+| Base | lcos24 (`configs/lunduke-7.2.6-lcos24.config`, merge 295e3550, PR #20) |
 
-**lcos24 on lcos23.** Ubuntu 26.10 gap items 1–3, 6, 13 (editor 2026-10-15): IPU3/IPU6+VSC+sensors, Logitech HID++/Unifying, joydev/xpad/Steam HID, Intel PMC/PCH thermal, AMD_HSMP + TAC5XX2, ACPI_ALS. `INPUT_AMD_SFH_TABLETMODE` absent in 7.2.6 (skipped). No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
+**lcos25 on lcos24.** `CONFIG_UDF_FS=m` (#149), `CONFIG_LEDS_CLASS_FLASH=m` and `CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y` (kernel#14; `CONFIG_LEDS_CLASS_MULTICOLOR=m` was already on). The reporter asked for all three `=y`; tuxedo-drivers are out-of-tree DKMS modules, so the two class modules (multicolor, flash) can stay `=m` and are pulled in by module dependencies. `LEDS_BRIGHTNESS_HW_CHANGED` is a bool in Kconfig, so it can only be `=y`. olddefconfig added nothing else (new flash-LED chip drivers and `V4L2_FLASH_LED_CLASS` stay off). No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
