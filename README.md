@@ -20,15 +20,16 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 | Field | Value |
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
-| Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos25** |
+| Flavor / LOCALVERSION | `-lunduke-lcos26` (per build from lcos26; lcos4–lcos25 used `-lunduke`) |
+| Package version | **7.2.6-lcos26** |
 | Metapackage | `lunduke-linux-kernel` |
-| Image | `linux-image-7.2.6-lunduke` |
-| Headers | `linux-headers-7.2.6-lunduke` |
+| Image | `linux-image-7.2.6-lunduke-lcos26` |
+| Headers | `linux-headers-7.2.6-lunduke-lcos26` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos25.config` — current Kconfig (lcos24 + UDF `CONFIG_UDF_FS=m` LCOS#149, `CONFIG_LEDS_CLASS_FLASH=m` and `CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y` for tuxedo-drivers kernel#14; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos26.config` — current Kconfig (lcos25 + ExpressCard/eSATA: `SATA_SIL24=m`, `SATA_MV=m`, `HOTPLUG_PCI_ACPI=y`, `USB_XHCI_PCI_RENESAS=m`; per-build kernel release `7.2.6-lunduke-lcos26`; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos25.config` — frozen lcos25 (lcos24 + UDF `CONFIG_UDF_FS=m` LCOS#149, `CONFIG_LEDS_CLASS_FLASH=m` and `CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y` for tuxedo-drivers kernel#14; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos24.config` — frozen lcos24 (lcos23 + Ubuntu 26.10 HW gap: IPU3/IPU6 cameras, Logitech/gamepad, PMC thermal, AMD_HSMP/TAC5XX2, ACPI_ALS; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos23.config` — frozen lcos23 (lcos22 + Acer C720/Haswell Chromebook touchpads: `CONFIG_CHROMEOS_LAPTOP=m`, `CONFIG_MOUSE_CYAPA=m`, LCOS#141; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos22.config` — frozen lcos22 (lcos21 + Realtek USB Wi-Fi rtw89 8852CU/8852BU/8851BU/8922AU and rtw88 8814AE, all =m, LCOS#138; No Forced Rust)
