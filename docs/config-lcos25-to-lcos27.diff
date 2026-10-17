@@ -1,14 +1,5 @@
---- configs/lunduke-7.2.6-lcos25.config	2026-10-16 08:39:42.809378733 -0500
-+++ configs/lunduke-7.2.6-lcos26.config	2026-10-16 20:47:19.557993368 -0500
-@@ -33,7 +33,7 @@
- CONFIG_INIT_ENV_ARG_LIMIT=32
- # CONFIG_COMPILE_TEST is not set
- CONFIG_WERROR=y
--CONFIG_LOCALVERSION="-lunduke"
-+CONFIG_LOCALVERSION="-lunduke-lcos26"
- CONFIG_LOCALVERSION_AUTO=y
- CONFIG_BUILD_SALT=""
- CONFIG_HAVE_KERNEL_GZIP=y
+--- configs/lunduke-7.2.6-lcos25.config
++++ configs/lunduke-7.2.6-lcos27.config
 @@ -1862,7 +1862,8 @@
  CONFIG_VGA_ARB=y
  CONFIG_VGA_ARB_MAX_GPUS=16
