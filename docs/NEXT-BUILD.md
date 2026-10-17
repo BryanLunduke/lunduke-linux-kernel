@@ -2,11 +2,12 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos25` |
-| Config | `configs/lunduke-7.2.6-lcos25.config` |
-| Why | LCOS#149 UDF discs; kernel#14 TUXEDO keyboard LEDs (tuxedo-drivers) |
-| Delta | `docs/config-lcos24-to-lcos25.diff` |
-| Build notes | `docs/lcos25-build.md` |
-| Base | lcos24 (`configs/lunduke-7.2.6-lcos24.config`, merge 295e3550, PR #20) |
+| Version | `7.2.6-lcos26` |
+| Kernel release (uname -r) | `7.2.6-lunduke-lcos26` |
+| Config | `configs/lunduke-7.2.6-lcos26.config` |
+| Why | ExpressCard/eSATA (SiI3132, Marvell, ACPI PCI hotplug, Renesas xHCI firmware loader); per-build kernel release so DKMS (NVIDIA) rebuilds on every kernel update |
+| Delta | `docs/config-lcos25-to-lcos26.diff` |
+| Build notes | `docs/lcos26-build.md` |
+| Base | lcos25 (`configs/lunduke-7.2.6-lcos25.config`, merge e7a72c16, PR #21) |
 
-**lcos25 on lcos24.** `CONFIG_UDF_FS=m` (#149), `CONFIG_LEDS_CLASS_FLASH=m` and `CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y` (kernel#14; `CONFIG_LEDS_CLASS_MULTICOLOR=m` was already on). The reporter asked for all three `=y`; tuxedo-drivers are out-of-tree DKMS modules, so the two class modules (multicolor, flash) can stay `=m` and are pulled in by module dependencies. `LEDS_BRIGHTNESS_HW_CHANGED` is a bool in Kconfig, so it can only be `=y`. olddefconfig added nothing else (new flash-LED chip drivers and `V4L2_FLASH_LED_CLASS` stay off). No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
+**lcos26 on lcos25.** `CONFIG_SATA_SIL24=m`, `CONFIG_SATA_MV=m`, `CONFIG_HOTPLUG_PCI_ACPI=y` (bool), `CONFIG_USB_XHCI_PCI_RENESAS=m`. olddefconfig additionally turned on `CONFIG_GENERIC_PHY=y` (selected by SATA_MV); `ATA_SFF`/`ATA_BMDMA` were already on, `HOTPLUG_PCI_ACPI_IBM` stays off. `CONFIG_LOCALVERSION="-lunduke-lcos26"`. `CONFIG_MODVERSIONS` stays off (see docs/lcos26-build.md). No Forced Rust.
