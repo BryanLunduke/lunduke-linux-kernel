@@ -2,11 +2,13 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos25` |
-| Config | `configs/lunduke-7.2.6-lcos25.config` |
-| Why | LCOS#149 UDF discs; kernel#14 TUXEDO keyboard LEDs (tuxedo-drivers) |
-| Delta | `docs/config-lcos24-to-lcos25.diff` |
-| Build notes | `docs/lcos25-build.md` |
-| Base | lcos24 (`configs/lunduke-7.2.6-lcos24.config`, merge 295e3550, PR #20) |
+| Version | `7.2.6-lcos27` |
+| Config | `configs/lunduke-7.2.6-lcos27.config` |
+| Why | ExpressCard/eSATA (SiI3132, Marvell, ACPI PCI hotplug, Renesas xHCI firmware loader); metapackage files owned by root |
+| Delta | `docs/config-lcos25-to-lcos27.diff` |
+| Build notes | `docs/lcos27-build.md` |
+| Base | lcos25 (`configs/lunduke-7.2.6-lcos25.config`, merge e7a72c16, PR #21) |
 
-**lcos25 on lcos24.** `CONFIG_UDF_FS=m` (#149), `CONFIG_LEDS_CLASS_FLASH=m` and `CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y` (kernel#14; `CONFIG_LEDS_CLASS_MULTICOLOR=m` was already on). The reporter asked for all three `=y`; tuxedo-drivers are out-of-tree DKMS modules, so the two class modules (multicolor, flash) can stay `=m` and are pulled in by module dependencies. `LEDS_BRIGHTNESS_HW_CHANGED` is a bool in Kconfig, so it can only be `=y`. olddefconfig added nothing else (new flash-LED chip drivers and `V4L2_FLASH_LED_CLASS` stay off). No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
+**lcos27 on lcos25.** `CONFIG_SATA_SIL24=m`, `CONFIG_SATA_MV=m`, `CONFIG_HOTPLUG_PCI_ACPI=y` (bool), `CONFIG_USB_XHCI_PCI_RENESAS=m`. olddefconfig additionally turned on `CONFIG_GENERIC_PHY=y` (selected by SATA_MV); `ATA_SFF`/`ATA_BMDMA` were already on, `HOTPLUG_PCI_ACPI_IBM` stays off. `scripts/build-metapackage.sh` now builds with `dpkg-deb --root-owner-group` (lcos25 and earlier metapackages had files owned by the build user). No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
+
+lcos26 (PR #22) was an experiment with a per-build kernel release (`7.2.6-lunduke-lcos26`). It was backed out; lcos27 returns to the single `7.2.6-lunduke` name used by lcos4 through lcos25. The lcos26 tag and its history are kept as they are, and lcos26 is not a base for later builds.

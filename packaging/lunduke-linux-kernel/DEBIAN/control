@@ -1,18 +1,23 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos25
+Version: 7.2.6-lcos27
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos25)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos25)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos27)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos27)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos25).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos27).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos27 adds, on lcos25: ExpressCard/eSATA support (SATA_SIL24=m,
+ SATA_MV=m, HOTPLUG_PCI_ACPI=y, USB_XHCI_PCI_RENESAS=m). It keeps the
+ same 7.2.6-lunduke kernel release. lcos26 was a per-build naming
+ experiment that was backed out and is not a base for lcos27.
  .
  lcos25 adds, on lcos24: UDF filesystem (CONFIG_UDF_FS=m, DVD/Blu-ray
  and packet-written media, LCOS#149), LED flash class
@@ -61,6 +66,6 @@ Description: Lunduke's Linux Kernel for LCOS
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
  lcos13 through lcos17 stay frozen. This package is the
- lcos25 revision of the same linux-image-7.2.6-lunduke name. On earlier
+ lcos27 revision of the same linux-image-7.2.6-lunduke name. On earlier
  LCOS releases that still ship a Distro kernel, installing this
  metapackage adds a GRUB entry alongside it.
