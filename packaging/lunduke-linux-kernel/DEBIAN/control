@@ -1,18 +1,23 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos27
+Version: 7.2.6-lcos28
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos27)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos27)
+Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos28)
+Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos28)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos27).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos28).
  .
  Installs linux-image-7.2.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos28 adds, on lcos27: the Apple SPI keyboard and trackpad driver
+ (CONFIG_KEYBOARD_APPLESPI=m, applespi, ACPI APP000D) for the 12-inch
+ MacBook (MacBook8,1, 2015) and later SPI MacBook/MacBook Pro models.
+ It keeps the same 7.2.6-lunduke kernel release.
  .
  lcos27 adds, on lcos25: ExpressCard/eSATA support (SATA_SIL24=m,
  SATA_MV=m, HOTPLUG_PCI_ACPI=y, USB_XHCI_PCI_RENESAS=m). It keeps the
@@ -66,6 +71,6 @@ Description: Lunduke's Linux Kernel for LCOS
  .
  LCOS 0.8 ISOs shipped 7.2.6-lcos12; that config stays frozen.
  lcos13 through lcos17 stay frozen. This package is the
- lcos27 revision of the same linux-image-7.2.6-lunduke name. On earlier
+ lcos28 revision of the same linux-image-7.2.6-lunduke name. On earlier
  LCOS releases that still ship a Distro kernel, installing this
  metapackage adds a GRUB entry alongside it.
