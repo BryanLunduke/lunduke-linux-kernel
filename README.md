@@ -21,14 +21,15 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 |-------|-------|
 | Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos27** |
+| Package version | **7.2.6-lcos28** |
 | Metapackage | `lunduke-linux-kernel` |
 | Image | `linux-image-7.2.6-lunduke` |
 | Headers | `linux-headers-7.2.6-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos27.config` — current Kconfig (lcos25 + ExpressCard/eSATA: `SATA_SIL24=m`, `SATA_MV=m`, `HOTPLUG_PCI_ACPI=y`, `USB_XHCI_PCI_RENESAS=m`; same `7.2.6-lunduke` kernel release; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos28.config` — current Kconfig (lcos27 + Apple SPI keyboard/trackpad `CONFIG_KEYBOARD_APPLESPI=m` for the 12-inch MacBook8,1 and SPI MacBook/MacBook Pro models; same `7.2.6-lunduke` kernel release; No Forced Rust)
+- `configs/lunduke-7.2.6-lcos27.config` — frozen lcos27 (lcos25 + ExpressCard/eSATA: `SATA_SIL24=m`, `SATA_MV=m`, `HOTPLUG_PCI_ACPI=y`, `USB_XHCI_PCI_RENESAS=m`; same `7.2.6-lunduke` kernel release; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos25.config` — frozen lcos25 (lcos24 + UDF `CONFIG_UDF_FS=m` LCOS#149, `CONFIG_LEDS_CLASS_FLASH=m` and `CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y` for tuxedo-drivers kernel#14; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos24.config` — frozen lcos24 (lcos23 + Ubuntu 26.10 HW gap: IPU3/IPU6 cameras, Logitech/gamepad, PMC thermal, AMD_HSMP/TAC5XX2, ACPI_ALS; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos23.config` — frozen lcos23 (lcos22 + Acer C720/Haswell Chromebook touchpads: `CONFIG_CHROMEOS_LAPTOP=m`, `CONFIG_MOUSE_CYAPA=m`, LCOS#141; No Forced Rust)

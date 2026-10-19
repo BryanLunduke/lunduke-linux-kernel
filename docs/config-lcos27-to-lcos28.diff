@@ -1,0 +1,11 @@
+--- configs/lunduke-7.2.6-lcos27.config
++++ configs/lunduke-7.2.6-lcos28.config
+@@ -3097,7 +3097,7 @@
+ CONFIG_INPUT_KEYBOARD=y
+ # CONFIG_KEYBOARD_ADC is not set
+ # CONFIG_KEYBOARD_ADP5588 is not set
+-# CONFIG_KEYBOARD_APPLESPI is not set
++CONFIG_KEYBOARD_APPLESPI=m
+ CONFIG_KEYBOARD_ATKBD=y
+ # CONFIG_KEYBOARD_QT1050 is not set
+ # CONFIG_KEYBOARD_QT1070 is not set
