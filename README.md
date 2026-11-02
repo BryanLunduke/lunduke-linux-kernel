@@ -11,7 +11,7 @@ sudo apt update
 sudo apt install lunduke-linux-kernel
 ```
 
-On LCOS 0.7 this is already the default. On older releases, reboot and pick **7.2.6-lunduke** in GRUB (the Distro kernel stays installed).
+On LCOS 0.7 this is already the default. On older releases, reboot and pick **7.2.15-lunduke** in GRUB (the Distro kernel stays installed).
 
 Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`).
 
@@ -19,16 +19,18 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 
 | Field | Value |
 |-------|-------|
-| Upstream | Linux **7.2.6** ([kernel.org](https://www.kernel.org/)) |
+| Upstream | Linux **7.2.15** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.6-lcos28** |
+| Package version | **7.2.15-lcos30** (LCOS 1.0.1) |
 | Metapackage | `lunduke-linux-kernel` |
-| Image | `linux-image-7.2.6-lunduke` |
-| Headers | `linux-headers-7.2.6-lunduke` |
+| Image | `linux-image-7.2.15-lunduke` |
+| Headers | `linux-headers-7.2.15-lunduke` |
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.6-lcos28.config` — current Kconfig (lcos27 + Apple SPI keyboard/trackpad `CONFIG_KEYBOARD_APPLESPI=m` for the 12-inch MacBook8,1 and SPI MacBook/MacBook Pro models; same `7.2.6-lunduke` kernel release; No Forced Rust)
+- `configs/lunduke-7.2.15-lcos30.config` — current Kconfig for LCOS 1.0.1 (Linux 7.2.15, final 7.2.y; lcos28 + `SND_ENS1371=m` + Intel THC touchscreens `INTEL_THC_HID`/`INTEL_QUICKI2C`/`INTEL_QUICKSPI=m` + `HID_HAPTIC=y` + `ZRAM=m` with zstd; new `7.2.15-lunduke` kernel release installs beside 7.2.6; No Forced Rust; see `docs/lcos30-build.md`)
+- `configs/lunduke-7.2.6-lcos29.config` — lcos28 + `SND_ENS1371=m` (PR #25); never built, folded into lcos30
+- `configs/lunduke-7.2.6-lcos28.config` — frozen lcos28, shipped on LCOS 1.0.0 (lcos27 + Apple SPI keyboard/trackpad `CONFIG_KEYBOARD_APPLESPI=m` for the 12-inch MacBook8,1 and SPI MacBook/MacBook Pro models; same `7.2.6-lunduke` kernel release; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos27.config` — frozen lcos27 (lcos25 + ExpressCard/eSATA: `SATA_SIL24=m`, `SATA_MV=m`, `HOTPLUG_PCI_ACPI=y`, `USB_XHCI_PCI_RENESAS=m`; same `7.2.6-lunduke` kernel release; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos25.config` — frozen lcos25 (lcos24 + UDF `CONFIG_UDF_FS=m` LCOS#149, `CONFIG_LEDS_CLASS_FLASH=m` and `CONFIG_LEDS_BRIGHTNESS_HW_CHANGED=y` for tuxedo-drivers kernel#14; No Forced Rust)
 - `configs/lunduke-7.2.6-lcos24.config` — frozen lcos24 (lcos23 + Ubuntu 26.10 HW gap: IPU3/IPU6 cameras, Logitech/gamepad, PMC thermal, AMD_HSMP/TAC5XX2, ACPI_ALS; No Forced Rust)
@@ -60,8 +62,8 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 
 ```bash
 # From a machine with kernel build deps (flex, bison, libelf-dev, bc, deb-pkg tooling, …)
-wget https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.2.6.tar.xz
-tar -xf linux-7.2.6.tar.xz
+wget https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.2.15.tar.xz
+tar -xf linux-7.2.15.tar.xz
 ./scripts/build-lunduke-kernel.sh
 ```
 
