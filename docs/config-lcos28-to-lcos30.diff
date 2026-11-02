@@ -1,0 +1,87 @@
+--- configs/lunduke-7.2.6-lcos28.config	2026-11-02 15:10:02.565178401 -0600
++++ configs/lunduke-7.2.15-lcos30.config	2026-11-02 15:12:34.906470416 -0600
+@@ -1,6 +1,6 @@
+ #
+ # Automatically generated file; DO NOT EDIT.
+-# Linux/x86 7.2.6 Kernel Configuration
++# Linux/x86 7.2.15 Kernel Configuration
+ #
+ CONFIG_CC_VERSION_TEXT="gcc (Debian 14.2.0-19) 14.2.0"
+ CONFIG_CC_IS_GCC=y
+@@ -21,6 +21,7 @@
+ CONFIG_CC_HAS_ASM_INLINE=y
+ CONFIG_CC_HAS_ASSUME=y
+ CONFIG_CC_HAS_NO_PROFILE_FN_ATTR=y
++CONFIG_CC_OPT_INLINE_MEMSET="-finline-stringops=memset"
+ CONFIG_LD_CAN_USE_KEEP_IN_OVERLAY=y
+ CONFIG_PAHOLE_VERSION=130
+ CONFIG_IRQ_WORK=y
+@@ -1056,6 +1057,18 @@
+ #
+ CONFIG_SWAP=y
+ # CONFIG_ZSWAP is not set
++CONFIG_ZSMALLOC=m
++
++#
++# Zsmalloc allocator options
++#
++
++#
++# Zsmalloc is a common backend allocator for zswap & zram
++#
++# CONFIG_ZSMALLOC_STAT is not set
++CONFIG_ZSMALLOC_CHAIN_SIZE=8
++# end of Zsmalloc allocator options
+ 
+ #
+ # Slab allocator options
+@@ -2063,7 +2076,19 @@
+ # CONFIG_BLK_DEV_FD is not set
+ CONFIG_CDROM=y
+ # CONFIG_BLK_DEV_PCIESSD_MTIP32XX is not set
+-# CONFIG_ZRAM is not set
++CONFIG_ZRAM=m
++# CONFIG_ZRAM_BACKEND_LZ4 is not set
++# CONFIG_ZRAM_BACKEND_LZ4HC is not set
++CONFIG_ZRAM_BACKEND_ZSTD=y
++# CONFIG_ZRAM_BACKEND_DEFLATE is not set
++# CONFIG_ZRAM_BACKEND_842 is not set
++# CONFIG_ZRAM_BACKEND_LZO is not set
++CONFIG_ZRAM_DEF_COMP_ZSTD=y
++CONFIG_ZRAM_DEF_COMP="zstd"
++# CONFIG_ZRAM_WRITEBACK is not set
++# CONFIG_ZRAM_TRACK_ENTRY_ACTIME is not set
++# CONFIG_ZRAM_MEMORY_TRACKING is not set
++# CONFIG_ZRAM_MULTI_COMP is not set
+ CONFIG_BLK_DEV_LOOP=y
+ CONFIG_BLK_DEV_LOOP_MIN_COUNT=8
+ # CONFIG_BLK_DEV_DRBD is not set
+@@ -4995,7 +5020,7 @@
+ # CONFIG_SND_EMU10K1 is not set
+ # CONFIG_SND_EMU10K1X is not set
+ # CONFIG_SND_ENS1370 is not set
+-# CONFIG_SND_ENS1371 is not set
++CONFIG_SND_ENS1371=m
+ # CONFIG_SND_ES1938 is not set
+ # CONFIG_SND_ES1968 is not set
+ # CONFIG_SND_FM801 is not set
+@@ -5745,7 +5770,7 @@
+ CONFIG_HIDRAW=y
+ CONFIG_UHID=m
+ CONFIG_HID_GENERIC=y
+-# CONFIG_HID_HAPTIC is not set
++CONFIG_HID_HAPTIC=y
+ 
+ #
+ # Special HID drivers
+@@ -5916,7 +5941,9 @@
+ #
+ # Intel THC HID Support
+ #
+-# CONFIG_INTEL_THC_HID is not set
++CONFIG_INTEL_THC_HID=m
++CONFIG_INTEL_QUICKSPI=m
++CONFIG_INTEL_QUICKI2C=m
+ # end of Intel THC HID Support
+ 
+ #

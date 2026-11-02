@@ -1,14 +1,23 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.6-lunduke (ABI lcos23). Recommends matching
-headers.
+Metapackage for linux-image-7.2.15-lunduke (ABI lcos30, LCOS 1.0.1).
+Recommends matching headers.
+
+lcos30: upstream Linux 7.2.15 (final 7.2.y). New kernel release string
+7.2.15-lunduke, so new package names (linux-image-7.2.15-lunduke,
+linux-headers-7.2.15-lunduke) that install beside 7.2.6-lunduke; the old
+kernel stays installed as a GRUB fallback. Config: lcos28 + ES1371 sound
+(lcos29, PR #25) + Intel THC touchscreens (QuickI2C/QuickSPI), HID_HAPTIC
+and ZRAM (zstd). No source patches.
+lcos24 to lcos28: see the metapackage description (apt show
+lunduke-linux-kernel).
 
 LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13
 through lcos17 stay frozen. This metapackage is the lcos23
 revision of the same 7.2.6-lunduke image name. On older LCOS releases
 that still ship a Distro/Devuan kernel, install from the apt overlay,
-reboot, and pick 7.2.6-lunduke in GRUB (or set it once).
+reboot, and pick 7.2.15-lunduke in GRUB (or set it once).
 
   sudo apt update
   sudo apt install lunduke-linux-kernel

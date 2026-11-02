@@ -1,18 +1,31 @@
 Package: lunduke-linux-kernel
-Version: 7.2.6-lcos28
+Version: 7.2.15-lcos30
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.6-lunduke (= 7.2.6-lcos28)
-Recommends: linux-headers-7.2.6-lunduke (= 7.2.6-lcos28)
+Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos30)
+Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos30)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos28).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos30).
  .
- Installs linux-image-7.2.6-lunduke. Headers are recommended for
+ Installs linux-image-7.2.15-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos30 (LCOS 1.0.1, editor 2026-11-02) moves to upstream Linux 7.2.15,
+ the final 7.2.y stable release (9 stable releases of fixes over 7.2.6,
+ including the Dell XPS 13 DX13260 speaker-ID fix from 7.2.10). The
+ kernel release is now 7.2.15-lunduke, so the package names change to
+ linux-image-7.2.15-lunduke and linux-headers-7.2.15-lunduke. They
+ install beside 7.2.6-lunduke, which stays installed as a GRUB fallback.
+ Config is lcos28 plus, from the lcos29 config (PR #25), the Ensoniq
+ ES1371 sound driver for VMware guests (CONFIG_SND_ENS1371=m), plus
+ Intel Touch Host Controller touchscreens (INTEL_THC_HID, INTEL_QUICKI2C,
+ INTEL_QUICKSPI =m), haptic touchpads (HID_HAPTIC=y) and compressed RAM
+ swap (ZRAM=m with zstd). No source patches. lcos29 (7.2.6) was never
+ built.
  .
  lcos28 adds, on lcos27: the Apple SPI keyboard and trackpad driver
  (CONFIG_KEYBOARD_APPLESPI=m, applespi, ACPI APP000D) for the 12-inch
