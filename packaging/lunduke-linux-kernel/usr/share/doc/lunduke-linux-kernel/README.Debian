@@ -1,7 +1,7 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.15-lunduke (ABI lcos30, LCOS 1.0.1).
+Metapackage for linux-image-7.2.15-lunduke (ABI lcos31, LCOS 1.0.1).
 Recommends matching headers.
 
 lcos30: upstream Linux 7.2.15 (final 7.2.y). New kernel release string

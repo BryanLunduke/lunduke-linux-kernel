@@ -1,18 +1,26 @@
 Package: lunduke-linux-kernel
-Version: 7.2.15-lcos30
+Version: 7.2.15-lcos31
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos30)
-Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos30)
+Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos31)
+Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos31)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos30).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos31).
  .
  Installs linux-image-7.2.15-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos31 (LCOS 1.0.1, editor 2026-11-03) adds, on lcos30, driver
+ modules: Synaptics RMI4 HID touchpads (HID_RMI, RMI4_I2C, LCOS#182),
+ Intel 10GbE X520 (IXGBE, IXGBEVF, LCOS#183), traffic control for the
+ libvirt default network (HTB, TBF, ingress, fq_codel, SFQ, u32,
+ flower, fw, csum/gact/mirred/police actions, LCOS#184), and Broadcom
+ b44 wired plus Intel 3945/4965 Wi-Fi (B44, IWLEGACY, IWL3945,
+ IWL4965, LCOS#187). Same 7.2.15-lunduke kernel release.
  .
  lcos30 (LCOS 1.0.1, editor 2026-11-02) moves to upstream Linux 7.2.15,
  the final 7.2.y stable release (9 stable releases of fixes over 7.2.6,
