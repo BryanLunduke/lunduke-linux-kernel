@@ -1,18 +1,22 @@
 Package: lunduke-linux-kernel
-Version: 7.2.15-lcos31
+Version: 7.2.15-lcos32
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos31)
-Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos31)
+Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos32)
+Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos32)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos31).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos32).
  .
  Installs linux-image-7.2.15-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos32 (LCOS 1.0.1, editor 2026-11-04) adds, on lcos31, the ACPI
+ Smart Battery System driver (ACPI_SBS=m: sbs, sbshc) for the 2014
+ MacBook Air battery (LCOS#191). Same 7.2.15-lunduke kernel release.
  .
  lcos31 (LCOS 1.0.1, editor 2026-11-03) adds, on lcos30, driver
  modules: Synaptics RMI4 HID touchpads (HID_RMI, RMI4_I2C, LCOS#182),
