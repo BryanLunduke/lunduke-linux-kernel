@@ -1,18 +1,30 @@
 Package: lunduke-linux-kernel
-Version: 7.2.15-lcos32
+Version: 7.2.15-lcos33
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos32)
-Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos32)
+Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos33)
+Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos33)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos32).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos33).
  .
  Installs linux-image-7.2.15-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos33 (LCOS 1.0.1, 2026-11-06) adds, on lcos32: in-kernel
+ WireGuard; IPv6 policy routing (MULTIPLE_TABLES + SUBTREES);
+ OpenVPN Data Channel Offload; IPv4 IPsec ESP/AH (IPv6 IPsec is
+ already on); FQ and CAKE qdiscs; the Ralink/rt2x00 family
+ including RT73USB (LCOS#194) plus RT2800/RT2500/RT2400 USB and
+ PCI; ATH5K; Atheros L1C/L1E; the VMware balloon; Corsair, Razer,
+ Glorious, and Plantronics HID; VLAN, macvlan, and ipvlan;
+ Samsung Galaxy Book, MSI WMI platform, and TUXEDO/Uniwill laptop
+ support. Carry these options into the 7.3 and 7.4 configs for
+ LCOS 1.1 (those configs are not in this repo yet). Same
+ 7.2.15-lunduke kernel release.
  .
  lcos32 (LCOS 1.0.1, editor 2026-11-04) adds, on lcos31, the ACPI
  Smart Battery System driver (ACPI_SBS=m: sbs, sbshc) for the 2014
