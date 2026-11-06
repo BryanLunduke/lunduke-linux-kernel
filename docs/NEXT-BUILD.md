@@ -2,27 +2,42 @@
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.15-lcos30` (LCOS 1.0.1) |
-| Upstream | Linux 7.2.15 (final 7.2.y) |
-| Config | `configs/lunduke-7.2.15-lcos30.config` |
-| Why | LCOS 1.0.1: latest 7.2 stable, ES1371 sound, Intel THC touchscreens (Dell XPS 13 DX13260), haptic touchpads, ZRAM |
-| Delta | `docs/config-lcos28-to-lcos30.diff` |
-| Build notes | `docs/lcos30-build.md` |
-| Base | lcos28 + lcos29 (`SND_ENS1371=m`, PR #25, merge fddd878) |
+| Version | `7.2.15-lcos33` (LCOS 1.0.1) |
+| Upstream | Linux 7.2.15 (same as lcos32; final 7.2.y) |
+| Config | `configs/lunduke-7.2.15-lcos33.config` |
+| Why | LCOS 1.0.1: in-kernel WireGuard, IPv6 policy routing, OpenVPN DCO, IPv4 IPsec ESP/AH, FQ and CAKE, Ralink rt2x00 (LCOS#194), ATH5K, Atheros L1C/L1E, VLAN/macvlan/ipvlan, VMware balloon, Corsair/Razer/Glorious/Plantronics HID, Samsung Galaxy Book, MSI WMI platform, TUXEDO/Uniwill |
+| Delta | `docs/config-lcos32-to-lcos33.diff` |
+| Build notes | `docs/lcos33-build.md` |
+| Base | lcos32 (`configs/lunduke-7.2.15-lcos32.config`, `ACPI_SBS=m`, LCOS#191) |
 
-**lcos30 on lcos28.** New kernel release `7.2.15-lunduke`, so the packages install beside `7.2.6-lunduke` (boot fallback). Options: `SND_ENS1371=m`, `INTEL_THC_HID=m`, `INTEL_QUICKI2C=m`, `INTEL_QUICKSPI=m`, `HID_HAPTIC=y`, `ZRAM=m` (`ZSMALLOC=m`, zstd default). olddefconfig on 7.2.15 also adds the compiler-detected `CC_OPT_INLINE_MEMSET`. No source patches. No Forced Rust. Kernel 7.4 is planned for LCOS 1.1 (not started).
+**lcos33 on lcos32.** Same kernel release `7.2.15-lunduke`. No source patches. No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`. SHA256s and QEMU results are filled in after the box compile (`docs/lcos33-build.md`).
 
-## Previous: 7.2.6-lcos28
+Turned on, plus the dependencies, `select`s, and `default y` options `olddefconfig` on 7.2.15 enables:
+
+- `WIREGUARD=m` (selects `NET_UDP_TUNNEL=m`, `CRYPTO_LIB_CURVE25519=m` with the x86_64 arch and generic code, `CRYPTO_LIB_CHACHA20POLY1305=m` and lib ChaCha/Poly1305).
+- `IPV6_MULTIPLE_TABLES=y` and `IPV6_SUBTREES=y` (`FIB_RULES` was already y).
+- `OVPN=m` (selects `STREAM_PARSER=y` and `CRYPTO_CHACHA20POLY1305=m`, which selects `CRYPTO_CHACHA20=m`).
+- `INET_ESP=m` and `INET_AH=m`. IPv6 IPsec is already on, so `XFRM_ESP`/`XFRM_AH` were already y. ESP offload and ESP-in-TCP stay off.
+- `NET_SCH_FQ=m`, `NET_SCH_CAKE=m`.
+- `VLAN_8021Q=m` with `VLAN_8021Q_GVRP=y` and `VLAN_8021Q_MVRP=y` (the Ubuntu/Fedora companions; they select `GARP=m` and `MRP=m`). `MACVLAN=m`, `IPVLAN=m` (`IPVLAN_L3S=y` selects `NET_L3_MASTER_DEV=y`; `NET_VRF` stays off).
+- rt2x00: `RT73USB`, `RT2800USB`, `RT2800PCI`, `RT2500USB`, `RT2500PCI`, `RT2400PCI` =m, plus the rt2x00/rt2800 library modules, `RT2X00_LIB_LEDS=y`, and the RT2800 chipset bools that default y. `RT61PCI` and the RT2800USB chipsets without `default y` stay off.
+- `ATH5K=m` (selects `ATH5K_PCI=y`). `ATL1C=m`, `ATL1E=m`.
+- `HID_CORSAIR`, `HID_RAZER`, `HID_GLORIOUS`, `HID_PLANTRONICS` =m. No force-feedback or LED sub-options on these drivers.
+- `VMWARE_BALLOON=m`. `SAMSUNG_GALAXYBOOK=m`, `MSI_WMI_PLATFORM=m`, `X86_PLATFORM_DRIVERS_UNIWILL=y`, `UNIWILL_LAPTOP=m`.
+
+Left off: `MAC80211_MESH`, `ZSWAP` / `ZSWAP_DEFAULT_ON`, `PPP`, `PPPOE`, `IPW2100`, `IPW2200`. No resolvconf or other userspace packaging.
+
+No 7.3 or 7.4 configs are in this repo. When those are created for LCOS 1.1, carry this lcos33 option set (including the olddefconfig selects and defaults above) into them.
+
+## Previous: 7.2.15-lcos32
 
 | Item | Value |
 |------|--------|
-| Version | `7.2.6-lcos28` |
-| Config | `configs/lunduke-7.2.6-lcos28.config` |
-| Why | Internal keyboard and trackpad on the 12-inch Retina MacBook (2015, MacBook8,1), which are on SPI, not USB |
-| Delta | `docs/config-lcos27-to-lcos28.diff` |
-| Build notes | `docs/lcos28-build.md` |
-| Base | lcos27 (`configs/lunduke-7.2.6-lcos27.config`, merge bb839085, PR #23) |
+| Version | `7.2.15-lcos32` |
+| Config | `configs/lunduke-7.2.15-lcos32.config` |
+| Why | ACPI Smart Battery System (`sbs`, `sbshc`) for the 2014 MacBook Air battery, LCOS#191 |
+| Delta | `docs/config-lcos31-to-lcos32.diff` |
+| Build notes | `docs/lcos32-build.md` |
+| Base | lcos31 |
 
-**lcos28 on lcos27.** `CONFIG_KEYBOARD_APPLESPI=m` (module `applespi`, ACPI HID `APP000D`). Its dependencies (`ACPI`, `EFI`, `SPI`, `X86`, `LEDS_CLASS`; selects `CRC16`) were already on, so olddefconfig changed nothing else. The SPI host side for MacBook8,1 was already built: `SPI_PXA2XX=m` (spi-pxa2xx-core and spi-pxa2xx-platform, ACPI INT33C0/INT33C1/INT3430/INT3431), `SPI_PXA2XX_PCI=m` (Lynx/Wildcat Point LPSS 0x9c65/0x9c66/0x9ce5/0x9ce6), `X86_INTEL_LPSS=y`, `MFD_INTEL_LPSS*=m`, `DW_DMAC_PCI=y`. Packaging unchanged from lcos27 (metapackage `--root-owner-group`). No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`.
-
-lcos26 (PR #22) was an experiment with a per-build kernel release (`7.2.6-lunduke-lcos26`). It was backed out in lcos27; lcos27 and lcos28 use the single `7.2.6-lunduke` name used by lcos4 through lcos25. lcos26 is not a base for later builds.
+**lcos32 on lcos31.** `CONFIG_ACPI_SBS=m` only. `ACPI_EC` and `POWER_SUPPLY` were already y, so olddefconfig changed nothing else. Same `7.2.15-lunduke` kernel release. Add `ACPI_SBS=m` to the 7.3/7.4 configs for LCOS 1.1 along with the lcos33 set.
