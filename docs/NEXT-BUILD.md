@@ -10,7 +10,7 @@
 | Build notes | `docs/lcos33-build.md` |
 | Base | lcos32 (`configs/lunduke-7.2.15-lcos32.config`, `ACPI_SBS=m`, LCOS#191) |
 
-**lcos33 on lcos32.** Same kernel release `7.2.15-lunduke`. No source patches. No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`. SHA256s and QEMU results are filled in after the box compile (`docs/lcos33-build.md`).
+**lcos33 on lcos32.** Same kernel release `7.2.15-lunduke`. No source patches. No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`. Box compile (2026-11-06): 1133 modules (lcos32: 1090), QEMU q35 TCG SeaBIOS and OVMF boot `7.2.15-lunduke` `#lcos33`. SHA256s are in `docs/lcos33-build.md`.
 
 Turned on, plus the dependencies, `select`s, and `default y` options `olddefconfig` on 7.2.15 enables:
 

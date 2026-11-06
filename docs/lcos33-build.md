@@ -1,6 +1,6 @@
-# 7.2.15-lcos33 build, for LCOS 1.0.1
+# 7.2.15-lcos33 build (2026-11-06), for LCOS 1.0.1
 
-Prepared 2026-11-06. Not compiled here. Image, headers, and metapackage SHA256s, the .ko count, and QEMU results will be filled in after the box compile. Not tagged.
+Editor approval (2026-11-06 CT): full 1.0.1 kernel queue (message t1793u), including optional extras VLAN/macvlan/ipvlan, ATH5K, Galaxy Book, MSI WMI Platform, and Uniwill ("Go with your suggestions").
 
 **Upstream:** Linux 7.2.15, same as lcos32. Tarball sha256
 `d0f6b1d7324c937ccaeb5c4ca7084bfcf71db2edb3e2d3a31f0ad83a681809ab` (unchanged from lcos30).
@@ -10,7 +10,7 @@ No Forced Rust (`CONFIG_RUST` stays unset; the build script still runs `scripts/
 **Config:** `configs/lunduke-7.2.15-lcos33.config` = lcos32 + the options below, then `olddefconfig` on a 7.2.15 tree.
 Full delta: `docs/config-lcos32-to-lcos33.diff`.
 
-`olddefconfig` was run on this tree with GCC 13.3 / binutils 2.42 (no pahole). An unmodified lcos32 config was run the same way first. The only differences between those two runs are the symbols below. Compiler-probe lines that this machine rewrote (`CC_VERSION_TEXT`, `GCC_VERSION`, `AS_VERSION`, `LD_VERSION`, `RUSTC_VERSION`, `RUSTC_LLVM_VERSION`, `PAHOLE_VERSION`, `CC_OPT_INLINE_MEMSET`, `CC_HAS_MIN_FUNCTION_ALIGNMENT`, `CC_HAS_SANE_FUNCTION_ALIGNMENT`, `CC_HAS_KASAN_SW_TAGS`, `OPENSSL_SUPPORTS_ML_DSA`) were put back to the lcos32 values (Debian GCC 14.2.0-19, binutils 2.44, pahole 1.30). The box `olddefconfig` should leave the file unchanged.
+`olddefconfig` was prepared on a 7.2.15 tree. Compiler-probe lines from that run (GCC 13.3 / binutils 2.42, no pahole) were put back to the lcos32 values (Debian GCC 14.2.0-19, binutils 2.44, pahole 1.30, including `CC_OPT_INLINE_MEMSET`). The box build confirmed the file: `/boot/config-7.2.15-lunduke` in the image deb is byte-identical to `configs/lunduke-7.2.15-lcos33.config`.
 
 ### Enabled on purpose
 
@@ -41,15 +41,20 @@ Left off, as requested: `MAC80211_MESH`, `ZSWAP`, `ZSWAP_DEFAULT_ON`, `PPP`, `PP
 - RT2800 bools that default y: `RT2800PCI_RT33XX`, `RT2800PCI_RT35XX`, `RT2800PCI_RT53XX`, `RT2800PCI_RT3290`, `RT2800USB_RT33XX`, `RT2800USB_RT35XX`. Left off (no default y): `RT2800USB_RT3573`, `RT2800USB_RT53XX`, `RT2800USB_RT55XX`, `RT2800USB_UNKNOWN`. `RT61PCI` stays off. `RT2X00_DEBUG` stays off. `RT2X00_LIB_DEBUGFS` is not offered (`MAC80211_DEBUGFS` is off).
 - `ATH5K` selects `ATH5K_PCI=y` (it was explicitly n). `ATH5K_DEBUG` and `ATH5K_TRACER` stay off. `MAC80211_LEDS` was already y.
 
-From the 7.2.15 Makefiles that is 43 new modules on top of lcos32's 1090 .ko. Confirm the count on the box.
-
 No 7.3 or 7.4 configs exist in this repo. When they are created for LCOS 1.1, carry this lcos33 set (and the selects/defaults above) into them.
 
-**Checks:** not run. SHA256s and QEMU (q35, TCG, SeaBIOS and OVMF) will be filled in after the box compile.
+**Build:** reused `/workspace/lcos101/build/linux-7.2.15`, `JOBS=4` under `cpulimit -l 400 -m`, America/Chicago. Started 08:59:40, debs finished ~09:07. Prior lcos30/31/32 debs were left in place.
+
+**Checks:** `/boot/config-7.2.15-lunduke` in the image deb is byte-identical to the config. **1133** `.ko` (lcos32: 1090). Meta deb: Version `7.2.15-lcos33`, Depends `linux-image-7.2.15-lunduke (= 7.2.15-lcos33)`.
+
+Module presence verified in the image deb: wireguard, ovpn, rt73usb, rt2800usb, rt2800pci, rt2500usb, rt2500pci, rt2400pci, sch_fq, sch_cake, macvlan, ipvlan, 8021q, ath5k, atl1c, atl1e, hid-corsair, hid-razer, hid-glorious, hid-plantronics, vmw_balloon, samsung-galaxybook, msi-wmi-platform, uniwill-laptop, ah4, esp4, plus garp, mrp, and the rt2x00/rt2800 library modules.
+
+QEMU (q35, TCG) direct-kernel smoke with a busybox initrd, SeaBIOS and OVMF: boots as `7.2.15-lunduke` (`#lcos33`), zram with zstd works. New modules insmod cleanly except three expected `-ENODEV` probes without matching hardware: `vmw_balloon` (needs VMware), `msi-wmi-platform` and `uniwill-laptop` (DMI-gated). Those `.ko` files are in the package. Not tested on real hardware.
 
 ```
-<pending box compile>  linux-image-7.2.15-lunduke_7.2.15-lcos33_amd64.deb
-<pending box compile>  linux-headers-7.2.15-lunduke_7.2.15-lcos33_amd64.deb
-<pending box compile>  lunduke-linux-kernel_7.2.15-lcos33_all.deb
+682f8fc008e9c32d51dab4e303704dbe687a02feffbb994378e637b621b1d0d4  linux-image-7.2.15-lunduke_7.2.15-lcos33_amd64.deb
+02645534d8fe8ab3993d448eb4ac7a733c353013aa13cf02787f688030028e8d  linux-headers-7.2.15-lunduke_7.2.15-lcos33_amd64.deb
+154811e1330a92c71b3677903dc681811adc30bc977657f91b2e2596fb523075  linux-libc-dev_7.2.15-lcos33_amd64.deb
+e4a62d9a96638516d675d7d2a6b21b7d15bc8a8780df757f934987066ee49a7e  lunduke-linux-kernel_7.2.15-lcos33_all.deb
 ```
 Debs not committed. No apt publish. Not tagged, not seeded into lcos-live.
