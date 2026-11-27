@@ -19,7 +19,12 @@ Description: Lunduke's Linux Kernel for LCOS
  the next long-term-support kernel). Config is lcos33 carried forward
  with make olddefconfig: every lcos33 and 1.0.1 option is kept, new
  7.3 options take their upstream defaults (almost all off), and the
- legacy AMD DCE display option (DRM_AMD_DC_DCE) stays on. The kernel
+ legacy AMD DCE display option (DRM_AMD_DC_DCE) stays on. New 7.3
+ hardware picked by the editor: Realtek RTL8922DE Wi-Fi 7, AW88399
+ speaker amp (Lenovo Legion Pro), SOF audio for AMD ACP 7.B/7.F, AMD
+ SFH tablet mode, Lenovo Yoga Book 9 dock, AMD PMF util, MSI Claw,
+ HyperX QuadCast 2, SteelSeries headsets, LeapIO RAID, NXP IW61x
+ Wi-Fi, and Morse Micro Wi-Fi HaLow USB. The kernel
  release is now 7.3.6-lunduke, so the package names change to
  linux-image-7.3.6-lunduke and linux-headers-7.3.6-lunduke, which
  install beside 7.2.15-lunduke. No source patches. No Forced Rust.

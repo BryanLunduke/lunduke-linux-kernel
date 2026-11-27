@@ -30,7 +30,7 @@ LCOS 1.0.1 ships **7.2.15-lcos33** (`configs/lunduke-7.2.15-lcos33.config`); tha
 
 ## What this repo contains
 
-- `configs/lunduke-7.3.6-lcos34.config` — current Kconfig for LCOS 1.1 (in development): Linux 7.3.6, lcos33 carried forward with `make olddefconfig`, every lcos30–lcos33 option kept, new 7.3 options at upstream defaults; see `docs/lcos34-build.md` and `docs/config-lcos33-to-lcos34.diff`
+- `configs/lunduke-7.3.6-lcos34.config` — current Kconfig for LCOS 1.1 (in development): Linux 7.3.6, lcos33 carried forward with `make olddefconfig`, every lcos30–lcos33 option kept, new 7.3 options at upstream defaults plus the editor's twelve 7.3 new-hardware picks; see `docs/lcos34-build.md` and `docs/config-lcos33-to-lcos34.diff`
 - `configs/lunduke-7.2.15-lcos33.config` — frozen Kconfig shipped on LCOS 1.0.1: lcos32 + in-kernel WireGuard, IPv6 policy routing (MULTIPLE_TABLES + SUBTREES), OpenVPN Data Channel Offload, IPv4 IPsec ESP/AH, FQ and CAKE, Ralink rt2x00 including RT73USB (LCOS#194) plus RT2800/RT2500/RT2400 USB and PCI, ATH5K, Atheros L1C/L1E, VMware balloon, Corsair/Razer/Glorious/Plantronics HID, VLAN/macvlan/ipvlan, Samsung Galaxy Book, MSI WMI platform, and TUXEDO/Uniwill; see `docs/lcos33-build.md`
 - `configs/lunduke-7.2.15-lcos32.config` — previous Kconfig for LCOS 1.0.1: lcos31 + ACPI Smart Battery System `ACPI_SBS=m` (sbs, sbshc) for LCOS#191 (MacBook Air 2014 battery); see `docs/lcos32-build.md`
 - `configs/lunduke-7.2.15-lcos31.config` — previous Kconfig for LCOS 1.0.1: lcos30 + driver modules for LCOS#182 (HID_RMI, RMI4_I2C), #183 (IXGBE, IXGBEVF), #184 (tc qdiscs/classifiers/actions for libvirt), #187 (B44, IWLEGACY, IWL3945, IWL4965); see `docs/lcos31-build.md`

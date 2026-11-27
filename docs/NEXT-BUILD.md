@@ -5,12 +5,12 @@
 | Version | `7.3.6-lcos34` (LCOS 1.1, in development) |
 | Upstream | Linux 7.3.6 (latest 7.3.y; 7.3 expected to be the next LTS) |
 | Config | `configs/lunduke-7.3.6-lcos34.config` |
-| Why | Move LCOS 1.1 to the 7.3 series (editor 2026-11-27). Config-only: lcos33 carried forward with `make olddefconfig` |
+| Why | Move LCOS 1.1 to the 7.3 series (editor 2026-11-27). Config-only: lcos33 carried forward with `make olddefconfig`, plus the editor's 7.3 new-hardware picks |
 | Delta | `docs/config-lcos33-to-lcos34.diff` |
 | Build notes | `docs/lcos34-build.md` |
 | Base | lcos33 (`configs/lunduke-7.2.15-lcos33.config`, LCOS 1.0.1) |
 
-**lcos34 on lcos33.** New kernel release `7.3.6-lunduke` (package names change, installs beside 7.2.15-lunduke). No source patches. No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`. Every lcos30–lcos33 option is kept; new 7.3 options take upstream defaults (`DRM_AMD_DC_DCE=y` keeps legacy Radeon display). `PROC_SYSCTL` is folded into `SYSCTL` upstream. Box compile (2026-11-27): 1134 modules, QEMU q35 TCG SeaBIOS and OVMF boot `7.3.6-lunduke` `#lcos34`. 7.3 `bindeb-pkg` needs `libdw-dev` on the builder. SHA256s are in `docs/lcos34-build.md`.
+**lcos34 on lcos33.** New kernel release `7.3.6-lunduke` (package names change, installs beside 7.2.15-lunduke). No source patches. No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`. Every lcos30–lcos33 option is kept; new 7.3 options take upstream defaults (`DRM_AMD_DC_DCE=y` keeps legacy Radeon display), plus the editor's twelve 7.3 new-hardware picks (RTL8922DE Wi-Fi 7, AW88399 Legion speakers, SOF AMD ACP7X, AMD SFH tablet mode, Yoga Book 9 dock, AMD PMF util, MSI Claw, HyperX, SteelSeries, LeapRAID, NXP IW61x, Morse Micro HaLow). `PROC_SYSCTL` is folded into `SYSCTL` upstream. Box compile (2026-11-27): 1153 modules, QEMU q35 TCG SeaBIOS and OVMF boot `7.3.6-lunduke` `#lcos34`. 7.3 `bindeb-pkg` needs `libdw-dev` on the builder. SHA256s are in `docs/lcos34-build.md`.
 
 ## Previous: 7.2.15-lcos33
 
