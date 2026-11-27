@@ -1,8 +1,16 @@
 Lunduke's Linux Kernel (lunduke-linux-kernel)
 =============================================
 
-Metapackage for linux-image-7.2.15-lunduke (ABI lcos31, LCOS 1.0.1).
-Recommends matching headers.
+Metapackage for linux-image-7.3.6-lunduke (ABI lcos34, LCOS 1.1
+development). Recommends matching headers.
+
+lcos34: upstream Linux 7.3.6 (latest 7.3.y; 7.3 is expected to be the
+next LTS). New kernel release string 7.3.6-lunduke, so new package names
+(linux-image-7.3.6-lunduke, linux-headers-7.3.6-lunduke) that install
+beside 7.2.15-lunduke. Config: lcos33 carried forward with make
+olddefconfig; every lcos30-lcos33 option is kept. No source patches.
+lcos31 to lcos33: see the metapackage description (apt show
+lunduke-linux-kernel).
 
 lcos30: upstream Linux 7.2.15 (final 7.2.y). New kernel release string
 7.2.15-lunduke, so new package names (linux-image-7.2.15-lunduke,
@@ -17,7 +25,7 @@ LCOS 0.8 ISOs shipped 7.2.6-lcos12 (that config stays frozen). lcos13
 through lcos17 stay frozen. This metapackage is the lcos23
 revision of the same 7.2.6-lunduke image name. On older LCOS releases
 that still ship a Distro/Devuan kernel, install from the apt overlay,
-reboot, and pick 7.2.15-lunduke in GRUB (or set it once).
+reboot, and pick 7.3.6-lunduke in GRUB (or set it once).
 
   sudo apt update
   sudo apt install lunduke-linux-kernel
