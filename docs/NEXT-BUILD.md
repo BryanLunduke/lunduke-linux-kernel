@@ -2,6 +2,20 @@
 
 | Item | Value |
 |------|--------|
+| Version | `7.3.6-lcos34` (LCOS 1.1, in development) |
+| Upstream | Linux 7.3.6 (latest 7.3.y; 7.3 expected to be the next LTS) |
+| Config | `configs/lunduke-7.3.6-lcos34.config` |
+| Why | Move LCOS 1.1 to the 7.3 series (editor 2026-11-27). Config-only: lcos33 carried forward with `make olddefconfig` |
+| Delta | `docs/config-lcos33-to-lcos34.diff` |
+| Build notes | `docs/lcos34-build.md` |
+| Base | lcos33 (`configs/lunduke-7.2.15-lcos33.config`, LCOS 1.0.1) |
+
+**lcos34 on lcos33.** New kernel release `7.3.6-lunduke` (package names change, installs beside 7.2.15-lunduke). No source patches. No Forced Rust. `CONFIG_LOCALVERSION="-lunduke"`. Every lcos30–lcos33 option is kept; new 7.3 options take upstream defaults (`DRM_AMD_DC_DCE=y` keeps legacy Radeon display). `PROC_SYSCTL` is folded into `SYSCTL` upstream. Box compile (2026-11-27): 1134 modules, QEMU q35 TCG SeaBIOS and OVMF boot `7.3.6-lunduke` `#lcos34`. 7.3 `bindeb-pkg` needs `libdw-dev` on the builder. SHA256s are in `docs/lcos34-build.md`.
+
+## Previous: 7.2.15-lcos33
+
+| Item | Value |
+|------|--------|
 | Version | `7.2.15-lcos33` (LCOS 1.0.1) |
 | Upstream | Linux 7.2.15 (same as lcos32; final 7.2.y) |
 | Config | `configs/lunduke-7.2.15-lcos33.config` |
@@ -27,7 +41,7 @@ Turned on, plus the dependencies, `select`s, and `default y` options `olddefconf
 
 Left off: `MAC80211_MESH`, `ZSWAP` / `ZSWAP_DEFAULT_ON`, `PPP`, `PPPOE`, `IPW2100`, `IPW2200`. No resolvconf or other userspace packaging.
 
-No 7.3 or 7.4 configs are in this repo. When those are created for LCOS 1.1, carry this lcos33 option set (including the olddefconfig selects and defaults above) into them.
+This lcos33 option set was carried into `configs/lunduke-7.3.6-lcos34.config` for LCOS 1.1.
 
 ## Previous: 7.2.15-lcos32
 

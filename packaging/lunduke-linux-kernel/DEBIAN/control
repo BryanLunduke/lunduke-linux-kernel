@@ -1,18 +1,28 @@
 Package: lunduke-linux-kernel
-Version: 7.2.15-lcos33
+Version: 7.3.6-lcos34
 Section: metapackages
 Priority: optional
 Architecture: all
 Installed-Size: 28
 Maintainer: LCOS <lcos@lunduke.com>
 Homepage: https://lunduke.com
-Depends: linux-image-7.2.15-lunduke (= 7.2.15-lcos33)
-Recommends: linux-headers-7.2.15-lunduke (= 7.2.15-lcos33)
+Depends: linux-image-7.3.6-lunduke (= 7.3.6-lcos34)
+Recommends: linux-headers-7.3.6-lunduke (= 7.3.6-lcos34)
 Description: Lunduke's Linux Kernel for LCOS
- Lunduke's Linux Kernel — LCOS kernel package (ABI lcos33).
+ Lunduke's Linux Kernel — LCOS kernel package (ABI lcos34).
  .
- Installs linux-image-7.2.15-lunduke. Headers are recommended for
+ Installs linux-image-7.3.6-lunduke. Headers are recommended for
  building out-of-tree modules.
+ .
+ lcos34 (LCOS 1.1 development, editor 2026-11-27) moves to upstream
+ Linux 7.3.6, the latest 7.3.y stable release (7.3 is expected to be
+ the next long-term-support kernel). Config is lcos33 carried forward
+ with make olddefconfig: every lcos33 and 1.0.1 option is kept, new
+ 7.3 options take their upstream defaults (almost all off), and the
+ legacy AMD DCE display option (DRM_AMD_DC_DCE) stays on. The kernel
+ release is now 7.3.6-lunduke, so the package names change to
+ linux-image-7.3.6-lunduke and linux-headers-7.3.6-lunduke, which
+ install beside 7.2.15-lunduke. No source patches. No Forced Rust.
  .
  lcos33 (LCOS 1.0.1, 2026-11-06) adds, on lcos32: in-kernel
  WireGuard; IPv6 policy routing (MULTIPLE_TABLES + SUBTREES);
@@ -22,8 +32,7 @@ Description: Lunduke's Linux Kernel for LCOS
  PCI; ATH5K; Atheros L1C/L1E; the VMware balloon; Corsair, Razer,
  Glorious, and Plantronics HID; VLAN, macvlan, and ipvlan;
  Samsung Galaxy Book, MSI WMI platform, and TUXEDO/Uniwill laptop
- support. Carry these options into the 7.3 and 7.4 configs for
- LCOS 1.1 (those configs are not in this repo yet). Same
+ support (all carried into lcos34 on 7.3.6). Same
  7.2.15-lunduke kernel release.
  .
  lcos32 (LCOS 1.0.1, editor 2026-11-04) adds, on lcos31, the ACPI

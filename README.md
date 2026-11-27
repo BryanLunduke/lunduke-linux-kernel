@@ -11,7 +11,7 @@ sudo apt update
 sudo apt install lunduke-linux-kernel
 ```
 
-On LCOS 0.7 this is already the default. On older releases, reboot and pick **7.2.15-lunduke** in GRUB (the Distro kernel stays installed).
+On LCOS 0.7 this is already the default. On older releases, reboot and pick **7.3.6-lunduke** in GRUB (the Distro kernel stays installed).
 
 Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`).
 
@@ -19,16 +19,19 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 
 | Field | Value |
 |-------|-------|
-| Upstream | Linux **7.2.15** ([kernel.org](https://www.kernel.org/)) |
+| Upstream | Linux **7.3.6** ([kernel.org](https://www.kernel.org/)) |
 | Flavor / LOCALVERSION | `-lunduke` |
-| Package version | **7.2.15-lcos33** (LCOS 1.0.1) |
+| Package version | **7.3.6-lcos34** (LCOS 1.1, in development) |
 | Metapackage | `lunduke-linux-kernel` |
-| Image | `linux-image-7.2.15-lunduke` |
-| Headers | `linux-headers-7.2.15-lunduke` |
+| Image | `linux-image-7.3.6-lunduke` |
+| Headers | `linux-headers-7.3.6-lunduke` |
+
+LCOS 1.0.1 ships **7.2.15-lcos33** (`configs/lunduke-7.2.15-lcos33.config`); that config is frozen.
 
 ## What this repo contains
 
-- `configs/lunduke-7.2.15-lcos33.config` — current Kconfig for LCOS 1.0.1: lcos32 + in-kernel WireGuard, IPv6 policy routing (MULTIPLE_TABLES + SUBTREES), OpenVPN Data Channel Offload, IPv4 IPsec ESP/AH, FQ and CAKE, Ralink rt2x00 including RT73USB (LCOS#194) plus RT2800/RT2500/RT2400 USB and PCI, ATH5K, Atheros L1C/L1E, VMware balloon, Corsair/Razer/Glorious/Plantronics HID, VLAN/macvlan/ipvlan, Samsung Galaxy Book, MSI WMI platform, and TUXEDO/Uniwill; see `docs/lcos33-build.md`
+- `configs/lunduke-7.3.6-lcos34.config` — current Kconfig for LCOS 1.1 (in development): Linux 7.3.6, lcos33 carried forward with `make olddefconfig`, every lcos30–lcos33 option kept, new 7.3 options at upstream defaults; see `docs/lcos34-build.md` and `docs/config-lcos33-to-lcos34.diff`
+- `configs/lunduke-7.2.15-lcos33.config` — frozen Kconfig shipped on LCOS 1.0.1: lcos32 + in-kernel WireGuard, IPv6 policy routing (MULTIPLE_TABLES + SUBTREES), OpenVPN Data Channel Offload, IPv4 IPsec ESP/AH, FQ and CAKE, Ralink rt2x00 including RT73USB (LCOS#194) plus RT2800/RT2500/RT2400 USB and PCI, ATH5K, Atheros L1C/L1E, VMware balloon, Corsair/Razer/Glorious/Plantronics HID, VLAN/macvlan/ipvlan, Samsung Galaxy Book, MSI WMI platform, and TUXEDO/Uniwill; see `docs/lcos33-build.md`
 - `configs/lunduke-7.2.15-lcos32.config` — previous Kconfig for LCOS 1.0.1: lcos31 + ACPI Smart Battery System `ACPI_SBS=m` (sbs, sbshc) for LCOS#191 (MacBook Air 2014 battery); see `docs/lcos32-build.md`
 - `configs/lunduke-7.2.15-lcos31.config` — previous Kconfig for LCOS 1.0.1: lcos30 + driver modules for LCOS#182 (HID_RMI, RMI4_I2C), #183 (IXGBE, IXGBEVF), #184 (tc qdiscs/classifiers/actions for libvirt), #187 (B44, IWLEGACY, IWL3945, IWL4965); see `docs/lcos31-build.md`
 - `configs/lunduke-7.2.15-lcos30.config` — previous Kconfig for LCOS 1.0.1 (Linux 7.2.15, final 7.2.y; lcos28 + `SND_ENS1371=m` + Intel THC touchscreens `INTEL_THC_HID`/`INTEL_QUICKI2C`/`INTEL_QUICKSPI=m` + `HID_HAPTIC=y` + `ZRAM=m` with zstd; new `7.2.15-lunduke` kernel release installs beside 7.2.6; No Forced Rust; see `docs/lcos30-build.md`)
@@ -64,9 +67,9 @@ Apt overlay: `https://lcos.lunduke.com/apt` (suite `excalibur`, component `main`
 ## Build
 
 ```bash
-# From a machine with kernel build deps (flex, bison, libelf-dev, bc, deb-pkg tooling, …)
-wget https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.2.15.tar.xz
-tar -xf linux-7.2.15.tar.xz
+# From a machine with kernel build deps (flex, bison, libelf-dev, libdw-dev, libssl-dev, bc, dwarves, deb-pkg tooling, …)
+wget https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.3.6.tar.xz
+tar -xf linux-7.3.6.tar.xz
 ./scripts/build-lunduke-kernel.sh
 ```
 
